@@ -1,48 +1,26 @@
-import { useSelector,useDispatch } from 'react-redux'
-import { incrementCounter } from './features/counter/counter-slice'
+import Navigation from "./features/navigation/Navigation";
+import { Routes, Route } from "react-router-dom";
+import Today from "./features/messages/Today";
+import AllMessages from "./features/messages/AllMessages";
+import Drafts from "./features/messages/Drafts";
+import ScheduleMessageButton from "./components/ScheduleMessageButton";
+import ScheduleMessage from "./components/ScheduleMessage";
 
 function App() {
-  const counter = useSelector((state)=>state.counter.value)
-  const dispatch = useDispatch()
-
-  function handleClick(){
-    dispatch(incrementCounter())
-  }
-
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Hello Vite + React + RTK!</p>
-        <p>
-          <button type="button" onClick={handleClick}>
-            counter is: {counter}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <Navigation />
+      <main className="body">
+        <Routes>
+          <Route exact path="/today" element={<Today />} />
+          <Route exact path="/all-messages" element={<AllMessages />} />
+          <Route exact path="/drafts" element={<Drafts />} />
+          <Route exact path="/schedule-message" element={<ScheduleMessage />} />
+        </Routes>
+      </main>
+      <ScheduleMessageButton />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

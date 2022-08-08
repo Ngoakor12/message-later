@@ -5,7 +5,6 @@ import MessageList from "./MessageList";
 function Today() {
   return (
     <>
-      <h2>Today</h2>
       <MessageList messages={messages} />
       <ScheduleMessageButton />
     </>

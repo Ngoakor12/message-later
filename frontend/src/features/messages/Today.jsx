@@ -1,14 +1,12 @@
 import ScheduleMessageButton from "../../components/ScheduleMessageButton";
 import messages from "../../mock-messages";
-import MessageSummary from "./MessageSummary";
+import MessageList from "./MessageList";
 
 function Today() {
   return (
     <>
       <h2>Today</h2>
-      {messages.map((message) => {
-        return <MessageSummary message={message} />;
-      })}
+      <MessageList messages={messages} />
       <ScheduleMessageButton />
     </>
   );

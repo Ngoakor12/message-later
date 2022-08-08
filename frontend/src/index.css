@@ -29,12 +29,24 @@ body {
 }
 
 .App{
+  min-width: 300px;
   max-width: 600px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding: 20px;
   /* align-items: center; */
   /* justify-content: center; */
+}
+
+.message-list{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.message-summary-wrapper{
+  position: relative;
 }
 
 .message-summary{
@@ -42,7 +54,20 @@ body {
   grid-template-columns: 10% 80% 10%; */
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid black;
+}
+
+.more-icon{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+a.message-summary{
+  text-decoration: none;
+  color: #000;
 }
 
 .message-summary .left .status-icon{
@@ -56,20 +81,34 @@ body {
   display: flex;
   width: 100%;
   flex-direction: column;
+  gap:10px;
+}
+
+.message-summary .center .title{
+  font-weight: 700;
 }
 
 .message-summary .center .bottom{
   display: flex;
+  gap:20px;
 }
 
-.message-summary .right .more-options{
+.more-options{
   display: none;
 }
 
-/* .message-summary>*{
-  width: fit-content;
-} */
-
 @media (min-width: 600px) {
-
+  .message-summary .right .more-options{
+    display: flex;
+  }
+  .more-icon{
+    display: none;
+  }
+  .more-options{
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
 }

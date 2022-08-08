@@ -112,6 +112,29 @@ a.message-summary{
   display: none;
 }
 
+.schedule-message-button{
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  font-weight: 700;
+  color: #fff;
+}
+
+.schedule-message-button .label{
+  background-color: #000;
+  padding: 10px;
+  display: none;
+}
+
+.schedule-message-button .add-icon{
+  background-color: #000;
+  padding: 10px;
+  display: flex;
+  border-radius: 50%;
+}
+
+
 @media (min-width: 600px) {
   .message-summary .right .more-options{
     display: flex;
@@ -125,5 +148,13 @@ a.message-summary{
     position: absolute;
     top: 20px;
     right: 20px;
+  }
+
+  .schedule-message-button .label{
+    display: flex;
+  }
+
+  .schedule-message-button .add-icon{
+    display: none;
   }
 }

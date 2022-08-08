@@ -3,9 +3,9 @@ import { AddIcon } from "../Icons";
 
 function ScheduleMessageButton() {
   return (
-    <Link to={"/schedule-message"}>
-      <div>Schedule Message</div>
-      <div>
+    <Link to={"/schedule-message"} className="schedule-message-button">
+      <div className="label">Schedule Message</div>
+      <div className="add-icon">
         <AddIcon />
       </div>
     </Link>

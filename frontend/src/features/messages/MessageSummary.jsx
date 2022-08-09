@@ -4,7 +4,7 @@ import { DeleteIcon, EditIcon, MoreIcon } from "../../Icons";
 function MessageSummary({ message }) {
   return (
     <div className="message-summary-wrapper">
-      <Link to={"/schedule-message"} className="message-summary">
+      <Link to={`/message/${message.messageId}`} className="message-summary">
         <div className="left">
           <div className="status-icon"></div>
         </div>

@@ -45,12 +45,12 @@ nav{
 .nav-item{
   text-decoration: none;
   padding: 8px 20px;
-  font-weight: 700;
   color: #000;
   min-width: max-content;
 }
 
 .active-nav-item{  
+  font-weight: 700;
   background-color: #D9D9D9;
 }
 
@@ -124,20 +124,109 @@ a.message-summary{
   bottom: 0;
   align-self: flex-end;
   /* right: auto; */
-  padding: 20px 0px 40px 20px;
+  padding: 10px;
+  margin-bottom: 40px;
+  background-color: #000;
+  border-radius: 50%;
 }
 
 .schedule-message-button .label{
-  background-color: #000;
-  padding: 10px;
+  /* padding: 10px; */
   display: none;
 }
 
 .schedule-message-button .add-icon{
-  background-color: #000;
-  padding: 10px;
+  /* background-color: #000; */
+  /* padding: 10px; */
   display: flex;
-  border-radius: 50%;
+  
+}
+
+.message-details{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.message-details .title-edit-time-recipient{
+  display: flex; 
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message-details .title{
+  font-weight: 700;
+}
+
+.message-details .title-edit{
+  display: flex;
+  align-items: center;
+}
+
+.message-details .title-edit .edit-delete-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 20px;
+  gap: 10px;
+}
+
+.message-details .title-edit .edit-delete-buttons .edit-button .edit-icon,.message-details .title-edit .edit-delete-buttons .delete-button .delete-icon{
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+
+.message-details .title-edit .edit-button .label,.message-details .title-edit .delete-button .label{
+  display: none;
+  align-items: center;
+  /* position: absolute;
+  right: 20px;
+  gap: 5px; */
+}
+
+.message-details .title-edit .edit-button .edit-icon{
+  display: flex;
+  align-items: center;
+  /* position: absolute;
+  right: 20px;
+  gap: 5px; */
+}
+
+.message-details .time-recipient{
+  display: flex;
+  gap: 10px;
+}
+
+.message-details .body .text{
+  line-height: 28px;
+}
+
+.message-details .next-back-buttons{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.message-details .next-back-buttons .back-button,.message-details .next-back-buttons .next-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+  padding: 10px 10px ;
+}
+
+.message-details .next-back-buttons .back-button .label,.message-details .next-back-buttons .next-button .label{
+  display: none;
+  font-weight: 700;
+}
+
+.message-details .next-back-buttons .back-button .back-arrow-icon,.message-details .next-back-buttons .next-button .next-arrow-icon{
+  display: flex;
+}
+.hide-schedule-message-button{
+  display: none;
 }
 
 
@@ -156,11 +245,27 @@ a.message-summary{
     right: 20px;
   }
 
+  .schedule-message-button {
+    padding: 10px 20px;
+    border-radius: 0;
+  }
   .schedule-message-button .label{
     display: flex;
   }
 
   .schedule-message-button .add-icon{
     display: none;
+  }
+
+  .message-details .next-back-buttons .back-button,.message-details .next-back-buttons .next-button{
+    gap: 5px;
+  }
+
+  .message-details .next-back-buttons .back-button .back-arrow-icon,.message-details .next-back-buttons .next-button .next-arrow-icon{
+    /* display: none; */
+  }
+
+  .message-details .next-back-buttons .back-button .label,.message-details .next-back-buttons .next-button .label{
+    /* display: flex; */
   }
 }

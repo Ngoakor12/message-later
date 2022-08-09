@@ -3,6 +3,7 @@ import AllMessages from "../features/messages/AllMessages";
 import Drafts from "../features/messages/Drafts";
 import Today from "../features/messages/Today";
 import ScheduleMessage from "./ScheduleMessage";
+import MessageDetails from "../features/messages/MessageDetails";
 
 function RoutesComponent() {
   return (
@@ -16,6 +17,7 @@ function RoutesComponent() {
       <Route exact path="/all-messages" element={<AllMessages />} />
       <Route exact path="/drafts" element={<Drafts />} />
       <Route exact path="/schedule-message" element={<ScheduleMessage />} />
+      <Route exact path="/message/:id" element={<MessageDetails />} />
     </Routes>
   );
 }

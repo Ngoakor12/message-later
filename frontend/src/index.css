@@ -34,6 +34,7 @@ body {
   flex-direction: column;
   padding: 20px;
   gap: 45px;
+  position: relative;
 }
 
 nav{
@@ -119,6 +120,11 @@ a.message-summary{
   justify-content: end;
   font-weight: 700;
   color: #fff;
+  position: fixed;
+  bottom: 0;
+  align-self: flex-end;
+  /* right: auto; */
+  padding: 20px 0px 40px 20px;
 }
 
 .schedule-message-button .label{

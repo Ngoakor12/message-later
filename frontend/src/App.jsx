@@ -1,5 +1,6 @@
 import Navigation from "./features/navigation/Navigation";
 import RoutesComponent from "./components/RoutesComponent";
+import ScheduleMessageButton from "./components/ScheduleMessageButton";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <main className="body">
         <RoutesComponent />
       </main>
+      <ScheduleMessageButton />
     </div>
   );
 }

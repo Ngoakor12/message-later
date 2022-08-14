@@ -1,55 +1,69 @@
 function ScheduleMessage() {
   return (
-    <form>
-      <h1>ScheduleMessage</h1>
-      <div>
+    <form className="schedule-message-form">
+      {/* <h1>ScheduleMessage</h1> */}
+      <div className="recipient">
         <h2>Recipient</h2>
-        <div>
+        <div className="name-field">
           <label htmlFor="name">Name</label>
           <input id="name" name="name" />
         </div>
-        <div>
+        <div className="method-field">
           <label htmlFor="method">Method</label>
-          <input type="radio" id="email" name="method" checked readOnly />
-          <label htmlFor="email">Email</label>
-          <input type="radio" id="sms" name="method" disabled />
-          <label htmlFor="sms">SMS</label>
+          <div className="method-options">
+            <div>
+              <input type="radio" id="email" name="method" checked readOnly />
+              <label htmlFor="email">Email</label>
+            </div>
+            <div>
+              <input type="radio" id="sms" name="method" disabled />
+              <label htmlFor="sms">SMS</label>
+            </div>
+          </div>
         </div>
-        <div>
+        <div className="contact-field">
           <label htmlFor="contact">Email</label>
           <input id="contact" name="contact" />
         </div>
       </div>
-      <div>
+      <div className="message">
         <h2>Message</h2>
-        <div>
+        <div className="title-field">
           <label htmlFor="title">Title</label>
           <input id="title" name="title" />
         </div>
-        <div>
+        <div className="body-field">
           <label htmlFor="body">Body</label>
-          <textarea name="body" id="body" cols="30" rows="10"></textarea>
+          <textarea name="body" id="body" cols="30" rows="5"></textarea>
         </div>
-        <div>
+        <div className="from-field">
           <label htmlFor="from">From</label>
           <input id="from" name="from" />
         </div>
       </div>
-      <div>
+      <div className="date">
         <h2>Date</h2>
-        <div>
-          <label htmlFor="day">Day</label>
-          <input type={"date"} id="day" name="day" />
-        </div>
-        <div>
-          <label htmlFor="time">Time</label>
-          <input type={"time"} id="time" name="time" />
+        <div className="date-fields">
+          <div className="day-field">
+            <label htmlFor="day">Day</label>
+            <input type={"date"} id="day" name="day" />
+          </div>
+          <div className="time-field">
+            <label htmlFor="time">Time</label>
+            <input type={"time"} id="time" name="time" />
+          </div>
         </div>
       </div>
-      <div>
-        <button type={"button"}>Submit</button>
-        <button type={"button"}>Add to drafts</button>
-        <button type={"button"}>Cancel</button>
+      <div className="schedule-message-buttons">
+        <button type={"button"} className="schedule-button">
+          Schedule message
+        </button>
+        <button type={"button"} className="drafts-button">
+          Add to drafts
+        </button>
+        <button type={"button"} className="cancel-button">
+          Cancel
+        </button>
       </div>
     </form>
   );

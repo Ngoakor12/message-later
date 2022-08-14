@@ -229,6 +229,137 @@ a.message-summary{
   display: none;
 }
 
+.schedule-message-form{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.schedule-message-form label{
+padding-bottom: 5px;
+}
+
+.schedule-message-form input,.schedule-message-form textarea{
+  font-size: 14px;
+  border: 1px solid #AFAFAF;
+  padding: 10px;
+}
+
+.schedule-message-form .recipient{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-message-form .recipient .name-field{
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-message-form .recipient .name-field input{
+  /* border: 1px solid #000; */
+  /* inherits: unset; */
+}
+
+.schedule-message-form .recipient .method-field{
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-message-form .recipient .method-field .method-options{
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  gap: 15px;
+}
+
+.schedule-message-form .recipient .method-field .method-options div{
+  display: flex;
+  gap: 5px;
+}
+
+.schedule-message-form .recipient .method-field .method-options div label{
+  padding: 0;
+}
+
+
+.schedule-message-form .recipient .contact-field{
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-message-form .message{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-message-form .title-field,.schedule-message-form .body-field,.schedule-message-form .from-field{
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-message-form .date{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-message-form .date .date-fields{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-message-form .date .day-field{
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-message-form .date .time-field{
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-message-form .recipient h2,.schedule-message-form .message h2,.schedule-message-form .date h2{
+  font-size: 14px;
+}
+
+.schedule-message-form .schedule-message-buttons button{
+  font-size: 14px;
+}
+
+.schedule-message-form input{
+  height: 40px;
+}
+
+.schedule-message-form .recipient .method-field .method-options input{
+  height: auto;
+}
+
+.schedule-message-form .schedule-message-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-message-form .schedule-message-buttons button{
+  border: 1px solid black;
+  font-weight: 700;
+  padding: 10px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.schedule-message-form .schedule-message-buttons .schedule-button{
+  color: #fff;
+  background-color: #000;
+}
+
+.schedule-message-form .schedule-message-buttons .cancel-button{
+  /* color: #fff; */
+  /* background-color: #000; */
+  border: 1px solid transparent;
+}
 
 @media (min-width: 600px) {
   .message-summary .right .more-options{
@@ -261,11 +392,7 @@ a.message-summary{
     gap: 5px;
   }
 
-  .message-details .next-back-buttons .back-button .back-arrow-icon,.message-details .next-back-buttons .next-button .next-arrow-icon{
-    /* display: none; */
-  }
-
-  .message-details .next-back-buttons .back-button .label,.message-details .next-back-buttons .next-button .label{
-    /* display: flex; */
+  .schedule-message-form .schedule-message-buttons{
+    flex-direction: row-reverse;
   }
 }

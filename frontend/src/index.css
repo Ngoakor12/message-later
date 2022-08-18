@@ -148,8 +148,9 @@ a.message-summary{
 .message-details{
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 15px;
 }
+
 .message-details .title-edit-time-recipient{
   display: flex; 
   flex-direction: column;
@@ -160,12 +161,24 @@ a.message-summary{
   font-weight: 700;
 }
 
-.message-details .title-edit{
+.message-details .top-bar{
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-.message-details .title-edit .edit-delete-buttons{
+.message-details .top-bar .right-buttons{
+  display: flex;
+}
+
+.message-details .top-bar .edit-icon,.message-details .top-bar .delete-icon,.message-details .top-bar .previous-page-icon{
+  color: #616161;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.message-details .title-edit .top-bar{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,27 +187,19 @@ a.message-summary{
   gap: 10px;
 }
 
-.message-details .title-edit .edit-delete-buttons .edit-button .edit-icon,.message-details .title-edit .edit-delete-buttons .delete-button .delete-icon{
+.message-details .body{
+  border: 1px solid #616161;
+  padding: 15px;
   display: flex;
-  align-items: center;
-  padding: 5px;
+  flex-direction: column;
+  gap: 15px;
 }
 
-
-.message-details .title-edit .edit-button .label,.message-details .title-edit .delete-button .label{
-  display: none;
-  align-items: center;
-  /* position: absolute;
-  right: 20px;
-  gap: 5px; */
-}
-
-.message-details .title-edit .edit-button .edit-icon{
+.message-details .body .title-time-recipient{
   display: flex;
-  align-items: center;
-  /* position: absolute;
-  right: 20px;
-  gap: 5px; */
+  flex-direction: column;
+  gap: 10px;
+
 }
 
 .message-details .time-recipient{
@@ -256,11 +261,6 @@ padding-bottom: 5px;
 .schedule-message-form .recipient .name-field{
   display: flex;
   flex-direction: column;
-}
-
-.schedule-message-form .recipient .name-field input{
-  /* border: 1px solid #000; */
-  /* inherits: unset; */
 }
 
 .schedule-message-form .recipient .method-field{

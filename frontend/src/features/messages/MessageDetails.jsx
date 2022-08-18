@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   BackArrowIcon,
   DeleteIcon,
   EditIcon,
   ForwardArrowIcon,
+  PreviousPageIcon,
 } from "../../Icons";
 import messages from "../../mock-messages";
 
@@ -13,30 +14,29 @@ function MessageDetails() {
 
   return message ? (
     <div className="message-details">
-      <div className="title-edit-time-recipient">
-        <div className="title-edit">
-          <div className="title">{message.title}</div>
-          <div className="edit-delete-buttons">
-            <div className="edit-button">
-              <div className="label">Edit message</div>
-              <div className="edit-icon">
-                <EditIcon />
-              </div>
-            </div>
-            <div className="delete-button">
-              <div className="label">Delete message</div>
-              <div className="delete-icon">
-                <DeleteIcon />
-              </div>
-            </div>
-          </div>
+      <div className="top-bar">
+        <div className="left-buttons">
+          <Link to={"/today"} className="previous-page-icon">
+            <PreviousPageIcon />
+          </Link>
         </div>
-        <div className="time-recipient">
-          <div>{message.time}</div>
-          <div>{message.recipientName}</div>
+        <div className="right-buttons">
+          <div className="edit-icon">
+            <EditIcon />
+          </div>
+          <div className="delete-icon">
+            <DeleteIcon />
+          </div>
         </div>
       </div>
       <div className="body">
+        <div className="title-time-recipient">
+          <div className="title">{message.title}</div>
+          <div className="time-recipient">
+            <div>{message.time}</div>
+            <div>{message.recipientName}</div>
+          </div>
+        </div>
         <p className="text">{message.body}</p>
       </div>
       <div className="next-back-buttons">

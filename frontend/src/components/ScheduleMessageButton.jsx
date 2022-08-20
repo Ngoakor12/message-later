@@ -3,13 +3,14 @@ import { AddIcon } from "../Icons";
 
 function ScheduleMessageButton() {
   const { pathname } = useLocation();
-  const newPath = pathname.split("/")[1];
 
   return (
     <Link
       to={"/schedule-message"}
       className={`schedule-message-button ${
-        newPath === "schedule-message" ? "hide-schedule-message-button" : ""
+        pathname === "/schedule-message" || pathname === `/message/edit/1`
+          ? "hide-schedule-message-button"
+          : ""
       }`}
     >
       <div className="label">Schedule Message</div>

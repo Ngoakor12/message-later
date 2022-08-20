@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /* Global */
 
@@ -20,12 +20,12 @@ body {
   font-size: 1rem;
 }
 
-#root{
+#root {
   display: flex;
   justify-content: center;
 }
 
-.App{
+.App {
   min-width: 300px;
   max-width: 600px;
   width: 100%;
@@ -37,13 +37,17 @@ body {
   position: relative;
 }
 
-nav{
+nav {
   display: flex;
   gap: 10px;
   overflow-y: auto;
 }
 
-.nav-item{
+.nav-item:hover {
+  background-color: #ececec;
+}
+
+.nav-item {
   text-decoration: none;
   padding: 8px 20px;
   color: #000;
@@ -51,47 +55,46 @@ nav{
   border: 1px solid #d9d9d9;
 }
 
-.active-nav-item{  
+.active-nav-item {
   font-weight: 700;
-  background-color: #ECECEC;
+  background-color: #ececec;
   /* border-bottom: 3px solid #d9d9d9; */
 }
 
-.today-main{
+.today-main {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.today-date-container{
+.today-date-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
 }
 
-.today-date-container .horizontal-line{
+.today-date-container .horizontal-line {
   width: 100%;
   height: 1px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 }
 
-.today-date-container .today-date{
+.today-date-container .today-date {
   min-width: fit-content;
 }
 
-
-.message-list{
+.message-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.message-summary-wrapper{
+.message-summary-wrapper {
   position: relative;
 }
 
-.message-summary{
+.message-summary {
   /* display: grid;
   grid-template-columns: 10% 80% 10%; */
   display: flex;
@@ -101,45 +104,45 @@ nav{
   border: 1px solid #d9d9d9;
 }
 
-.more-icon{
+.more-icon {
   position: absolute;
   top: 20px;
   right: 20px;
 }
 
-a.message-summary{
+a.message-summary {
   text-decoration: none;
   color: #000;
 }
 
-.message-summary .left .status-icon{
+.message-summary .left .status-icon {
   width: 28px;
   height: 28px;
-  background-color: #ECECEC;
+  background-color: #ececec;
   border-radius: 50%;
 }
 
-.message-summary .center{
+.message-summary .center {
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap:10px;
+  gap: 10px;
 }
 
-.message-summary .center .title{
+.message-summary .center .title {
   font-weight: 700;
 }
 
-.message-summary .center .bottom{
+.message-summary .center .bottom {
   display: flex;
-  gap:20px;
+  gap: 20px;
 }
 
-.more-options{
+.more-options {
   display: none;
 }
 
-.schedule-message-button{
+.schedule-message-button {
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -156,52 +159,53 @@ a.message-summary{
   border-radius: 50%;
 }
 
-.schedule-message-button .label{
+.schedule-message-button .label {
   /* padding: 10px; */
   display: none;
 }
 
-.schedule-message-button .add-icon{
+.schedule-message-button .add-icon {
   /* background-color: #000; */
   /* padding: 10px; */
   display: flex;
-  
 }
 
-.message-details{
+.message-details {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.message-details .title-edit-time-recipient{
-  display: flex; 
+.message-details .title-edit-time-recipient {
+  display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.message-details .title{
+.message-details .title {
   font-weight: 700;
 }
 
-.message-details .top-bar{
+.message-details .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.message-details .top-bar .right-buttons{
+.message-details .top-bar .right-buttons {
   display: flex;
 }
 
-.message-details .top-bar .edit-icon,.message-details .top-bar .delete-icon,.message-details .top-bar .previous-page-icon{
+.message-details .top-bar .edit-icon,
+.message-details .top-bar .delete-icon,
+.message-details .top-bar .previous-page-icon {
   color: #616161;
   display: flex;
   align-items: center;
   padding: 5px;
 }
 
-.message-details .title-edit .top-bar{
+.message-details .title-edit .top-bar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,7 +214,7 @@ a.message-summary{
   gap: 10px;
 }
 
-.message-details .body{
+.message-details .body {
   border: 1px solid #616161;
   padding: 15px;
   display: flex;
@@ -218,147 +222,153 @@ a.message-summary{
   gap: 15px;
 }
 
-.message-details .body .title-time-recipient{
+.message-details .body .title-time-recipient {
   display: flex;
   flex-direction: column;
   gap: 10px;
-
 }
 
-.message-details .time-recipient{
+.message-details .time-recipient {
   display: flex;
   gap: 10px;
 }
 
-.message-details .body .text{
+.message-details .body .text {
   line-height: 28px;
 }
 
-.message-details .next-back-buttons{
+.message-details .next-back-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
 }
 
-.message-details .next-back-buttons .back-button,.message-details .next-back-buttons .next-button{
+.message-details .next-back-buttons .back-button,
+.message-details .next-back-buttons .next-button {
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid #000;
-  padding: 10px 10px ;
+  padding: 10px 10px;
 }
 
-.message-details .next-back-buttons .back-button .label,.message-details .next-back-buttons .next-button .label{
+.message-details .next-back-buttons .back-button .label,
+.message-details .next-back-buttons .next-button .label {
   display: none;
   font-weight: 700;
 }
 
-.message-details .next-back-buttons .back-button .back-arrow-icon,.message-details .next-back-buttons .next-button .next-arrow-icon{
+.message-details .next-back-buttons .back-button .back-arrow-icon,
+.message-details .next-back-buttons .next-button .next-arrow-icon {
   display: flex;
 }
-.hide-schedule-message-button{
+.hide-schedule-message-button {
   display: none;
 }
 
-.schedule-message-form{
+.schedule-message-form {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
-.schedule-message-form label{
-padding-bottom: 5px;
+.schedule-message-form label {
+  padding-bottom: 5px;
 }
 
-.schedule-message-form input,.schedule-message-form textarea{
+.schedule-message-form input,
+.schedule-message-form textarea {
   font-size: 14px;
-  border: 1px solid #AFAFAF;
+  border: 1px solid #afafaf;
   padding: 10px;
 }
 
-.schedule-message-form .recipient{
+.schedule-message-form .recipient {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.schedule-message-form .recipient .name-field{
+.schedule-message-form .recipient .name-field {
   display: flex;
   flex-direction: column;
 }
 
-.schedule-message-form .recipient .method-field{
+.schedule-message-form .recipient .method-field {
   display: flex;
   flex-direction: column;
 }
 
-.schedule-message-form .recipient .method-field .method-options{
+.schedule-message-form .recipient .method-field .method-options {
   display: flex;
   /* flex-direction: column; */
   align-items: center;
   gap: 15px;
 }
 
-.schedule-message-form .recipient .method-field .method-options div{
+.schedule-message-form .recipient .method-field .method-options div {
   display: flex;
   gap: 5px;
 }
 
-.schedule-message-form .recipient .method-field .method-options div label{
+.schedule-message-form .recipient .method-field .method-options div label {
   padding: 0;
 }
 
-
-.schedule-message-form .recipient .contact-field{
+.schedule-message-form .recipient .contact-field {
   display: flex;
   flex-direction: column;
 }
 
-.schedule-message-form .message{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.schedule-message-form .title-field,.schedule-message-form .body-field,.schedule-message-form .from-field{
-  display: flex;
-  flex-direction: column;
-}
-
-.schedule-message-form .date{
+.schedule-message-form .message {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.schedule-message-form .date .date-fields{
+.schedule-message-form .title-field,
+.schedule-message-form .body-field,
+.schedule-message-form .from-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-message-form .date {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.schedule-message-form .date .day-field{
+.schedule-message-form .date .date-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-message-form .date .day-field {
   display: flex;
   flex-direction: column;
 }
 
-.schedule-message-form .date .time-field{
+.schedule-message-form .date .time-field {
   display: flex;
   flex-direction: column;
 }
 
-.schedule-message-form .recipient h2,.schedule-message-form .message h2,.schedule-message-form .date h2{
+.schedule-message-form .recipient h2,
+.schedule-message-form .message h2,
+.schedule-message-form .date h2 {
   font-size: 14px;
 }
 
-.schedule-message-form .schedule-message-buttons button{
+.schedule-message-form .schedule-message-buttons button {
   font-size: 14px;
 }
 
-.schedule-message-form input{
+.schedule-message-form input {
   height: 40px;
 }
 
-.schedule-message-form .recipient .method-field .method-options input{
+.schedule-message-form .recipient .method-field .method-options input {
   height: auto;
 }
 
@@ -368,7 +378,7 @@ padding-bottom: 5px;
   gap: 10px;
 }
 
-.schedule-message-form .schedule-message-buttons button{
+.schedule-message-form .schedule-message-buttons button {
   border: 1px solid black;
   font-weight: 700;
   padding: 10px;
@@ -376,49 +386,79 @@ padding-bottom: 5px;
   cursor: pointer;
 }
 
-.schedule-message-form .schedule-message-buttons .schedule-button{
+.schedule-message-form .schedule-message-buttons .schedule-button {
   color: #fff;
   background-color: #000;
 }
 
-.schedule-message-form .schedule-message-buttons .cancel-button{
+.schedule-message-form .schedule-message-buttons .cancel-button {
   /* color: #fff; */
   /* background-color: #000; */
   border: 1px solid transparent;
 }
 
 @media (min-width: 600px) {
-  .message-summary .right .more-options{
-    display: flex;
-  }
-  .more-icon{
+  .more-icon {
     display: none;
   }
-  .more-options{
-    display: flex;
-    gap: 15px;
+  .more-options {
+    display: none;
+    gap: 6px;
     position: absolute;
-    top: 20px;
+    top: 12px;
     right: 20px;
+  }
+
+  .more-options .edit-icon,
+  .more-options .delete-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .more-options .edit-icon,
+  .more-options .delete-icon {
+    color: #000;
+  }
+
+  .more-options .edit-icon:hover,
+  .more-options .delete-icon:hover,
+  .more-options .edit-icon:focus,
+  .more-options .delete-icon:focus {
+    background-color: #d9d9d9;
+    border-radius: 50%;
+  }
+
+  .message-summary-wrapper:hover .message-summary,
+  .message-summary-wrapper:focus-within .message-summary {
+    border: 1px solid #000;
+  }
+
+  .message-summary-wrapper:hover .more-options,
+  .message-summary-wrapper:focus-within .more-options {
+    display: flex;
   }
 
   .schedule-message-button {
     padding: 10px 20px;
     border-radius: 0;
   }
-  .schedule-message-button .label{
+  .schedule-message-button .label {
     display: flex;
   }
 
-  .schedule-message-button .add-icon{
+  .schedule-message-button .add-icon {
     display: none;
   }
 
-  .message-details .next-back-buttons .back-button,.message-details .next-back-buttons .next-button{
+  .message-details .next-back-buttons .back-button,
+  .message-details .next-back-buttons .next-button {
     gap: 5px;
   }
 
-  .schedule-message-form .schedule-message-buttons{
+  .schedule-message-form .schedule-message-buttons {
     flex-direction: row-reverse;
   }
 }

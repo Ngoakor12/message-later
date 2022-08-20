@@ -20,12 +20,12 @@ function MessageSummary({ message }) {
         <MoreIcon />
       </div>
       <div className="more-options">
-        <div className="edit-icon">
+        <Link to={"/message/edit/1"} className="edit-icon">
           <EditIcon />
-        </div>
-        <div className="delete-icon">
+        </Link>
+        <Link to={"/"} className="delete-icon">
           <DeleteIcon />
-        </div>
+        </Link>
       </div>
     </div>
   );

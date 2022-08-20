@@ -43,6 +43,10 @@ nav{
   overflow-y: auto;
 }
 
+.nav-item:hover{
+  background-color: #ECECEC;
+}
+
 .nav-item{
   text-decoration: none;
   padding: 8px 20px;

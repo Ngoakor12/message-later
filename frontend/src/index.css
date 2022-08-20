@@ -398,18 +398,47 @@ a.message-summary {
 }
 
 @media (min-width: 600px) {
-  .message-summary .right .more-options {
-    display: flex;
-  }
   .more-icon {
     display: none;
   }
   .more-options {
-    display: flex;
-    gap: 15px;
+    display: none;
+    gap: 6px;
     position: absolute;
-    top: 20px;
+    top: 12px;
     right: 20px;
+  }
+
+  .more-options .edit-icon,
+  .more-options .delete-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .more-options .edit-icon,
+  .more-options .delete-icon {
+    color: #000;
+  }
+
+  .more-options .edit-icon:hover,
+  .more-options .delete-icon:hover,
+  .more-options .edit-icon:focus,
+  .more-options .delete-icon:focus {
+    background-color: #d9d9d9;
+    border-radius: 50%;
+  }
+
+  .message-summary-wrapper:hover .message-summary,
+  .message-summary-wrapper:focus-within .message-summary {
+    border: 1px solid #000;
+  }
+
+  .message-summary-wrapper:hover .more-options,
+  .message-summary-wrapper:focus-within .more-options {
+    display: flex;
   }
 
   .schedule-message-button {

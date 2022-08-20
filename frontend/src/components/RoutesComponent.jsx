@@ -17,6 +17,7 @@ function RoutesComponent() {
       <Route exact path="/all-messages" element={<AllMessages />} />
       <Route exact path="/drafts" element={<Drafts />} />
       <Route exact path="/schedule-message" element={<ScheduleMessage />} />
+      <Route exact path="/message/edit/:id" element={<ScheduleMessage />} />
       <Route exact path="/message/:id" element={<MessageDetails />} />
     </Routes>
   );

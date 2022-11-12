@@ -4,6 +4,8 @@ const {
   createMessageTableQuery,
   deleteMessagesTableQuery,
   createMessageQuery,
+  deleteMessageQuery,
+  viewMessageQuery,
 } = require("./queries");
 
 async function createMessagesTable() {
@@ -36,6 +38,14 @@ async function createMessage(
   ]);
 }
 
+async function deleteMessage(id) {
+  return await pool.query(deleteMessageQuery, [id]);
+}
+
+async function viewMessage(id) {
+  return await pool.query(viewMessageQuery, [id]);
+}
+
 // createMessagesTable().then((res) => console.log(res));
 
 // deleteTable().then((res) => console.log(res));
@@ -50,3 +60,7 @@ async function createMessage(
 //   "12-12-2022",
 //   "12:00"
 // ).then((res) => console.log(res));
+
+// deleteMessage(0).then((res) => console.log(res));
+
+// viewMessage(1).then((res) => console.log(res));

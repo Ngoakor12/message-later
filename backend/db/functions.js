@@ -5,6 +5,7 @@ const {
   deleteMessagesTableQuery,
   createMessageQuery,
   deleteMessageQuery,
+  deleteMessagesQuery,
   viewMessageQuery,
 } = require("./queries");
 const validateResultWithId = require("./utils");
@@ -13,7 +14,7 @@ async function createMessagesTable() {
   return await pool.query(createMessageTableQuery);
 }
 
-async function deleteTable() {
+async function deleteMessagesTable() {
   return await pool.query(deleteMessagesTableQuery);
 }
 
@@ -45,6 +46,11 @@ async function deleteMessage(id) {
   return result;
 }
 
+async function deleteMessages() {
+  const result = await pool.query(deleteMessagesQuery);
+  return result;
+}
+
 async function viewMessage(id) {
   const result = await pool.query(viewMessageQuery, [id]);
   validateResultWithId(result);
@@ -53,7 +59,7 @@ async function viewMessage(id) {
 
 // createMessagesTable().then((res) => console.log(res));
 
-// deleteTable().then((res) => console.log(res));
+// deleteMessagesTable().then((res) => console.log(res));
 
 // createMessage(
 //   "halaand",
@@ -67,5 +73,7 @@ async function viewMessage(id) {
 // ).then((res) => console.log(res));
 
 // deleteMessage(0).then((res) => console.log(res));
+
+// deleteMessages(0).then((res) => console.log(res));
 
 // viewMessage(0).then((res) => console.log(res));

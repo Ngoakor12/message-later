@@ -7,6 +7,7 @@ const {
   deleteMessageQuery,
   deleteMessagesQuery,
   viewMessageQuery,
+  viewMessagesQuery,
   updateMessageQuery,
 } = require("./queries");
 const validateResultWithId = require("./utils");
@@ -58,6 +59,11 @@ async function viewMessage(id) {
   return result;
 }
 
+async function viewMessages() {
+  const result = await pool.query(viewMessagesQuery);
+  return result;
+}
+
 async function updateMessage(
   id,
   name,
@@ -83,6 +89,16 @@ async function updateMessage(
   validateResultWithId(result);
   return result;
 }
+
+module.exports = {
+  createMessagesTable,
+  deleteMessagesTable,
+  createMessage,
+  deleteMessages,
+  updateMessage,
+  viewMessage,
+  viewMessages,
+};
 
 // createMessagesTable().then((res) => console.log(res));
 
@@ -116,3 +132,5 @@ async function updateMessage(
 //   "12-12-2022",
 //   "12:00"
 // ).then((res) => console.log(res));
+
+// viewMessages().then((res) => console.log(res));

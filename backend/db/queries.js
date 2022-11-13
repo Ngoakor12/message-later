@@ -25,6 +25,7 @@ module.exports = {
     WHERE id = $1;`,
   deleteMessageQuery: `DELETE FROM messages WHERE id=$1;`,
   deleteMessagesQuery: `DELETE FROM messages;`,
-  viewMessageQuery: `SELECT * FROM messages WHERE id=$1;`,
+  viewMessageQuery: `SELECT FROM messages WHERE id=$1;`,
+  viewMessagesQuery: `SELECT * FROM messages;`,
   deleteMessagesTableQuery: `DROP TABLE messages;`,
 };

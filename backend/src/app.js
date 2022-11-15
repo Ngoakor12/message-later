@@ -3,7 +3,7 @@ const { viewMessage, viewMessages } = require("../db/functions");
 const cors = require("cors");
 const { pool } = require("../db/config");
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const API_BASE_URL = `http://localhost:${PORT}`;
 
 app.use(
@@ -30,7 +30,7 @@ pool
   .connect()
   .then(async () => {
     console.log("Successfully connected to db...");
-    app.listen(process.env.PORT || PORT, () => {
+    app.listen(PORT, () => {
       console.log(`App running at ${API_BASE_URL}`);
     });
   })

@@ -1,5 +1,5 @@
 const app = require("express")();
-const { viewMessage, viewMessages } = require("../db/functions");
+const { viewMessage, viewMessages, deleteMessage } = require("../db/functions");
 const cors = require("cors");
 const { pool } = require("../db/config");
 
@@ -32,6 +32,24 @@ app.get("/messages/:id", async (req, res) => {
   try {
     const result = await viewMessage(id);
     res.status(200).json({ success: true, data: result.rows[0] });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error });
+  }
+});
+
+app.delete("/messages/:id", async (req, res) => {
+  const { id } = req.params;
+
+  if (!id)
+    res.json({
+      success: false,
+      message: "'id' does not defined. Please try again.",
+    });
+
+  try {
+    await deleteMessage(id);
+    res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
     res.json({ success: false, error });

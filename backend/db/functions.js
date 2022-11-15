@@ -94,6 +94,7 @@ module.exports = {
   createMessagesTable,
   deleteMessagesTable,
   createMessage,
+  deleteMessage,
   deleteMessages,
   updateMessage,
   viewMessage,

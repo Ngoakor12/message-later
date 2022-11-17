@@ -2,6 +2,7 @@ const app = require("express")();
 const { viewMessage, viewMessages, deleteMessage } = require("../db/functions");
 const cors = require("cors");
 const { pool } = require("../db/config");
+const { validateId } = require("./utils");
 
 const PORT = process.env.PORT || 3001;
 const API_BASE_URL = `http://localhost:${PORT}`;
@@ -22,7 +23,7 @@ app.get("/messages", async (_, res) => {
     res.status(200).json({ success: true, data: result.rows });
   } catch (error) {
     console.error(error);
-    res.json({ success: false, error });
+    res.json({ success: false, error: error.stack });
   }
 });
 
@@ -30,29 +31,27 @@ app.get("/messages/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
+    validateId(id);
+
     const result = await viewMessage(id);
     res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error(error);
-    res.json({ success: false, error });
+    res.json({ success: false, error: error.stack });
   }
 });
 
 app.delete("/messages/:id", async (req, res) => {
   const { id } = req.params;
 
-  if (!id)
-    res.json({
-      success: false,
-      message: "'id' does not defined. Please try again.",
-    });
-
   try {
+    validateId(id);
+
     await deleteMessage(id);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
-    res.json({ success: false, error });
+    res.json({ success: false, error: error.stack });
   }
 });
 

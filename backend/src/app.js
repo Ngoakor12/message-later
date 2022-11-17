@@ -23,7 +23,7 @@ app.get("/messages", async (_, res) => {
     res.status(200).json({ success: true, data: result.rows });
   } catch (error) {
     console.error(error);
-    res.json({ success: false, error });
+    res.json({ success: false, error: error.stack });
   }
 });
 
@@ -31,11 +31,13 @@ app.get("/messages/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
+    validateId(id);
+
     const result = await viewMessage(id);
     res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error(error);
-    res.json({ success: false, error });
+    res.json({ success: false, error: error.stack });
   }
 });
 

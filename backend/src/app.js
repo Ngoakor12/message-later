@@ -1,12 +1,22 @@
-const app = require("express")();
-const { viewMessage, viewMessages, deleteMessage } = require("../db/functions");
+const express = require("express");
 const cors = require("cors");
+
+const {
+  viewMessage,
+  viewMessages,
+  deleteMessage,
+  updateMessage,
+  createMessage,
+  deleteMessages,
+} = require("../db/functions");
 const { pool } = require("../db/config");
 const { validateId } = require("./utils");
 
 const PORT = process.env.PORT || 3001;
 const API_BASE_URL = `http://localhost:${PORT}`;
 
+const app = express();
+app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "*",
@@ -32,7 +42,6 @@ app.get("/messages/:id", async (req, res) => {
 
   try {
     validateId(id);
-
     const result = await viewMessage(id);
     res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
@@ -46,8 +55,53 @@ app.delete("/messages/:id", async (req, res) => {
 
   try {
     validateId(id);
-
     await deleteMessage(id);
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.stack });
+  }
+});
+
+app.delete("/messages", async (req, res) => {
+  try {
+    await deleteMessages();
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.stack });
+  }
+});
+
+app.put("/messages/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, method, contact, title, body, from, day, time } = req.body;
+
+  try {
+    validateId(id);
+    await updateMessage(
+      id,
+      name,
+      method,
+      contact,
+      title,
+      body,
+      from,
+      day,
+      time
+    );
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.stack });
+  }
+});
+
+app.post("/messages", async (req, res) => {
+  const { name, method, contact, title, body, from, day, time } = req.body;
+
+  try {
+    await createMessage(name, method, contact, title, body, from, day, time);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);

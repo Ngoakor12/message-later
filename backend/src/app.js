@@ -5,6 +5,7 @@ const {
   viewMessages,
   deleteMessage,
   updateMessage,
+  createMessage,
 } = require("../db/functions");
 const cors = require("cors");
 const { pool } = require("../db/config");
@@ -79,6 +80,17 @@ app.put("/messages/:id", async (req, res) => {
       day,
       time
     );
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.stack });
+  }
+});
+
+app.post("/messages", async (req, res) => {
+  const { name, method, contact, title, body, from, day, time } = req.body;
+  try {
+    await createMessage(name, method, contact, title, body, from, day, time);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);

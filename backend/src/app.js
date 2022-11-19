@@ -1,5 +1,11 @@
-const app = require("express")();
-const { viewMessage, viewMessages, deleteMessage } = require("../db/functions");
+const express = require("express");
+const app = express();
+const {
+  viewMessage,
+  viewMessages,
+  deleteMessage,
+  updateMessage,
+} = require("../db/functions");
 const cors = require("cors");
 const { pool } = require("../db/config");
 const { validateId } = require("./utils");
@@ -7,6 +13,7 @@ const { validateId } = require("./utils");
 const PORT = process.env.PORT || 3001;
 const API_BASE_URL = `http://localhost:${PORT}`;
 
+app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "*",
@@ -48,6 +55,30 @@ app.delete("/messages/:id", async (req, res) => {
     validateId(id);
 
     await deleteMessage(id);
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.stack });
+  }
+});
+
+app.put("/messages/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, method, contact, title, body, from, day, time } = req.body;
+  try {
+    validateId(id);
+
+    await updateMessage(
+      id,
+      name,
+      method,
+      contact,
+      title,
+      body,
+      from,
+      day,
+      time
+    );
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);

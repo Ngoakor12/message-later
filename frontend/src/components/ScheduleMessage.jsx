@@ -8,19 +8,6 @@ function ScheduleMessage() {
           <label htmlFor="name">Name</label>
           <input id="name" name="name" />
         </div>
-        <div className="method-field">
-          <label htmlFor="method">Method</label>
-          <div className="method-options">
-            <div>
-              <input type="radio" id="email" name="method" checked readOnly />
-              <label htmlFor="email">Email</label>
-            </div>
-            <div>
-              <input type="radio" id="sms" name="method" disabled />
-              <label htmlFor="sms">SMS</label>
-            </div>
-          </div>
-        </div>
         <div className="contact-field">
           <label htmlFor="contact">Email</label>
           <input id="contact" name="contact" />

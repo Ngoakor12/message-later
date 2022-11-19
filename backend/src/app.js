@@ -75,22 +75,21 @@ app.delete("/messages", async (req, res) => {
 
 app.put("/messages/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, method, contact, title, body, from, day, time } = req.body;
+  const { name, email, title, body, from, day, time } = req.body;
 
   try {
     validateId(id);
-    await updateMessage(
+    const result = await updateMessage(
       id,
       name,
-      method,
-      contact,
+      email,
       title,
       body,
       from,
       day,
       time
     );
-    res.status(200).json({ success: true });
+    res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error(error);
     res.json({ success: false, error: error.stack });
@@ -98,11 +97,19 @@ app.put("/messages/:id", async (req, res) => {
 });
 
 app.post("/messages", async (req, res) => {
-  const { name, method, contact, title, body, from, day, time } = req.body;
+  const { name, email, title, body, from, day, time } = req.body;
 
   try {
-    await createMessage(name, method, contact, title, body, from, day, time);
-    res.status(200).json({ success: true });
+    const result = await createMessage(
+      name,
+      email,
+      title,
+      body,
+      from,
+      day,
+      time
+    );
+    res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error(error);
     res.json({ success: false, error: error.stack });

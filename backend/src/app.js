@@ -6,6 +6,7 @@ const {
   deleteMessage,
   updateMessage,
   createMessage,
+  deleteMessages,
 } = require("../db/functions");
 const cors = require("cors");
 const { pool } = require("../db/config");
@@ -56,6 +57,16 @@ app.delete("/messages/:id", async (req, res) => {
     validateId(id);
 
     await deleteMessage(id);
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.stack });
+  }
+});
+
+app.delete("/messages", async (req, res) => {
+  try {
+    await deleteMessages();
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);

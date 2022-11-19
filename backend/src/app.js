@@ -1,5 +1,6 @@
 const express = require("express");
-const app = express();
+const cors = require("cors");
+
 const {
   viewMessage,
   viewMessages,
@@ -8,13 +9,13 @@ const {
   createMessage,
   deleteMessages,
 } = require("../db/functions");
-const cors = require("cors");
 const { pool } = require("../db/config");
 const { validateId } = require("./utils");
 
 const PORT = process.env.PORT || 3001;
 const API_BASE_URL = `http://localhost:${PORT}`;
 
+const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
@@ -41,7 +42,6 @@ app.get("/messages/:id", async (req, res) => {
 
   try {
     validateId(id);
-
     const result = await viewMessage(id);
     res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
@@ -55,7 +55,6 @@ app.delete("/messages/:id", async (req, res) => {
 
   try {
     validateId(id);
-
     await deleteMessage(id);
     res.status(200).json({ success: true });
   } catch (error) {
@@ -77,9 +76,9 @@ app.delete("/messages", async (req, res) => {
 app.put("/messages/:id", async (req, res) => {
   const { id } = req.params;
   const { name, method, contact, title, body, from, day, time } = req.body;
+
   try {
     validateId(id);
-
     await updateMessage(
       id,
       name,
@@ -100,6 +99,7 @@ app.put("/messages/:id", async (req, res) => {
 
 app.post("/messages", async (req, res) => {
   const { name, method, contact, title, body, from, day, time } = req.body;
+
   try {
     await createMessage(name, method, contact, title, body, from, day, time);
     res.status(200).json({ success: true });

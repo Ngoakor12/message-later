@@ -75,6 +75,11 @@ async function updateMessage(
   day,
   time
 ) {
+  if (!name || !method || !contact || !title || !body || !from || !day || !time)
+    throw new Error(
+      "please provide all the messages properties(values and columns)"
+    );
+
   const result = await pool.query(updateMessageQuery, [
     id,
     name,

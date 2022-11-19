@@ -20,25 +20,15 @@ async function deleteMessagesTable() {
   return await pool.query(deleteMessagesTableQuery);
 }
 
-async function createMessage(
-  name,
-  method,
-  contact,
-  title,
-  body,
-  from,
-  day,
-  time
-) {
-  if (!name || !method || !contact || !title || !body || !from || !day || !time)
+async function createMessage(name, email, title, body, from, day, time) {
+  if (!name || !email || !title || !body || !from || !day || !time)
     throw new Error(
       "please provide all the messages properties(values and columns)"
     );
 
   return await pool.query(createMessageQuery, [
     name,
-    method,
-    contact,
+    email,
     title,
     body,
     from,
@@ -69,18 +59,8 @@ async function viewMessages() {
   return result;
 }
 
-async function updateMessage(
-  id,
-  name,
-  method,
-  contact,
-  title,
-  body,
-  from,
-  day,
-  time
-) {
-  if (!name || !method || !contact || !title || !body || !from || !day || !time)
+async function updateMessage(id, name, email, title, body, from, day, time) {
+  if (!name || !email || !title || !body || !from || !day || !time)
     throw new Error(
       "please provide all the messages properties(values and columns)"
     );
@@ -88,8 +68,7 @@ async function updateMessage(
   const result = await pool.query(updateMessageQuery, [
     id,
     name,
-    method,
-    contact,
+    email,
     title,
     body,
     from,
@@ -117,7 +96,6 @@ module.exports = {
 
 // createMessage(
 //   "halaand",
-//   "email",
 //   "halaand@mancity.com",
 //   "question",
 //   "are you a robot?",
@@ -135,7 +113,6 @@ module.exports = {
 // updateMessage(
 //   2,
 //   "de bruyne",
-//   "email",
 //   "debruyne@mancity.com",
 //   "question",
 //   "are you a robot?",

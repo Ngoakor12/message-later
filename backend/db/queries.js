@@ -32,19 +32,18 @@ module.exports = {
     ("authorId","to","email","title","body","from","createdAt","updatedAt","sentAt")
     VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;`,
     update: `UPDATE messages
-    SET "to" = $2,
-      "email" = $3,
-      "title" = $4,
-      "body" = $5,
-      "from" = $6,
-      "createdAt" = $7,
+    SET "to" = $3,
+      "email" = $4,
+      "title" = $5,
+      "body" = $6,
+      "from" = $7,
       "updatedAt" = $8,
-      "sentAt" = $9,
-    WHERE "messageId" = $1
+      "sentAt" = $9
+    WHERE "authorId" = $1 AND "messageId" = $2
     RETURNING *;`,
-    delete: `DELETE FROM "messages" WHERE id=$1;`,
+    delete: `DELETE FROM "messages" WHERE messageId=$1;`,
     deleteAll: `DELETE FROM "messages";`,
-    view: `SELECT * FROM "messages" WHERE id=$1;`,
+    view: `SELECT * FROM "messages" WHERE "authorId" = $1 AND "messageId" = $2;`,
     viewAll: `SELECT * FROM "messages";`,
     deleteTable: `DROP TABLE IF EXISTS "messages";`,
   },

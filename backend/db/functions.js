@@ -86,8 +86,8 @@ async function deleteMessages() {
   return result;
 }
 
-async function viewMessage(id) {
-  const result = await pool.query(messageQuery.view, [id]);
+async function viewMessage(authorId, messageId) {
+  const result = await pool.query(messageQuery.view, [authorId, messageId]);
   validateResultWithId(result);
   return result;
 }
@@ -97,21 +97,45 @@ async function viewMessages() {
   return result;
 }
 
-async function updateMessage(id, name, email, title, body, from, day, time) {
-  if (!name || !email || !title || !body || !from || !day || !time)
+async function updateMessage(
+  authorId,
+  messageId,
+  to,
+  email,
+  title,
+  body,
+  from,
+  day,
+  time
+) {
+  if (
+    !authorId ||
+    !messageId ||
+    !to ||
+    !email ||
+    !title ||
+    !body ||
+    !from ||
+    !day ||
+    !time
+  )
     throw new Error(
       "please provide all the messages properties(values and columns)"
     );
 
+  const updatedAt = convertDateToISOString(getCurrentUCTDate());
+  const sentAt = convertDateToISOString(createUCTDate(day, time));
+
   const result = await pool.query(messageQuery.update, [
-    id,
-    name,
+    authorId,
+    messageId,
+    to,
     email,
     title,
     body,
     from,
-    day,
-    time,
+    updatedAt,
+    sentAt,
   ]);
   validateResultWithId(result);
   return result;
@@ -157,17 +181,18 @@ module.exports = {
 
 // deleteMessages(0).then((res) => console.log(res));
 
-// viewMessage(2).then((res) => console.log(res));
+// viewMessage(1, 2).then((res) => console.log(res));
 
 // updateMessage(
-//   2,
+//   1,
+//   3,
 //   "de bruyne",
 //   "debruyne@mancity.com",
 //   "question",
 //   "are you a robot?",
 //   "not police",
 //   "12-12-2022",
-//   "12:00"
+//   "15:00"
 // ).then((res) => console.log(res));
 
 // viewMessages().then((res) => console.log(res));

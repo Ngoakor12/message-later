@@ -1,30 +1,50 @@
 module.exports = {
-  createMessageTableQuery: `CREATE TABLE IF NOT EXISTS messages
-    (id serial primary key,
-        name varchar,
-        email varchar,
-        title varchar,
-        body varchar,
-        "from" varchar,
-        day varchar,
-        time varchar
+  userQuery: {
+    create: `INSERT INTO "users"
+    ("email","firstName","lastName","createdAt","updatedAt","hashedPassword")
+    VALUES($1,$2,$3,$4,$5,$6) RETURNING *;`,
+    deleteTable: `DROP TABLE IF EXISTS "users";`,
+    createTable: `CREATE TABLE IF NOT EXISTS "users"
+    ("userId" serial primary key,
+        "email" varchar,
+        "firstName" varchar,
+        "lastName" varchar,
+        "createdAt" varchar,
+        "updatedAt" varchar,
+        "hashedPassword" varchar
     );`,
-  createMessageQuery: `INSERT INTO messages
-    (name,email,title,body,"from",day,time)
-    VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;`,
-  updateMessageQuery: `UPDATE messages
-    SET name = $2,
-      email = $3,
-      title = $4,
-      body = $5,
-      "from" = $6,
-      day = $7,
-      time = $8
-    WHERE id = $1
+  },
+  messageQuery: {
+    createTable: `CREATE TABLE IF NOT EXISTS "messages"
+    ("messageId" serial primary key,
+        "authorId" int,
+        "to" varchar,
+        "email" varchar,
+        "title" varchar,
+        "body" varchar,
+        "from" varchar,
+        "createdAt" varchar,
+        "updatedAt" varchar,
+        "sentAt" varchar,
+        FOREIGN KEY ("authorId") REFERENCES "users"("userId")
+        );`,
+    create: `INSERT INTO "messages"
+    ("authorId","to","email","title","body","from","createdAt","updatedAt","sentAt")
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;`,
+    update: `UPDATE messages
+    SET "to" = $3,
+      "email" = $4,
+      "title" = $5,
+      "body" = $6,
+      "from" = $7,
+      "updatedAt" = $8,
+      "sentAt" = $9
+    WHERE "authorId" = $1 AND "messageId" = $2
     RETURNING *;`,
-  deleteMessageQuery: `DELETE FROM messages WHERE id=$1;`,
-  deleteMessagesQuery: `DELETE FROM messages;`,
-  viewMessageQuery: `SELECT * FROM messages WHERE id=$1;`,
-  viewMessagesQuery: `SELECT * FROM messages;`,
-  deleteMessagesTableQuery: `DROP TABLE messages;`,
+    delete: `DELETE FROM "messages" WHERE messageId=$1;`,
+    deleteAll: `DELETE FROM "messages";`,
+    view: `SELECT * FROM "messages" WHERE "authorId" = $1 AND "messageId" = $2;`,
+    viewAll: `SELECT * FROM "messages";`,
+    deleteTable: `DROP TABLE IF EXISTS "messages";`,
+  },
 };

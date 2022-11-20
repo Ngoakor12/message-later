@@ -1,6 +1,14 @@
 function validateResultWithId(resObject) {
-  if (resObject.rowCount === 0) {
-    throw new Error("message with that id does not exist");
+  console.log(resObject);
+  if (
+    (resObject.command === "SELECT" ||
+      resObject.command === "UPDATE" ||
+      resObject.command === "DELETE") &&
+    resObject.rowCount === 0
+  ) {
+    throw new Error(
+      `current user unable to ${resObject.command} that resource because they are not authorized or it doesn't exist`
+    );
   }
 }
 

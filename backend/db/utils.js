@@ -22,14 +22,23 @@ function convertDateToISOString(date) {
   return newDate;
 }
 
+function getCurrentUCTDate() {
+  const date = new Date();
+  return date;
+}
+
 module.exports = validateResultWithId;
 
 // const uctD = createUCTDate("12-12-2022", "13:00");
 // const localD = convertUTCDateToLocalDate(uctD);
 // const uctDString = convertDateToISOString(uctD);
 // const localDString = convertDateToISOString(localD);
-
 // console.log("uct", uctD);
 // console.log("local", localD);
 // console.log("uct string", uctDString);
 // console.log("local string", localDString);
+
+// const uctD = getCurrentUCTDate();
+// const localD = convertUTCDateToLocalDate(uctD);
+// const localDString = convertDateToISOString(localD);
+// console.log(localDString);

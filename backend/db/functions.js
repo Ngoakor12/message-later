@@ -17,6 +17,7 @@ const {
   validateResultWithId,
   getCurrentUCTDate,
   convertDateToISOString,
+  createUCTDate,
 } = require("./utils");
 
 async function createUsersTable() {
@@ -54,20 +55,35 @@ async function createUser(email, firstName, lastName, hashedPassword) {
   ]);
 }
 
-async function createMessage(name, email, title, body, from, day, time) {
-  if (!name || !email || !title || !body || !from || !day || !time)
+async function createMessage(
+  authorId,
+  to,
+  email,
+  title,
+  body,
+  from,
+  day,
+  time
+) {
+  if (!authorId || !to || !email || !title || !body || !from || !day || !time)
     throw new Error(
       "please provide all the messages properties(values and columns)"
     );
 
+  const createdAt = convertDateToISOString(getCurrentUCTDate());
+  const updatedAt = createdAt;
+  const sentAt = convertDateToISOString(createUCTDate(day, time));
+
   return await pool.query(createMessageQuery, [
-    name,
+    authorId,
+    to,
     email,
     title,
     body,
     from,
-    day,
-    time,
+    createdAt,
+    updatedAt,
+    sentAt,
   ]);
 }
 
@@ -139,13 +155,14 @@ module.exports = {
 // );
 
 // createMessage(
+//   1,
 //   "halaand",
 //   "halaand@mancity.com",
 //   "question",
 //   "are you a robot?",
 //   "not police",
-//   "12-12-2022",
-//   "12:00"
+//   "12-06-2023",
+//   "06:00"
 // ).then((res) => console.log(res));
 
 // deleteMessage(0).then((res) => console.log(res));

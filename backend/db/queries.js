@@ -14,7 +14,7 @@ module.exports = {
     );`,
   createMessageQuery: `INSERT INTO "messages"
     ("authorId","to","email","title","body","from","createdAt","updatedAt","sentAt")
-    VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;`,
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;`,
   createUserQuery: `INSERT INTO "users"
     ("email","firstName","lastName","createdAt","updatedAt","hashedPassword")
     VALUES($1,$2,$3,$4,$5,$6) RETURNING *;`,

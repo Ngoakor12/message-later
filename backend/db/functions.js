@@ -9,8 +9,14 @@ const {
   viewMessageQuery,
   viewMessagesQuery,
   updateMessageQuery,
+  createUsersTableQuery,
+  deleteUsersTableQuery,
 } = require("./queries");
 const validateResultWithId = require("./utils");
+
+async function createUsersTable() {
+  return await pool.query(createUsersTableQuery);
+}
 
 async function createMessagesTable() {
   return await pool.query(createMessageTableQuery);
@@ -18,6 +24,10 @@ async function createMessagesTable() {
 
 async function deleteMessagesTable() {
   return await pool.query(deleteMessagesTableQuery);
+}
+
+async function deleteUsersTable() {
+  return await pool.query(deleteUsersTableQuery);
 }
 
 async function createMessage(name, email, title, body, from, day, time) {
@@ -90,9 +100,15 @@ module.exports = {
   viewMessages,
 };
 
-// createMessagesTable().then((res) => console.log(res));
+// createUsersTable().then((res) => {
+//   console.log(res);
+//   createMessagesTable().then((res) => console.log(res));
+// });
 
-// deleteMessagesTable().then((res) => console.log(res));
+// deleteMessagesTable().then((res) => {
+//   console.log(res);
+//   deleteUsersTable().then((res) => console.log(res));
+// });
 
 // createMessage(
 //   "halaand",

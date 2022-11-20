@@ -1,18 +1,6 @@
 const { pool } = require("./config");
 
-const {
-  createMessageTableQuery,
-  deleteMessagesTableQuery,
-  createMessageQuery,
-  deleteMessageQuery,
-  deleteMessagesQuery,
-  viewMessageQuery,
-  viewMessagesQuery,
-  updateMessageQuery,
-  createUsersTableQuery,
-  deleteUsersTableQuery,
-  createUserQuery,
-} = require("./queries");
+const { messageQuery, userQuery } = require("./queries");
 const {
   validateResultWithId,
   getCurrentUCTDate,
@@ -21,19 +9,19 @@ const {
 } = require("./utils");
 
 async function createUsersTable() {
-  return await pool.query(createUsersTableQuery);
+  return await pool.query(userQuery.createTable);
 }
 
 async function createMessagesTable() {
-  return await pool.query(createMessageTableQuery);
+  return await pool.query(messageQuery.createTable);
 }
 
 async function deleteMessagesTable() {
-  return await pool.query(deleteMessagesTableQuery);
+  return await pool.query(messageQuery.deleteTable);
 }
 
 async function deleteUsersTable() {
-  return await pool.query(deleteUsersTableQuery);
+  return await pool.query(userQuery.deleteTable);
 }
 
 async function createUser(email, firstName, lastName, hashedPassword) {
@@ -45,7 +33,7 @@ async function createUser(email, firstName, lastName, hashedPassword) {
   const createdAt = convertDateToISOString(getCurrentUCTDate());
   const updateAt = createdAt;
 
-  return await pool.query(createUserQuery, [
+  return await pool.query(userQuery.create, [
     email,
     firstName,
     lastName,
@@ -74,7 +62,7 @@ async function createMessage(
   const updatedAt = createdAt;
   const sentAt = convertDateToISOString(createUCTDate(day, time));
 
-  return await pool.query(createMessageQuery, [
+  return await pool.query(messageQuery.create, [
     authorId,
     to,
     email,
@@ -88,24 +76,24 @@ async function createMessage(
 }
 
 async function deleteMessage(id) {
-  const result = await pool.query(deleteMessageQuery, [id]);
+  const result = await pool.query(messageQuery.delete, [id]);
   validateResultWithId(result);
   return result;
 }
 
 async function deleteMessages() {
-  const result = await pool.query(deleteMessagesQuery);
+  const result = await pool.query(messageQuery.deleteAll);
   return result;
 }
 
 async function viewMessage(id) {
-  const result = await pool.query(viewMessageQuery, [id]);
+  const result = await pool.query(messageQuery.view, [id]);
   validateResultWithId(result);
   return result;
 }
 
 async function viewMessages() {
-  const result = await pool.query(viewMessagesQuery);
+  const result = await pool.query(messageQuery.viewAll);
   return result;
 }
 
@@ -115,7 +103,7 @@ async function updateMessage(id, name, email, title, body, from, day, time) {
       "please provide all the messages properties(values and columns)"
     );
 
-  const result = await pool.query(updateMessageQuery, [
+  const result = await pool.query(messageQuery.update, [
     id,
     name,
     email,
@@ -150,12 +138,12 @@ module.exports = {
 //   deleteUsersTable().then((res) => console.log(res));
 // });
 
-// createUser("test@email.com", "john", "doe", "123").then((res) =>
+// createUser("test2@email.com", "jane", "doe", "123").then((res) =>
 //   console.log(res)
 // );
 
 // createMessage(
-//   1,
+//   2,
 //   "halaand",
 //   "halaand@mancity.com",
 //   "question",
@@ -165,11 +153,11 @@ module.exports = {
 //   "06:00"
 // ).then((res) => console.log(res));
 
-// deleteMessage(0).then((res) => console.log(res));
+// deleteMessage(4).then((res) => console.log(res));
 
 // deleteMessages(0).then((res) => console.log(res));
 
-// viewMessage(0).then((res) => console.log(res));
+// viewMessage(2).then((res) => console.log(res));
 
 // updateMessage(
 //   2,

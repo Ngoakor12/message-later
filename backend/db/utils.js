@@ -27,7 +27,13 @@ function getCurrentUCTDate() {
   return date;
 }
 
-module.exports = validateResultWithId;
+module.exports = {
+  validateResultWithId,
+  createUCTDate,
+  convertUTCDateToLocalDate,
+  convertDateToISOString,
+  getCurrentUCTDate,
+};
 
 // const uctD = createUCTDate("12-12-2022", "13:00");
 // const localD = convertUTCDateToLocalDate(uctD);
@@ -41,4 +47,4 @@ module.exports = validateResultWithId;
 // const uctD = getCurrentUCTDate();
 // const localD = convertUTCDateToLocalDate(uctD);
 // const localDString = convertDateToISOString(localD);
-// console.log(localDString);
+// console.log(uctD);

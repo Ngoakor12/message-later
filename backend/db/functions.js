@@ -11,8 +11,13 @@ const {
   updateMessageQuery,
   createUsersTableQuery,
   deleteUsersTableQuery,
+  createUserQuery,
 } = require("./queries");
-const validateResultWithId = require("./utils");
+const {
+  validateResultWithId,
+  getCurrentUCTDate,
+  convertDateToISOString,
+} = require("./utils");
 
 async function createUsersTable() {
   return await pool.query(createUsersTableQuery);
@@ -28,6 +33,25 @@ async function deleteMessagesTable() {
 
 async function deleteUsersTable() {
   return await pool.query(deleteUsersTableQuery);
+}
+
+async function createUser(email, firstName, lastName, hashedPassword) {
+  if (!email || !firstName || !lastName || !hashedPassword)
+    throw new Error(
+      "please provide all the users properties(values and columns)"
+    );
+
+  const createdAt = convertDateToISOString(getCurrentUCTDate());
+  const updateAt = createdAt;
+
+  return await pool.query(createUserQuery, [
+    email,
+    firstName,
+    lastName,
+    createdAt,
+    updateAt,
+    hashedPassword,
+  ]);
 }
 
 async function createMessage(name, email, title, body, from, day, time) {
@@ -109,6 +133,10 @@ module.exports = {
 //   console.log(res);
 //   deleteUsersTable().then((res) => console.log(res));
 // });
+
+// createUser("test@email.com", "john", "doe", "123").then((res) =>
+//   console.log(res)
+// );
 
 // createMessage(
 //   "halaand",

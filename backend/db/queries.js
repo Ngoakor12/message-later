@@ -1,21 +1,23 @@
 module.exports = {
   createMessageTableQuery: `CREATE TABLE IF NOT EXISTS "messages"
-    ("messageId" int NOT NULL,
+    ("messageId" serial primary key,
         "authorId" int,
         "to" varchar,
         "email" varchar,
         "title" varchar,
         "body" varchar,
         "from" varchar,
-        "createdAt" timestamp,
-        "updatedAt" timestamp,
-        "sentAt" timestamp,
-        PRIMARY KEY ("messageId"),
+        "createdAt" varchar,
+        "updatedAt" varchar,
+        "sentAt" varchar,
         FOREIGN KEY ("authorId") REFERENCES "users"("userId")
     );`,
   createMessageQuery: `INSERT INTO "messages"
     ("authorId","to","email","title","body","from","createdAt","updatedAt","sentAt")
     VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;`,
+  createUserQuery: `INSERT INTO "users"
+    ("email","firstName","lastName","createdAt","updatedAt","hashedPassword")
+    VALUES($1,$2,$3,$4,$5,$6) RETURNING *;`,
   updateMessageQuery: `UPDATE messages
     SET "to" = $2,
       "email" = $3,
@@ -34,13 +36,12 @@ module.exports = {
   deleteMessagesTableQuery: `DROP TABLE IF EXISTS "messages";`,
   deleteUsersTableQuery: `DROP TABLE IF EXISTS "users";`,
   createUsersTableQuery: `CREATE TABLE IF NOT EXISTS "users"
-    ("userId" int NOT NULL,
+    ("userId" serial primary key,
         "email" varchar,
         "firstName" varchar,
         "lastName" varchar,
-        "createdAt" timestamp,
-        "updatedAt" timestamp,
-        "hashedPassword" varchar,
-        PRIMARY KEY ("userId")
+        "createdAt" varchar,
+        "updatedAt" varchar,
+        "hashedPassword" varchar
     );`,
 };

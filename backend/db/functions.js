@@ -166,11 +166,11 @@ module.exports = {
 
 // createUsersTable().then((res) => {
 //   console.log(res);
-//   createMessagesTable().then((res) => console.log(res));
+// createMessagesTable().then((res) => console.log(res));
 // });
 
 // deleteMessagesTable().then((res) => {
-//   console.log(res);
+// console.log(res);
 //   deleteUsersTable().then((res) => console.log(res));
 // });
 
@@ -178,16 +178,16 @@ module.exports = {
 //   console.log(res)
 // );
 
-createMessage(
-  2,
-  "halaand",
-  "halaand@mancity.com",
-  "question",
-  "are you a robot?",
-  "not police",
-  "12-06-2023",
-  "06:00"
-).then((res) => console.log(res));
+// createMessage(
+//   2,
+//   "halaand",
+//   "halaand@mancity.com",
+//   "question",
+//   "are you a robot?",
+//   "not police",
+//   "12-06-2023",
+//   "06:00"
+// ).then((res) => console.log(res));
 
 // deleteMessage(1, 4).then((res) => console.log(res));
 

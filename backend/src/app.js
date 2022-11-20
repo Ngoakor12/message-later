@@ -27,9 +27,11 @@ app.get("/", (_, res) => {
   res.status(200).json({ message: "server working flawlessly" });
 });
 
-app.get("/messages", async (_, res) => {
+app.get("/messages", async (req, res) => {
+  const { userId } = req.body;
+
   try {
-    const result = await viewMessages();
+    const result = await viewMessages(userId);
     res.status(200).json({ success: true, data: result.rows });
   } catch (error) {
     console.error(error);
@@ -97,11 +99,12 @@ app.put("/messages/:id", async (req, res) => {
 });
 
 app.post("/messages", async (req, res) => {
-  const { name, email, title, body, from, day, time } = req.body;
+  const { authorId, to, email, title, body, from, day, time } = req.body;
 
   try {
     const result = await createMessage(
-      name,
+      authorId,
+      to,
       email,
       title,
       body,

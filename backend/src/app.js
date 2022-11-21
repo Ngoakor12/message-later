@@ -10,7 +10,7 @@ const {
   deleteMessages,
 } = require("../db/functions");
 const { pool } = require("../db/config");
-const { validateId } = require("./utils");
+const { validateIds } = require("./utils");
 
 const PORT = process.env.PORT || 3001;
 const API_BASE_URL = `http://localhost:${PORT}`;
@@ -31,6 +31,7 @@ app.get("/messages", async (req, res) => {
   const { userId } = req.body;
 
   try {
+    validateIds(userId);
     const result = await viewMessages(userId);
     res.status(200).json({ success: true, data: result.rows });
   } catch (error) {
@@ -39,12 +40,13 @@ app.get("/messages", async (req, res) => {
   }
 });
 
-app.get("/messages/:id", async (req, res) => {
-  const { id } = req.params;
+app.get("/messages/:messageId", async (req, res) => {
+  const { messageId } = req.params;
+  const { userId } = req.body;
 
   try {
-    validateId(id);
-    const result = await viewMessage(id);
+    validateIds(messageId, userId);
+    const result = await viewMessage(userId, messageId);
     res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error(error);
@@ -52,12 +54,13 @@ app.get("/messages/:id", async (req, res) => {
   }
 });
 
-app.delete("/messages/:id", async (req, res) => {
-  const { id } = req.params;
+app.delete("/messages/:messageId", async (req, res) => {
+  const { messageId } = req.params;
+  const { userId } = req.body;
 
   try {
-    validateId(id);
-    await deleteMessage(id);
+    validateIds(userId, messageId);
+    await deleteMessage(userId, messageId);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
@@ -66,8 +69,11 @@ app.delete("/messages/:id", async (req, res) => {
 });
 
 app.delete("/messages", async (req, res) => {
+  const { userId } = req.body;
+
   try {
-    await deleteMessages();
+    validateIds(userId);
+    await deleteMessages(userId);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
@@ -80,7 +86,7 @@ app.put("/messages/:id", async (req, res) => {
   const { name, email, title, body, from, day, time } = req.body;
 
   try {
-    validateId(id);
+    validateIds(id);
     const result = await updateMessage(
       id,
       name,

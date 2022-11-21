@@ -28,11 +28,11 @@ app.get("/", (_, res) => {
 });
 
 app.get("/messages", async (req, res) => {
-  const { userId } = req.body;
+  const { authorId } = req.body;
 
   try {
-    validateIds(userId);
-    const result = await viewMessages(userId);
+    validateIds(authorId);
+    const result = await viewMessages(authorId);
     res.status(200).json({ success: true, data: result.rows });
   } catch (error) {
     console.error(error);
@@ -42,11 +42,11 @@ app.get("/messages", async (req, res) => {
 
 app.get("/messages/:messageId", async (req, res) => {
   const { messageId } = req.params;
-  const { userId } = req.body;
+  const { authorId } = req.body;
 
   try {
-    validateIds(messageId, userId);
-    const result = await viewMessage(userId, messageId);
+    validateIds(messageId, authorId);
+    const result = await viewMessage(authorId, messageId);
     res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error(error);
@@ -56,11 +56,11 @@ app.get("/messages/:messageId", async (req, res) => {
 
 app.delete("/messages/:messageId", async (req, res) => {
   const { messageId } = req.params;
-  const { userId } = req.body;
+  const { authorId } = req.body;
 
   try {
-    validateIds(userId, messageId);
-    await deleteMessage(userId, messageId);
+    validateIds(authorId, messageId);
+    await deleteMessage(authorId, messageId);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
@@ -69,11 +69,11 @@ app.delete("/messages/:messageId", async (req, res) => {
 });
 
 app.delete("/messages", async (req, res) => {
-  const { userId } = req.body;
+  const { authorId } = req.body;
 
   try {
-    validateIds(userId);
-    await deleteMessages(userId);
+    validateIds(authorId);
+    await deleteMessages(authorId);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
@@ -109,6 +109,7 @@ app.post("/messages", async (req, res) => {
   const { authorId, to, email, title, body, from, day, time } = req.body;
 
   try {
+    validateIds(authorId);
     const result = await createMessage(
       authorId,
       to,

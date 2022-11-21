@@ -81,15 +81,16 @@ app.delete("/messages", async (req, res) => {
   }
 });
 
-app.put("/messages/:id", async (req, res) => {
-  const { id } = req.params;
-  const { name, email, title, body, from, day, time } = req.body;
+app.put("/messages/:messageId", async (req, res) => {
+  const { messageId } = req.params;
+  const { authorId, to, email, title, body, from, day, time } = req.body;
 
   try {
-    validateIds(id);
+    validateIds(authorId, messageId);
     const result = await updateMessage(
-      id,
-      name,
+      authorId,
+      messageId,
+      to,
       email,
       title,
       body,

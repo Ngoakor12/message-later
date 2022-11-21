@@ -6,6 +6,7 @@ const {
   getCurrentUCTDate,
   convertDateToISOString,
   createUCTDate,
+  validateArguments,
 } = require("./utils");
 
 async function createUsersTable() {
@@ -25,15 +26,12 @@ async function deleteUsersTable() {
 }
 
 async function createUser(email, firstName, lastName, hashedPassword) {
-  if (!email || !firstName || !lastName || !hashedPassword)
-    throw new Error(
-      "please provide all the users properties(values and columns)"
-    );
+  validateArguments(email, firstName, lastName, hashedPassword);
 
   const createdAt = convertDateToISOString(getCurrentUCTDate());
   const updateAt = createdAt;
 
-  return await pool.query(userQuery.create, [
+  const result = await pool.query(userQuery.create, [
     email,
     firstName,
     lastName,
@@ -41,6 +39,8 @@ async function createUser(email, firstName, lastName, hashedPassword) {
     updateAt,
     hashedPassword,
   ]);
+  validateResultWithId(result);
+  return result;
 }
 
 async function createMessage(
@@ -53,16 +53,16 @@ async function createMessage(
   day,
   time
 ) {
-  if (!authorId || !to || !email || !title || !body || !from || !day || !time)
-    throw new Error(
-      "please provide all the messages properties(values and columns)"
-    );
+  validateArguments(authorId, to, email, title, body, from, day, time);
+
+  // verify that user with "authorId" exists before creating a message with that id
+  viewUser(authorId);
 
   const createdAt = convertDateToISOString(getCurrentUCTDate());
   const updatedAt = createdAt;
   const sentAt = convertDateToISOString(createUCTDate(day, time));
 
-  return await pool.query(messageQuery.create, [
+  const result = await pool.query(messageQuery.create, [
     authorId,
     to,
     email,
@@ -73,27 +73,42 @@ async function createMessage(
     updatedAt,
     sentAt,
   ]);
-}
-
-async function deleteMessage(id) {
-  const result = await pool.query(messageQuery.delete, [id]);
   validateResultWithId(result);
   return result;
 }
 
-async function deleteMessages() {
-  const result = await pool.query(messageQuery.deleteAll);
+async function deleteMessage(authorId, messageId) {
+  validateArguments(authorId, messageId);
+  const result = await pool.query(messageQuery.delete, [authorId, messageId]);
+  validateResultWithId(result);
+  return result;
+}
+
+async function deleteMessages(authorId) {
+  validateArguments(authorId);
+  const result = await pool.query(messageQuery.deleteAll, [authorId]);
+  validateResultWithId(result);
+  return result;
+}
+
+async function viewUser(authorId) {
+  validateArguments(authorId);
+  const result = await pool.query(userQuery.view, [authorId]);
+  validateResultWithId(result);
   return result;
 }
 
 async function viewMessage(authorId, messageId) {
+  validateArguments(authorId, messageId);
   const result = await pool.query(messageQuery.view, [authorId, messageId]);
   validateResultWithId(result);
   return result;
 }
 
-async function viewMessages() {
-  const result = await pool.query(messageQuery.viewAll);
+async function viewMessages(authorId) {
+  validateArguments(authorId);
+  const result = await pool.query(messageQuery.viewAll, [authorId]);
+  validateResultWithId(result);
   return result;
 }
 
@@ -108,20 +123,17 @@ async function updateMessage(
   day,
   time
 ) {
-  if (
-    !authorId ||
-    !messageId ||
-    !to ||
-    !email ||
-    !title ||
-    !body ||
-    !from ||
-    !day ||
-    !time
-  )
-    throw new Error(
-      "please provide all the messages properties(values and columns)"
-    );
+  validateArguments(
+    authorId,
+    messageId,
+    to,
+    email,
+    title,
+    body,
+    from,
+    day,
+    time
+  );
 
   const updatedAt = convertDateToISOString(getCurrentUCTDate());
   const sentAt = convertDateToISOString(createUCTDate(day, time));
@@ -154,11 +166,11 @@ module.exports = {
 
 // createUsersTable().then((res) => {
 //   console.log(res);
-//   createMessagesTable().then((res) => console.log(res));
+// createMessagesTable().then((res) => console.log(res));
 // });
 
 // deleteMessagesTable().then((res) => {
-//   console.log(res);
+// console.log(res);
 //   deleteUsersTable().then((res) => console.log(res));
 // });
 
@@ -177,11 +189,11 @@ module.exports = {
 //   "06:00"
 // ).then((res) => console.log(res));
 
-// deleteMessage(4).then((res) => console.log(res));
+// deleteMessage(1, 4).then((res) => console.log(res));
 
-// deleteMessages(0).then((res) => console.log(res));
+// deleteMessages(1).then((res) => console.log(res));
 
-// viewMessage(1, 2).then((res) => console.log(res));
+// viewMessage(2, 2).then((res) => console.log(res));
 
 // updateMessage(
 //   1,
@@ -195,4 +207,4 @@ module.exports = {
 //   "15:00"
 // ).then((res) => console.log(res));
 
-// viewMessages().then((res) => console.log(res));
+// viewMessages(2).then((res) => console.log(res));

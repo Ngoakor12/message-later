@@ -1,15 +1,25 @@
 function validateResultWithId(resObject) {
-  console.log(resObject);
+  // console.log(resObject);
   if (
     (resObject.command === "SELECT" ||
+      resObject.command === "SELECT" ||
       resObject.command === "UPDATE" ||
       resObject.command === "DELETE") &&
     resObject.rowCount === 0
   ) {
     throw new Error(
-      `current user unable to ${resObject.command} that resource because they are not authorized or it doesn't exist`
+      `current user is unable to ${resObject.command} that resource because they are not authorized or it doesn't exist`
     );
   }
+}
+
+function validateArguments(...args) {
+  args.forEach((arg, idx) => {
+    if (arg === undefined || arg === null)
+      throw new Error(
+        `"${arg}" in position ${idx} is not a valid argument. Please provide valid arguments for all the required parameters`
+      );
+  });
 }
 
 function createUCTDate(date, time) {
@@ -37,6 +47,7 @@ function getCurrentUCTDate() {
 
 module.exports = {
   validateResultWithId,
+  validateArguments,
   createUCTDate,
   convertUTCDateToLocalDate,
   convertDateToISOString,

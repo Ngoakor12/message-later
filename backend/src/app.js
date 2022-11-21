@@ -10,7 +10,7 @@ const {
   deleteMessages,
 } = require("../db/functions");
 const { pool } = require("../db/config");
-const { validateId } = require("./utils");
+const { validateIds } = require("./utils");
 
 const PORT = process.env.PORT || 3001;
 const API_BASE_URL = `http://localhost:${PORT}`;
@@ -27,9 +27,12 @@ app.get("/", (_, res) => {
   res.status(200).json({ message: "server working flawlessly" });
 });
 
-app.get("/messages", async (_, res) => {
+app.get("/messages", async (req, res) => {
+  const { authorId } = req.body;
+
   try {
-    const result = await viewMessages();
+    validateIds(authorId);
+    const result = await viewMessages(authorId);
     res.status(200).json({ success: true, data: result.rows });
   } catch (error) {
     console.error(error);
@@ -37,12 +40,13 @@ app.get("/messages", async (_, res) => {
   }
 });
 
-app.get("/messages/:id", async (req, res) => {
-  const { id } = req.params;
+app.get("/messages/:messageId", async (req, res) => {
+  const { messageId } = req.params;
+  const { authorId } = req.body;
 
   try {
-    validateId(id);
-    const result = await viewMessage(id);
+    validateIds(messageId, authorId);
+    const result = await viewMessage(authorId, messageId);
     res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error(error);
@@ -50,12 +54,13 @@ app.get("/messages/:id", async (req, res) => {
   }
 });
 
-app.delete("/messages/:id", async (req, res) => {
-  const { id } = req.params;
+app.delete("/messages/:messageId", async (req, res) => {
+  const { messageId } = req.params;
+  const { authorId } = req.body;
 
   try {
-    validateId(id);
-    await deleteMessage(id);
+    validateIds(authorId, messageId);
+    await deleteMessage(authorId, messageId);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
@@ -64,8 +69,11 @@ app.delete("/messages/:id", async (req, res) => {
 });
 
 app.delete("/messages", async (req, res) => {
+  const { authorId } = req.body;
+
   try {
-    await deleteMessages();
+    validateIds(authorId);
+    await deleteMessages(authorId);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
@@ -73,15 +81,16 @@ app.delete("/messages", async (req, res) => {
   }
 });
 
-app.put("/messages/:id", async (req, res) => {
-  const { id } = req.params;
-  const { name, email, title, body, from, day, time } = req.body;
+app.put("/messages/:messageId", async (req, res) => {
+  const { messageId } = req.params;
+  const { authorId, to, email, title, body, from, day, time } = req.body;
 
   try {
-    validateId(id);
+    validateIds(authorId, messageId);
     const result = await updateMessage(
-      id,
-      name,
+      authorId,
+      messageId,
+      to,
       email,
       title,
       body,
@@ -97,11 +106,13 @@ app.put("/messages/:id", async (req, res) => {
 });
 
 app.post("/messages", async (req, res) => {
-  const { name, email, title, body, from, day, time } = req.body;
+  const { authorId, to, email, title, body, from, day, time } = req.body;
 
   try {
+    validateIds(authorId);
     const result = await createMessage(
-      name,
+      authorId,
+      to,
       email,
       title,
       body,

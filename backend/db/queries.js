@@ -3,6 +3,7 @@ module.exports = {
     create: `INSERT INTO "users"
     ("email","firstName","lastName","createdAt","updatedAt","hashedPassword")
     VALUES($1,$2,$3,$4,$5,$6) RETURNING *;`,
+    view: `SELECT * FROM "users" WHERE "userId" = $1;`,
     deleteTable: `DROP TABLE IF EXISTS "users";`,
     createTable: `CREATE TABLE IF NOT EXISTS "users"
     ("userId" serial primary key,
@@ -41,10 +42,10 @@ module.exports = {
       "sentAt" = $9
     WHERE "authorId" = $1 AND "messageId" = $2
     RETURNING *;`,
-    delete: `DELETE FROM "messages" WHERE messageId=$1;`,
-    deleteAll: `DELETE FROM "messages";`,
+    delete: `DELETE FROM "messages" WHERE "authorId" = $1 AND "messageId" = $2;`,
+    deleteAll: `DELETE FROM "messages" WHERE "authorId" = $1;`,
     view: `SELECT * FROM "messages" WHERE "authorId" = $1 AND "messageId" = $2;`,
-    viewAll: `SELECT * FROM "messages";`,
+    viewAll: `SELECT * FROM "messages" WHERE "authorId" = $1;`,
     deleteTable: `DROP TABLE IF EXISTS "messages";`,
   },
 };

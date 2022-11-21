@@ -1,8 +1,10 @@
-function validateId(id) {
-  const convertedIdNumber = Number(id);
-  if (typeof convertedIdNumber !== "number") {
-    throw new Error("'id' should be a number. Please try again.");
-  }
+function validateIds(...ids) {
+  ids.forEach((id) => {
+    const convertedIdNumber = Number(id);
+    if (isNaN(convertedIdNumber)) {
+      throw new Error("'id' should be a number. Please try again.");
+    }
+  });
 }
 
-module.exports = { validateId };
+module.exports = { validateIds };

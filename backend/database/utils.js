@@ -1,5 +1,4 @@
 function validateResultWithId(resObject) {
-  // console.log(resObject);
   if (
     (resObject.command === "SELECT" ||
       resObject.command === "SELECT" ||

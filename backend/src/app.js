@@ -8,8 +8,8 @@ const {
   updateMessage,
   createMessage,
   deleteMessages,
-} = require("../db/functions");
-const { pool } = require("../db/config");
+} = require("../database/config");
+const { pool } = require("../database/config");
 const { validateIds } = require("./utils");
 
 const PORT = process.env.PORT || 3001;
@@ -130,15 +130,16 @@ app.post("/messages", async (req, res) => {
 // connect to db and start server
 pool
   .connect()
-  .then(async () => {
+  .then(() => {
     console.log("Successfully connected to db...");
     app.listen(PORT, () => {
       console.log(`App running at ${API_BASE_URL}`);
     });
   })
   .catch((error) => {
+    console.log(error);
     throw new Error(
       "A problem occurred while connecting to the db. Try again later.",
-      error
+      error.stack
     );
   });

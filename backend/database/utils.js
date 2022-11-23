@@ -1,6 +1,6 @@
 function validateResultWithId(resObject) {
   if (
-    (resObject.command === "SELECT" ||
+    (resObject.command === "INSERT" ||
       resObject.command === "SELECT" ||
       resObject.command === "UPDATE" ||
       resObject.command === "DELETE") &&

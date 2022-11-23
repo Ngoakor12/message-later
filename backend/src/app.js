@@ -137,9 +137,9 @@ pool
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.error(error);
     throw new Error(
       "A problem occurred while connecting to the db. Try again later.",
-      error.stack
+      error
     );
   });

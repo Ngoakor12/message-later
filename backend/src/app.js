@@ -8,7 +8,7 @@ const {
   updateMessage,
   createMessage,
   deleteMessages,
-} = require("../database/config");
+} = require("../database/functions");
 const { pool } = require("../database/config");
 const { validateIds } = require("./utils");
 

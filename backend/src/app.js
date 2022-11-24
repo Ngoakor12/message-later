@@ -28,11 +28,8 @@ app.get("/", (_, res) => {
 });
 
 app.get("/messages", async (req, res) => {
-  const { authorId } = req.body;
-
   try {
-    validateIds(authorId);
-    const result = await viewMessages(authorId);
+    const result = await viewMessages();
     res.status(200).json({ success: true, data: result.rows });
   } catch (error) {
     console.error(error);

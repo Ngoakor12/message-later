@@ -105,10 +105,8 @@ async function viewMessage(authorId, messageId) {
   return result;
 }
 
-async function viewMessages(authorId) {
-  validateArguments(authorId);
-  const result = await pool.query(messageQuery.viewAll, [authorId]);
-  validateResultWithId(result);
+async function viewMessages() {
+  const result = await pool.query(messageQuery.viewAll);
   return result;
 }
 

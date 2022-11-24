@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { DeleteIcon, EditIcon, MoreIcon } from "../../Icons";
+import { getTimeFromDate } from "./utils";
 
 function MessageSummary({ message }) {
   return (
@@ -11,8 +12,8 @@ function MessageSummary({ message }) {
         <div className="center">
           <div className="title">{message.title}</div>
           <div className="bottom">
-            <div>{message.time}</div>
-            <div>{message.recipientName}</div>
+            <div>{getTimeFromDate(message.sentAt)}</div>
+            <div>{message.to}</div>
           </div>
         </div>
       </Link>

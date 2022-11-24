@@ -45,7 +45,7 @@ module.exports = {
     delete: `DELETE FROM "messages" WHERE "authorId" = $1 AND "messageId" = $2;`,
     deleteAll: `DELETE FROM "messages" WHERE "authorId" = $1;`,
     view: `SELECT * FROM "messages" WHERE "authorId" = $1 AND "messageId" = $2;`,
-    viewAll: `SELECT * FROM "messages" WHERE "authorId" = $1;`,
+    viewAll: `SELECT * FROM "messages";`,
     deleteTable: `DROP TABLE IF EXISTS "messages";`,
   },
 };

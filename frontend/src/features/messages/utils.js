@@ -22,3 +22,7 @@ export function cleanDate(date) {
   const [day, month, year] = cleanedDateArray;
   return `${day} ${months[Number(month) - 1]} ${year}`;
 }
+
+export function getTimeFromDate(date) {
+  return date.substr(11, 5);
+}

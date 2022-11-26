@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MessageList from "./MessageList";
-import { cleanDate, getTimeFromDate, todayLocaleDateString } from "./utils";
+import { cleanDate, todayLocaleDateString } from "./utils";
 
 const API_PORT = 3001;
 const API_BASE_URL = `http://localhost:${API_PORT}`;

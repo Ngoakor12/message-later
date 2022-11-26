@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const API_PORT = 3001;
 const API_BASE_URL = `http://localhost:${API_PORT}`;
 
@@ -18,6 +18,7 @@ function ScheduleMessage() {
     day: "",
     time: "",
   });
+  const navigate = useNavigate();
 
   function handleChange(e) {
     const { value, name } = e.target;
@@ -42,7 +43,7 @@ function ScheduleMessage() {
       body: JSON.stringify(data),
     });
     console.log(await result.json());
-    return result;
+    navigate("/today");
   }
 
   // console.log(formValues);

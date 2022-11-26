@@ -38,15 +38,12 @@ function ScheduleMessage() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // "Content-Type": "application/x-www-form-urlencoded",
       },
       body: JSON.stringify(data),
     });
     console.log(await result.json());
     navigate("/today");
   }
-
-  // console.log(formValues);
 
   return (
     <form className="schedule-message-form" onSubmit={handleSubmit}>

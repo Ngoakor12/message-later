@@ -3,6 +3,11 @@ import { useState } from "react";
 const API_PORT = 3001;
 const API_BASE_URL = `http://localhost:${API_PORT}`;
 
+function dayMonthYear(dateString) {
+  const [year, month, day] = dateString.split("-");
+  return `${month}-${day}-${year}`;
+}
+
 function ScheduleMessage() {
   const [formValues, setFormValues] = useState({
     to: "",
@@ -17,6 +22,9 @@ function ScheduleMessage() {
   function handleChange(e) {
     const { value, name } = e.target;
     setFormValues((prevFormValues) => {
+      if (name === "day") {
+        return { ...prevFormValues, [name]: dayMonthYear(value) };
+      }
       return { ...prevFormValues, [name]: value };
     });
   }

@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+const API_PORT = 3001;
+const API_BASE_URL = `http://localhost:${API_PORT}`;
+
 function ScheduleMessage() {
   const [formValues, setFormValues] = useState({
     to: "",
@@ -18,10 +21,26 @@ function ScheduleMessage() {
     });
   }
 
-  console.log(formValues);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const data = { authorId: 2, ...formValues };
+    console.log(data);
+    const result = await fetch(`${API_BASE_URL}/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(await result.json());
+    return result;
+  }
+
+  // console.log(formValues);
 
   return (
-    <form className="schedule-message-form">
+    <form className="schedule-message-form" onSubmit={handleSubmit}>
       {/* <h2>ScheduleMessage</h2> */}
       <div className="recipient">
         <h3>Recipient</h3>

@@ -17,6 +17,7 @@ const API_BASE_URL = `http://localhost:${PORT}`;
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
   cors({
     origin: "*",

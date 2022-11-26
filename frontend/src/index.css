@@ -236,12 +236,14 @@ a.message-summary {
 .message-details .body .title-time-recipient {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 }
 
 .message-details .time-recipient {
+  color: #616161;
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  font-size: 12px;
 }
 
 .message-details .body .text {

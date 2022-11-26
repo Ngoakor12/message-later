@@ -8,6 +8,7 @@ function Today({ messages }) {
   return (
     <main className="today-main">
       <div className="today-date-container">
+        <h1>Today</h1>
         <div className="horizontal-line"></div>
         <div className="today-date">{cleanedDate}</div>
       </div>

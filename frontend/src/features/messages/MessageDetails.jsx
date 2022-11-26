@@ -6,6 +6,7 @@ import {
   ForwardArrowIcon,
   PreviousPageIcon,
 } from "../../Icons";
+import { getTimeFromDate } from "./utils";
 
 function MessageDetails({ messages }) {
   messages = messages || [];
@@ -13,7 +14,7 @@ function MessageDetails({ messages }) {
   const { messageId } = useParams();
   const message =
     messages?.data?.find((msg) => msg.messageId === Number(messageId)) || [];
-
+  console.log(messages);
   return message ? (
     <div className="message-details">
       <div className="top-bar">
@@ -37,10 +38,10 @@ function MessageDetails({ messages }) {
       </div>
       <div className="body">
         <div className="title-time-recipient">
-          <div className="title">{message.title}</div>
+          <h1 className="title">{message.title}</h1>
           <div className="time-recipient">
-            <div>{message.time}</div>
-            <div>{message.recipientName}</div>
+            <p>{getTimeFromDate(message?.sentAt || "")}</p>
+            <p>{message.from}</p>
           </div>
         </div>
         <p className="text">{message.body}</p>

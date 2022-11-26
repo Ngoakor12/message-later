@@ -1,48 +1,138 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+const API_PORT = 3001;
+const API_BASE_URL = `http://localhost:${API_PORT}`;
+
+function dayMonthYear(dateString) {
+  const [year, month, day] = dateString.split("-");
+  return `${month}-${day}-${year}`;
+}
+
 function ScheduleMessage() {
+  const [formValues, setFormValues] = useState({
+    to: "",
+    email: "",
+    title: "",
+    body: "",
+    from: "",
+    day: "",
+    time: "",
+  });
+  const navigate = useNavigate();
+
+  function handleChange(e) {
+    const { value, name } = e.target;
+    setFormValues((prevFormValues) => {
+      if (name === "day") {
+        return { ...prevFormValues, [name]: dayMonthYear(value) };
+      }
+      return { ...prevFormValues, [name]: value };
+    });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const data = { authorId: 2, ...formValues };
+    console.log(data);
+    const result = await fetch(`${API_BASE_URL}/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(await result.json());
+    navigate("/today");
+  }
+
   return (
-    <form className="schedule-message-form">
-      {/* <h1>ScheduleMessage</h1> */}
+    <form className="schedule-message-form" onSubmit={handleSubmit}>
+      {/* <h2>ScheduleMessage</h2> */}
       <div className="recipient">
-        <h2>Recipient</h2>
-        <div className="name-field">
-          <label htmlFor="name">Name</label>
-          <input id="name" name="name" />
+        <h3>Recipient</h3>
+        <div className="to-field">
+          <label htmlFor="name">To</label>
+          <input id="to" name="to" onChange={handleChange} />
         </div>
-        <div className="contact-field">
-          <label htmlFor="contact">Email</label>
-          <input id="contact" name="contact" />
+        <div className="email-field">
+          <label htmlFor="contact">
+            Email{" "}
+            <span className="required-label-text">
+              <em>{"(required)"}</em>
+            </span>
+          </label>
+          <input id="email" name="email" required onChange={handleChange} />
         </div>
       </div>
       <div className="message">
-        <h2>Message</h2>
+        <h3>Message</h3>
         <div className="title-field">
-          <label htmlFor="title">Title</label>
-          <input id="title" name="title" />
+          <label htmlFor="title">
+            Title{" "}
+            <span className="required-label-text">
+              <em>{"(required)"}</em>
+            </span>
+          </label>
+          <input id="title" name="title" required onChange={handleChange} />
         </div>
         <div className="body-field">
-          <label htmlFor="body">Body</label>
-          <textarea name="body" id="body" cols="30" rows="5"></textarea>
+          <label htmlFor="body">
+            Body{" "}
+            <span className="required-label-text">
+              <em>{"(required)"}</em>
+            </span>
+          </label>
+          <textarea
+            name="body"
+            id="body"
+            cols="30"
+            rows="5"
+            required
+            onChange={handleChange}
+          ></textarea>
         </div>
         <div className="from-field">
           <label htmlFor="from">From</label>
-          <input id="from" name="from" />
+          <input id="from" name="from" onChange={handleChange} />
         </div>
       </div>
       <div className="date">
-        <h2>Date</h2>
+        <h3>Date</h3>
         <div className="date-fields">
           <div className="day-field">
-            <label htmlFor="day">Day</label>
-            <input type={"date"} id="day" name="day" />
+            <label htmlFor="day">
+              Day{" "}
+              <span className="required-label-text">
+                <em>{"(required)"}</em>
+              </span>
+            </label>
+            <input
+              type={"date"}
+              id="day"
+              name="day"
+              required
+              onChange={handleChange}
+            />
           </div>
           <div className="time-field">
-            <label htmlFor="time">Time</label>
-            <input type={"time"} id="time" name="time" />
+            <label htmlFor="time">
+              Time{" "}
+              <span className="required-label-text">
+                <em>{"(required)"}</em>
+              </span>
+            </label>
+            <input
+              type={"time"}
+              id="time"
+              name="time"
+              required
+              onChange={handleChange}
+            />
           </div>
         </div>
       </div>
       <div className="schedule-message-buttons">
-        <button type={"button"} className="schedule-button">
+        <button type={"submit"} className="schedule-button">
           Schedule message
         </button>
         <button type={"button"} className="drafts-button">

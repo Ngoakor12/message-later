@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import MessageList from "./MessageList";
-import { cleanDate, getTimeFromDate, todayLocaleDateString } from "./utils";
+import { cleanDate, todayLocaleDateString } from "./utils";
+
+const API_PORT = 3001;
+const API_BASE_URL = `http://localhost:${API_PORT}`;
 
 function Today() {
   const date = todayLocaleDateString();
@@ -14,17 +17,11 @@ function Today() {
   }, []);
 
   async function getMessages() {
-    const url = "http://localhost:3001/messages";
+    const url = `${API_BASE_URL}/messages`;
     const res = await fetch(url);
     const data = res.json();
     return data;
   }
-
-  if (messages.data) {
-    getTimeFromDate(messages.data[0].sentAt);
-  }
-
-  console.log(messages);
 
   return (
     <main className="today-main">

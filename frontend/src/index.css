@@ -247,7 +247,11 @@ a.message-summary {
 }
 
 .message-details .body .text {
+  font-family: "Poppins", sans-serif;
   line-height: 28px;
+}
+textarea#body {
+  font-family: "Poppins", sans-serif;
 }
 
 .message-details .next-back-buttons {
@@ -404,9 +408,10 @@ a.message-summary {
 }
 
 .schedule-message-form .schedule-message-buttons button {
+  font-family: "Poppins", sans-serif;
   border: 1px solid black;
   font-weight: 700;
-  padding: 10px;
+  padding: 10px 20px;
   background-color: #fff;
   cursor: pointer;
 }

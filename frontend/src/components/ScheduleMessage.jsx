@@ -9,7 +9,7 @@ function dayMonthYear(dateString) {
   return `${month}-${day}-${year}`;
 }
 
-function ScheduleMessage() {
+function ScheduleMessage({ setMessages }) {
   const [formValues, setFormValues] = useState({
     to: "",
     email: "",
@@ -44,7 +44,7 @@ function ScheduleMessage() {
     });
     console.log(await result.json());
     // update messages list
-    await getMessages();
+    await getMessages().then((messages) => setMessages(messages));
     // navigate to prev path
     navigate(-1);
   }

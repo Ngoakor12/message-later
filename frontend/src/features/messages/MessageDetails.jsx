@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BackArrowIcon,
   DeleteIcon,
@@ -6,19 +6,26 @@ import {
   ForwardArrowIcon,
   PreviousPageIcon,
 } from "../../Icons";
-import messages from "../../mock-messages";
+import { getTimeFromDate } from "./utils";
 
-function MessageDetails() {
-  const { id } = useParams();
-  const message = messages.find((msg) => msg.messageId === Number(id));
-
+function MessageDetails({ messages }) {
+  messages = messages || [];
+  const navigate = useNavigate();
+  const { messageId } = useParams();
+  const message =
+    messages?.data?.find((msg) => msg.messageId === Number(messageId)) || [];
+  console.log(messages);
   return message ? (
     <div className="message-details">
       <div className="top-bar">
         <div className="left-buttons">
-          <Link to={"/today"} className="previous-page-icon">
+          <button
+            type="button"
+            className="previous-page-icon"
+            onClick={() => navigate(-1)}
+          >
             <PreviousPageIcon />
-          </Link>
+          </button>
         </div>
         <div className="right-buttons">
           <div className="edit-icon">
@@ -31,10 +38,10 @@ function MessageDetails() {
       </div>
       <div className="body">
         <div className="title-time-recipient">
-          <div className="title">{message.title}</div>
+          <h1 className="title">{message.title}</h1>
           <div className="time-recipient">
-            <div>{message.time}</div>
-            <div>{message.recipientName}</div>
+            <p>{getTimeFromDate(message?.sentAt || "")}</p>
+            <p>{message.from}</p>
           </div>
         </div>
         <p className="text">{message.body}</p>

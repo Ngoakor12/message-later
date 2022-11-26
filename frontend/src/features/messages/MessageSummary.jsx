@@ -5,7 +5,7 @@ import { getTimeFromDate } from "./utils";
 function MessageSummary({ message }) {
   return (
     <div className="message-summary-wrapper">
-      <Link to={`/message/${message.messageId}`} className="message-summary">
+      <Link to={`/messages/${message.messageId}`} className="message-summary">
         <div className="left">
           <div className="status-icon"></div>
         </div>
@@ -21,7 +21,7 @@ function MessageSummary({ message }) {
         <MoreIcon />
       </div>
       <div className="more-options">
-        <Link to={"/message/edit/1"} className="edit-icon">
+        <Link to={`/messages/${message.messageId}/edit`} className="edit-icon">
           <EditIcon />
         </Link>
         <Link to={"/"} className="delete-icon">

@@ -77,9 +77,9 @@ async function createMessage(
   return result;
 }
 
-async function deleteMessage(authorId, messageId) {
-  validateArguments(authorId, messageId);
-  const result = await pool.query(messageQuery.delete, [authorId, messageId]);
+async function deleteMessage(messageId) {
+  validateArguments(messageId);
+  const result = await pool.query(messageQuery.delete, [messageId]);
   validateResultWithId(result);
   return result;
 }

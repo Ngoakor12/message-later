@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
+import { deleteMessage, getMessages } from "../../App";
 import { DeleteIcon, EditIcon, MoreIcon } from "../../Icons";
 import { getTimeFromDate } from "./utils";
 
-function MessageSummary({ message }) {
+function MessageSummary({ message, setMessages }) {
+  function handleClickDelete() {
+    deleteMessage(message.messageId).then(() => {
+      getMessages().then((res) => setMessages(res));
+    });
+  }
   return (
     <div className="message-summary-wrapper">
       <Link to={`/messages/${message.messageId}`} className="message-summary">
@@ -24,9 +30,9 @@ function MessageSummary({ message }) {
         <Link to={`/messages/${message.messageId}/edit`} className="edit-icon">
           <EditIcon />
         </Link>
-        <Link to={"/"} className="delete-icon">
+        <button className="delete-icon" onClick={() => handleClickDelete()}>
           <DeleteIcon />
-        </Link>
+        </button>
       </div>
     </div>
   );

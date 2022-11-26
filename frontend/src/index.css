@@ -271,8 +271,13 @@ a.message-summary {
   flex-direction: column;
   gap: 30px;
 }
+
 .schedule-message-form label {
   padding-bottom: 5px;
+}
+
+.schedule-message-form .required-label-text {
+  color: #afafaf;
 }
 
 .schedule-message-form input,
@@ -288,7 +293,7 @@ a.message-summary {
   gap: 10px;
 }
 
-.schedule-message-form .recipient .name-field {
+.schedule-message-form .recipient .to-field {
   display: flex;
   flex-direction: column;
 }
@@ -314,7 +319,7 @@ a.message-summary {
   padding: 0;
 }
 
-.schedule-message-form .recipient .contact-field {
+.schedule-message-form .recipient .email-field {
   display: flex;
   flex-direction: column;
 }

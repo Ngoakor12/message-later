@@ -54,11 +54,10 @@ app.get("/messages/:messageId", async (req, res) => {
 
 app.delete("/messages/:messageId", async (req, res) => {
   const { messageId } = req.params;
-  const { authorId } = req.body;
 
   try {
-    validateIds(authorId, messageId);
-    await deleteMessage(authorId, messageId);
+    validateIds(messageId);
+    await deleteMessage(messageId);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);

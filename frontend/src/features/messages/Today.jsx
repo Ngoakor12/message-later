@@ -1,7 +1,7 @@
 import MessageList from "./MessageList";
 import { cleanDate, todayLocaleDateString } from "./utils";
 
-function Today({ messages }) {
+function Today({ messages, setMessages }) {
   const date = todayLocaleDateString();
   const cleanedDate = cleanDate(date);
 
@@ -12,7 +12,7 @@ function Today({ messages }) {
         <div className="horizontal-line"></div>
         <div className="today-date">{cleanedDate}</div>
       </div>
-      <MessageList messages={messages} />
+      <MessageList messages={messages} setMessages={setMessages} />
     </main>
   );
 }

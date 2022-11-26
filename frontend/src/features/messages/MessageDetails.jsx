@@ -18,13 +18,13 @@ function MessageDetails({ messages }) {
     <div className="message-details">
       <div className="top-bar">
         <div className="left-buttons">
-          <Link
-            to={"/today"}
+          <button
+            type="button"
             className="previous-page-icon"
             onClick={() => navigate(-1)}
           >
             <PreviousPageIcon />
-          </Link>
+          </button>
         </div>
         <div className="right-buttons">
           <div className="edit-icon">

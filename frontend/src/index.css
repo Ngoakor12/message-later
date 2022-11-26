@@ -194,6 +194,7 @@ a.message-summary {
 
 .message-details .top-bar .right-buttons {
   display: flex;
+  gap: 8px;
 }
 
 .message-details .top-bar .edit-icon,
@@ -202,7 +203,17 @@ a.message-summary {
   color: #616161;
   display: flex;
   align-items: center;
-  padding: 5px;
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.message-details .top-bar .edit-icon:hover,
+.message-details .top-bar .delete-icon:hover,
+.message-details .top-bar .previous-page-icon:hover {
+  background-color: #d9d9d9;
 }
 
 .message-details .title-edit .top-bar {
@@ -240,16 +251,23 @@ a.message-summary {
 .message-details .next-back-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
 }
 
 .message-details .next-back-buttons .back-button,
 .message-details .next-back-buttons .next-button {
+  color: #616161;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #000;
-  padding: 10px 10px;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.message-details .next-back-buttons .back-button:hover,
+.message-details .next-back-buttons .next-button:hover {
+  background-color: #d9d9d9;
 }
 
 .message-details .next-back-buttons .back-button .label,
@@ -408,7 +426,7 @@ a.message-summary {
   }
   .more-options {
     display: none;
-    gap: 6px;
+    gap: 8px;
     position: absolute;
     top: 12px;
     right: 20px;
@@ -416,16 +434,13 @@ a.message-summary {
 
   .more-options .edit-icon,
   .more-options .delete-icon {
+    color: #616161;
     display: flex;
     align-items: center;
+    gap: 8px;
     justify-content: center;
     padding: 8px;
     cursor: pointer;
-  }
-
-  .more-options .edit-icon,
-  .more-options .delete-icon {
-    color: #000;
   }
 
   .more-options .edit-icon:hover,

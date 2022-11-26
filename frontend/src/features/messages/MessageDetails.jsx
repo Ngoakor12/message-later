@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BackArrowIcon,
   DeleteIcon,
@@ -6,17 +6,23 @@ import {
   ForwardArrowIcon,
   PreviousPageIcon,
 } from "../../Icons";
-import messages from "../../mock-messages";
 
-function MessageDetails() {
-  const { id } = useParams();
-  const message = messages.find((msg) => msg.messageId === Number(id));
+function MessageDetails({ messages }) {
+  messages = messages || [];
+  const navigate = useNavigate();
+  const { messageId } = useParams();
+  const message =
+    messages?.data?.find((msg) => msg.messageId === Number(messageId)) || [];
 
   return message ? (
     <div className="message-details">
       <div className="top-bar">
         <div className="left-buttons">
-          <Link to={"/today"} className="previous-page-icon">
+          <Link
+            to={"/today"}
+            className="previous-page-icon"
+            onClick={() => navigate(-1)}
+          >
             <PreviousPageIcon />
           </Link>
         </div>

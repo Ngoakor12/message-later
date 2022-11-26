@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getMessages } from "../App";
 const API_PORT = 3001;
 const API_BASE_URL = `http://localhost:${API_PORT}`;
 
@@ -42,7 +43,10 @@ function ScheduleMessage() {
       body: JSON.stringify(data),
     });
     console.log(await result.json());
-    navigate("/today");
+    // update messages list
+    await getMessages();
+    // navigate to prev path
+    navigate(-1);
   }
 
   return (
@@ -51,11 +55,11 @@ function ScheduleMessage() {
       <div className="recipient">
         <h3>Recipient</h3>
         <div className="to-field">
-          <label htmlFor="name">To</label>
+          <label htmlFor="to">To</label>
           <input id="to" name="to" onChange={handleChange} />
         </div>
         <div className="email-field">
-          <label htmlFor="contact">
+          <label htmlFor="email">
             Email{" "}
             <span className="required-label-text">
               <em>{"(required)"}</em>

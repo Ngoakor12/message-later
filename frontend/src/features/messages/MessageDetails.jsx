@@ -1,4 +1,5 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteMessage, getMessages } from "../../App";
 import {
   BackArrowIcon,
   DeleteIcon,
@@ -8,12 +9,19 @@ import {
 } from "../../Icons";
 import { getTimeFromDate } from "./utils";
 
-function MessageDetails({ messages }) {
+function MessageDetails({ messages, setMessages }) {
   messages = messages || [];
   const navigate = useNavigate();
   const { messageId } = useParams();
   const message =
     messages?.data?.find((msg) => msg.messageId === Number(messageId)) || [];
+
+  function handleClickDelete() {
+    deleteMessage(message.messageId).then(() => {
+      getMessages().then((res) => setMessages(res));
+      navigate(-1);
+    });
+  }
   console.log(messages);
   return message ? (
     <div className="message-details">
@@ -31,9 +39,13 @@ function MessageDetails({ messages }) {
           <div className="edit-icon">
             <EditIcon />
           </div>
-          <div className="delete-icon">
+          <button
+            className="delete-icon"
+            type="button"
+            onClick={handleClickDelete}
+          >
             <DeleteIcon />
-          </div>
+          </button>
         </div>
       </div>
       <div className="body">

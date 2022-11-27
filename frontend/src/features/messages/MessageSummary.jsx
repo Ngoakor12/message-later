@@ -30,7 +30,7 @@ function MessageSummary({ message, setMessages }) {
         <Link to={`/messages/${message.messageId}/edit`} className="edit-icon">
           <EditIcon />
         </Link>
-        <button className="delete-icon" onClick={() => handleClickDelete()}>
+        <button className="delete-icon" onClick={handleClickDelete}>
           <DeleteIcon />
         </button>
       </div>

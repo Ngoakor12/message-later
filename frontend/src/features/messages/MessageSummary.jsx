@@ -11,7 +11,11 @@ function MessageSummary({ message, setMessages }) {
   }
   return (
     <div className="message-summary-wrapper">
-      <Link to={`/messages/${message.messageId}`} className="message-summary">
+      <Link
+        to={`/messages/${message.messageId}`}
+        className="message-summary"
+        message={message}
+      >
         <div className="left">
           <div className="status-icon"></div>
         </div>

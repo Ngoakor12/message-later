@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteMessage, getMessages } from "../../App";
 import {
   BackArrowIcon,
@@ -22,7 +22,6 @@ function MessageDetails({ messages, setMessages }) {
       navigate(-1);
     });
   }
-  console.log(messages);
   return message ? (
     <div className="message-details">
       <div className="top-bar">
@@ -36,9 +35,13 @@ function MessageDetails({ messages, setMessages }) {
           </button>
         </div>
         <div className="right-buttons">
-          <div className="edit-icon">
+          <Link
+            to={`/messages/${message.messageId}/edit`}
+            message={message}
+            className="edit-icon"
+          >
             <EditIcon />
-          </div>
+          </Link>
           <button
             className="delete-icon"
             type="button"

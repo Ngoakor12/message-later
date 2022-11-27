@@ -4,6 +4,7 @@ import Drafts from "../features/messages/Drafts";
 import Today from "../features/messages/Today";
 import ScheduleMessage from "./ScheduleMessage";
 import MessageDetails from "../features/messages/MessageDetails";
+import EditMessage from "./EditMessage";
 
 function RoutesComponent({ messages, setMessages }) {
   return (
@@ -28,7 +29,7 @@ function RoutesComponent({ messages, setMessages }) {
       <Route
         exact
         path="/messages/:messageId/edit"
-        element={<ScheduleMessage />}
+        element={<EditMessage messages={messages} setMessages={setMessages} />}
       />
       <Route
         exact

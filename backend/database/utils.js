@@ -39,6 +39,11 @@ function convertDateToISOString(date) {
   return newDate;
 }
 
+function convertISOStringToDate(date) {
+  const newDate = new Date(date);
+  return newDate;
+}
+
 function getCurrentUCTDate() {
   const date = new Date();
   return date;
@@ -50,6 +55,7 @@ module.exports = {
   createUCTDate,
   convertUTCDateToLocalDate,
   convertDateToISOString,
+  convertISOStringToDate,
   getCurrentUCTDate,
 };
 

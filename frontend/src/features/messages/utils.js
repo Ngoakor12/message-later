@@ -24,5 +24,22 @@ export function cleanDate(date) {
 }
 
 export function getTimeFromDate(date) {
-  return date.substr(11, 5);
+  if (date) {
+    return date.substr(11, 5);
+  }
+}
+export function getYearMonthDayFromDate(date) {
+  if (date) {
+    return date.substr(0, 10);
+  }
+}
+export function convertUTCDateToLocalDate(date) {
+  const newDate = new Date(date);
+  newDate.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+  return newDate;
+}
+
+export function convertISOStringToDate(date) {
+  const newDate = new Date(date);
+  return newDate;
 }

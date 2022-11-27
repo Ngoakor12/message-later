@@ -33,3 +33,13 @@ export function getYearMonthDayFromDate(date) {
     return date.substr(0, 10);
   }
 }
+export function convertUTCDateToLocalDate(date) {
+  const newDate = new Date(date);
+  newDate.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+  return newDate;
+}
+
+export function convertISOStringToDate(date) {
+  const newDate = new Date(date);
+  return newDate;
+}

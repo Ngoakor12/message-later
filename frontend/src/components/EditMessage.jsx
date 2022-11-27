@@ -36,8 +36,8 @@ function EditMessage({ messages, setMessages }) {
       title: message.title,
       body: message.body,
       from: message.from,
-      day: message.day,
-      time: message.time,
+      day: getYearMonthDayFromDate(message.sentAt),
+      time: getTimeFromDate(message.sentAt),
     });
   }, [message]);
 
@@ -57,23 +57,25 @@ function EditMessage({ messages, setMessages }) {
     e.preventDefault();
     const data = { authorId: 2, ...formValues };
     console.log(data);
-    const result = await fetch(`${API_BASE_URL}/messages`, {
-      method: "POST",
+    const response = await fetch(`${API_BASE_URL}/messages/${messageId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-    console.log(await result.json());
-    // update messages list
-    await getMessages().then((messages) => setMessages(messages));
-    // navigate to prev path
-    navigate(-1);
+    const responseData = await response.json();
+    if (responseData.success) {
+      // update messages list
+      await getMessages().then((messages) => setMessages(messages));
+      // navigate to prev path
+      navigate(-1);
+    } else {
+      console.log(
+        "Something went wrong. Message not updated. Please try again."
+      );
+    }
   }
-
-  // console.log(messages);
-  // console.log(message);
-  // console.log(formValues);
 
   return message ? (
     <form className="schedule-message-form" onSubmit={handleSubmit}>
@@ -188,7 +190,7 @@ function EditMessage({ messages, setMessages }) {
       </div>
       <div className="schedule-message-buttons">
         <button type={"submit"} className="schedule-button">
-          Schedule message
+          Update message
         </button>
         <button type={"button"} className="drafts-button">
           Add to drafts

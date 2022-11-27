@@ -31,11 +31,7 @@ function MessageSummary({ message, setMessages }) {
         <MoreIcon />
       </div>
       <div className="more-options">
-        <Link
-          to={`/messages/${message.messageId}/edit`}
-          className="edit-icon"
-          message={message}
-        >
+        <Link to={`/messages/${message.messageId}/edit`} className="edit-icon">
           <EditIcon />
         </Link>
         <button className="delete-icon" onClick={handleClickDelete}>

@@ -7,7 +7,6 @@ import {
   ForwardArrowIcon,
   PreviousPageIcon,
 } from "../../Icons";
-import { getTimeFromDate } from "./utils";
 
 function MessageDetails({ messages, setMessages }) {
   messages = messages || [];
@@ -55,8 +54,8 @@ function MessageDetails({ messages, setMessages }) {
         <div className="title-time-recipient">
           <h1 className="title">{message.title}</h1>
           <div className="time-recipient">
-            <p>{getTimeFromDate(message?.sentAt || "")}</p>
-            <p>{message.from}</p>
+            <strong>{message.to}</strong>
+            <p>{message?.sentAt}</p>
           </div>
         </div>
         <p className="text">{message.body}</p>

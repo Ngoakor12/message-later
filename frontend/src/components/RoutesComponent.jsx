@@ -33,7 +33,9 @@ function RoutesComponent({ messages, setMessages }) {
       <Route
         exact
         path="/messages/:messageId"
-        element={<MessageDetails messages={messages} />}
+        element={
+          <MessageDetails messages={messages} setMessages={setMessages} />
+        }
       />
     </Routes>
   );

@@ -24,5 +24,12 @@ export function cleanDate(date) {
 }
 
 export function getTimeFromDate(date) {
-  return date.substr(11, 5);
+  if (date) {
+    return date.substr(11, 5);
+  }
+}
+export function getYearMonthDayFromDate(date) {
+  if (date) {
+    return date.substr(0, 10);
+  }
 }

@@ -11,7 +11,11 @@ function MessageSummary({ message, setMessages }) {
   }
   return (
     <div className="message-summary-wrapper">
-      <Link to={`/messages/${message.messageId}`} className="message-summary">
+      <Link
+        to={`/messages/${message.messageId}`}
+        className="message-summary"
+        message={message}
+      >
         <div className="left">
           <div className="status-icon"></div>
         </div>
@@ -27,7 +31,11 @@ function MessageSummary({ message, setMessages }) {
         <MoreIcon />
       </div>
       <div className="more-options">
-        <Link to={`/messages/${message.messageId}/edit`} className="edit-icon">
+        <Link
+          to={`/messages/${message.messageId}/edit`}
+          className="edit-icon"
+          message={message}
+        >
           <EditIcon />
         </Link>
         <button className="delete-icon" onClick={handleClickDelete}>

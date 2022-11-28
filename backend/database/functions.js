@@ -1,5 +1,4 @@
 const { pool } = require("./config");
-
 const { messageQuery, userQuery } = require("./queries");
 const {
   validateResultWithId,
@@ -98,9 +97,9 @@ async function viewUser(authorId) {
   return result;
 }
 
-async function viewMessage(authorId, messageId) {
-  validateArguments(authorId, messageId);
-  const result = await pool.query(messageQuery.view, [authorId, messageId]);
+async function viewMessage(messageId) {
+  validateArguments(messageId);
+  const result = await pool.query(messageQuery.view, [messageId]);
   validateResultWithId(result);
   return result;
 }
@@ -111,7 +110,6 @@ async function viewMessages() {
 }
 
 async function updateMessage(
-  authorId,
   messageId,
   to,
   email,
@@ -121,23 +119,12 @@ async function updateMessage(
   day,
   time
 ) {
-  validateArguments(
-    authorId,
-    messageId,
-    to,
-    email,
-    title,
-    body,
-    from,
-    day,
-    time
-  );
+  validateArguments(messageId, to, email, title, body, from, day, time);
 
   const updatedAt = convertDateToISOString(getCurrentUCTDate());
   const sentAt = convertDateToISOString(createUCTDate(day, time));
 
   const result = await pool.query(messageQuery.update, [
-    authorId,
     messageId,
     to,
     email,

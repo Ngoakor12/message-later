@@ -55,12 +55,11 @@ async function postMessageToServer(req, res) {
 
 async function updateMessageOnServer(req, res) {
   const { messageId } = req.params;
-  const { authorId, to, email, title, body, from, day, time } = req.body;
+  const { to, email, title, body, from, day, time } = req.body;
 
   try {
-    validateIds(authorId, messageId);
+    validateIds(messageId);
     const result = await updateMessage(
-      authorId,
       messageId,
       to,
       email,

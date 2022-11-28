@@ -110,7 +110,6 @@ async function viewMessages() {
 }
 
 async function updateMessage(
-  authorId,
   messageId,
   to,
   email,
@@ -120,23 +119,12 @@ async function updateMessage(
   day,
   time
 ) {
-  validateArguments(
-    authorId,
-    messageId,
-    to,
-    email,
-    title,
-    body,
-    from,
-    day,
-    time
-  );
+  validateArguments(messageId, to, email, title, body, from, day, time);
 
   const updatedAt = convertDateToISOString(getCurrentUCTDate());
   const sentAt = convertDateToISOString(createUCTDate(day, time));
 
   const result = await pool.query(messageQuery.update, [
-    authorId,
     messageId,
     to,
     email,

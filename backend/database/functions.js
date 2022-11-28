@@ -1,5 +1,4 @@
 const { pool } = require("./config");
-
 const { messageQuery, userQuery } = require("./queries");
 const {
   validateResultWithId,
@@ -98,9 +97,9 @@ async function viewUser(authorId) {
   return result;
 }
 
-async function viewMessage(authorId, messageId) {
-  validateArguments(authorId, messageId);
-  const result = await pool.query(messageQuery.view, [authorId, messageId]);
+async function viewMessage(messageId) {
+  validateArguments(messageId);
+  const result = await pool.query(messageQuery.view, [messageId]);
   validateResultWithId(result);
   return result;
 }

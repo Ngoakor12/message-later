@@ -40,11 +40,10 @@ app.get("/messages", async (req, res) => {
 
 app.get("/messages/:messageId", async (req, res) => {
   const { messageId } = req.params;
-  const { authorId } = req.body;
 
   try {
-    validateIds(messageId, authorId);
-    const result = await viewMessage(authorId, messageId);
+    validateIds(messageId);
+    const result = await viewMessage(messageId);
     res.status(200).json({ success: true, data: result.rows[0] });
   } catch (error) {
     console.error(error);

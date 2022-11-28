@@ -40,11 +40,11 @@ module.exports = {
       "from" = $7,
       "updatedAt" = $8,
       "sentAt" = $9
-    WHERE "authorId" = $1 AND "messageId" = $2
+    WHERE "messageId" = $2
     RETURNING *;`,
     delete: `DELETE FROM "messages" WHERE "messageId" = $1;`,
     deleteAll: `DELETE FROM "messages" WHERE "authorId" = $1;`,
-    view: `SELECT * FROM "messages" WHERE "authorId" = $1 AND "messageId" = $2;`,
+    view: `SELECT * FROM "messages" WHERE "messageId" = $1;`,
     viewAll: `SELECT * FROM "messages";`,
     deleteTable: `DROP TABLE IF EXISTS "messages";`,
   },

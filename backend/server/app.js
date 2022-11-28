@@ -1,21 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 
-const {
-  viewMessage,
-  viewMessages,
-  deleteMessage,
-  updateMessage,
-  createMessage,
-  deleteMessages,
-} = require("../database/functions");
 const { pool } = require("../database/config");
-const { validateIds } = require("./utils");
-
+const messagesRoutes = require("./routes/messages-routes");
 const PORT = process.env.PORT || 3001;
 const API_BASE_URL = `http://localhost:${PORT}`;
 
 const app = express();
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
@@ -28,100 +20,8 @@ app.get("/", (_, res) => {
   res.status(200).json({ message: "server working flawlessly" });
 });
 
-app.get("/messages", async (req, res) => {
-  try {
-    const result = await viewMessages();
-    res.status(200).json({ success: true, data: result.rows });
-  } catch (error) {
-    console.error(error);
-    res.json({ success: false, error: error.stack });
-  }
-});
-
-app.get("/messages/:messageId", async (req, res) => {
-  const { messageId } = req.params;
-
-  try {
-    validateIds(messageId);
-    const result = await viewMessage(messageId);
-    res.status(200).json({ success: true, data: result.rows[0] });
-  } catch (error) {
-    console.error(error);
-    res.json({ success: false, error: error.stack });
-  }
-});
-
-app.delete("/messages/:messageId", async (req, res) => {
-  const { messageId } = req.params;
-
-  try {
-    validateIds(messageId);
-    await deleteMessage(messageId);
-    res.status(200).json({ success: true });
-  } catch (error) {
-    console.error(error);
-    res.json({ success: false, error: error.stack });
-  }
-});
-
-app.delete("/messages", async (req, res) => {
-  const { authorId } = req.body;
-
-  try {
-    validateIds(authorId);
-    await deleteMessages(authorId);
-    res.status(200).json({ success: true });
-  } catch (error) {
-    console.error(error);
-    res.json({ success: false, error: error.stack });
-  }
-});
-
-app.put("/messages/:messageId", async (req, res) => {
-  const { messageId } = req.params;
-  const { authorId, to, email, title, body, from, day, time } = req.body;
-
-  try {
-    validateIds(authorId, messageId);
-    const result = await updateMessage(
-      authorId,
-      messageId,
-      to,
-      email,
-      title,
-      body,
-      from,
-      day,
-      time
-    );
-    res.status(200).json({ success: true, data: result.rows[0] });
-  } catch (error) {
-    console.error(error);
-    res.json({ success: false, error: error.stack });
-  }
-});
-
-app.post("/messages", async (req, res) => {
-  const { authorId, to, email, title, body, from, day, time } = req.body;
-
-  try {
-    validateIds(authorId);
-    const result = await createMessage(
-      authorId,
-      to,
-      email,
-      title,
-      body,
-      from,
-      day,
-      time
-    );
-    res.status(200).json({ success: true, data: result.rows[0] });
-  } catch (error) {
-    console.error(error);
-    res.json({ success: false, error: error.stack });
-  }
-});
+// message routes
+app.use("/messages", messagesRoutes);
 
 // connect to db and start server
 pool

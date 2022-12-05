@@ -1,19 +1,18 @@
 import MessageSummary from "./MessageSummary";
 
 function MessageList({ messages, setMessages }) {
+  console.log(messages);
   return (
     <div className="message-list">
-      {messages &&
-        messages.data &&
-        messages.data.map((message) => {
-          return (
-            <MessageSummary
-              message={message}
-              key={message.messageId}
-              setMessages={setMessages}
-            />
-          );
-        })}
+      {messages?.responseData?.data.map((message) => {
+        return (
+          <MessageSummary
+            message={message}
+            key={message.messageId}
+            setMessages={setMessages}
+          />
+        );
+      })}
     </div>
   );
 }

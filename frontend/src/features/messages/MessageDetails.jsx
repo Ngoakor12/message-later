@@ -13,7 +13,9 @@ function MessageDetails({ messages, setMessages }) {
   const navigate = useNavigate();
   const { messageId } = useParams();
   const message =
-    messages?.data?.find((msg) => msg.messageId === Number(messageId)) || [];
+    messages?.responseData?.data?.find(
+      (msg) => msg.messageId === Number(messageId)
+    ) || [];
 
   function handleClickDelete() {
     deleteMessage(message.messageId).then(() => {

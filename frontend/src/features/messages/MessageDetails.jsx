@@ -14,14 +14,16 @@ function MessageDetails({ messages, setMessages }) {
   const { messageId } = useParams();
   const message =
     messages?.responseData?.data?.find(
-      (msg) => msg.messageId === Number(messageId)
+      (message) => message.messageId === Number(messageId)
     ) || [];
 
   function handleClickDelete() {
-    deleteMessage(message.messageId).then(() => {
-      getMessages().then((res) => setMessages(res));
-      navigate(-1);
-    });
+    if (confirm("Are you sure you want to delete the message?")) {
+      deleteMessage(message.messageId).then(() => {
+        getMessages().then((res) => setMessages(res));
+        navigate(-1);
+      });
+    }
   }
   return message ? (
     <div className="message-details">

@@ -42,11 +42,12 @@ function ScheduleMessage({ setMessages }) {
       },
       body: JSON.stringify(data),
     });
-    console.log(await result.json());
+    const resultData = await result.json();
+    console.log(resultData);
     // update messages list
     await getMessages().then((messages) => setMessages(messages));
-    // navigate to prev path
-    navigate(-1);
+    // navigate to message details
+    navigate(`/messages/${resultData?.responseData?.data?.messageId}`);
   }
 
   return (

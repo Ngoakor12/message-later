@@ -19,6 +19,7 @@ function ScheduleMessage({ setMessages }) {
     day: "",
     time: "",
   });
+  const [hasFormValuesChanged, setHasFormValuesChanged] = useState(false);
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -29,6 +30,17 @@ function ScheduleMessage({ setMessages }) {
       }
       return { ...prevFormValues, [name]: value };
     });
+    setHasFormValuesChanged(true);
+  }
+
+  function handleClickCancel() {
+    if (hasFormValuesChanged) {
+      if (confirm("Discard message?")) {
+        navigate(-1);
+      }
+    } else {
+      navigate(-1);
+    }
   }
 
   async function handleSubmit(e) {
@@ -143,7 +155,11 @@ function ScheduleMessage({ setMessages }) {
         <button type={"button"} className="drafts-button">
           Add to drafts
         </button>
-        <button type={"button"} className="cancel-button">
+        <button
+          type={"button"}
+          className="cancel-button"
+          onClick={handleClickCancel}
+        >
           Cancel
         </button>
       </div>

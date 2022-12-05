@@ -4,7 +4,7 @@ function MessageList({ messages, setMessages }) {
   console.log(messages);
   return (
     <div className="message-list">
-      {messages?.responseData?.data.map((message) => {
+      {messages?.map((message) => {
         return (
           <MessageSummary
             message={message}

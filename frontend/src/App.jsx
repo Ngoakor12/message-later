@@ -7,35 +7,62 @@ const API_PORT = 3001;
 const API_BASE_URL = `http://localhost:${API_PORT}`;
 
 export async function getMessages() {
-  const url = `${API_BASE_URL}/messages`;
-  const res = await fetch(url);
-  const data = res.json();
-  return data;
+  const URL = `${API_BASE_URL}/messages`;
+  const response = await fetch(URL);
+  const responseData = await response.json();
+  return responseData;
+}
+
+export async function getMessage(messageId) {
+  const URL = `${API_BASE_URL}/messages/${messageId}`;
+  const response = await fetch(URL);
+  const responseData = await response.json();
+  return responseData;
 }
 
 export async function deleteMessage(messageId) {
-  const url = `${API_BASE_URL}/messages/${messageId}`;
-  const res = await fetch(url, {
+  const URL = `${API_BASE_URL}/messages/${messageId}`;
+  const response = await fetch(URL, {
     method: "DELETE",
   });
-  const data = res.json();
-  return data;
+  const responseData = await response.json();
+  return responseData;
+}
+
+export async function createMessage(message) {
+  const URL = `${API_BASE_URL}/messages`;
+  const result = await fetch(URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(message),
+  });
+  const responseData = await result.json();
+  return responseData;
 }
 
 function App() {
   const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState();
 
   useEffect(() => {
     getMessages().then((res) => {
-      setMessages(res);
+      setMessages(res?.responseData?.data);
     });
   }, []);
+
+  console.log(messages);
 
   return (
     <div className="App">
       <Navigation />
       <main className="body">
-        <RoutesComponent messages={messages} setMessages={setMessages} />
+        <RoutesComponent
+          messages={messages}
+          setMessage={setMessage}
+          setMessages={setMessages}
+        />
       </main>
       <ScheduleMessageButton />
     </div>

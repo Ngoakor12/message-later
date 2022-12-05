@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMessages } from "../App";
-const API_PORT = 3001;
-const API_BASE_URL = `http://localhost:${API_PORT}`;
+import { getMessages, createMessage } from "../App";
 
 function dayMonthYear(dateString) {
   const [year, month, day] = dateString.split("-");
@@ -47,19 +45,15 @@ function ScheduleMessage({ setMessages }) {
     e.preventDefault();
     const data = { authorId: 2, ...formValues };
     console.log(data);
-    const result = await fetch(`${API_BASE_URL}/messages`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const resultData = await result.json();
-    console.log(resultData);
+    const result = await createMessage(data);
+    const newMessage = await result.responseData.data;
+    console.log(newMessage);
     // update messages list
-    await getMessages().then((messages) => setMessages(messages));
+    await setMessages((prevMessages) => {
+      return { ...prevMessages, newMessage };
+    });
     // navigate to message details
-    navigate(`/messages/${resultData?.responseData?.data?.messageId}`);
+    navigate(`/messages/${newMessage.messageId}`);
   }
 
   return (

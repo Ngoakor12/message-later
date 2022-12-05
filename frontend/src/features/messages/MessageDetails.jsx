@@ -1,5 +1,7 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteMessage, getMessages } from "../../App";
+import { deleteMessage, getMessage, getMessages } from "../../App";
 import {
   BackArrowIcon,
   DeleteIcon,
@@ -8,14 +10,29 @@ import {
   PreviousPageIcon,
 } from "../../Icons";
 
-function MessageDetails({ messages, setMessages }) {
-  messages = messages || [];
+function MessageDetails({ messages, setMessages, message, setMessage }) {
   const navigate = useNavigate();
   const { messageId } = useParams();
-  const message =
-    messages?.responseData?.data?.find(
-      (message) => message.messageId === Number(messageId)
-    ) || [];
+  // const message =
+  //   messages?.responseData?.data?.find(
+  //     (message) => message.messageId === Number(messageId)
+  //   ) || [];
+  useEffect(() => {
+    const newMessage = messages.find(
+      (msg) => msg.messageId === Number(messageId)
+    );
+    console.log("new message", newMessage);
+    if (newMessage && !message) {
+      setMessage(newMessage);
+    } else {
+      getMessage(messageId).then((res) => {
+        console.log(res);
+        setMessage(res.responseData.data);
+      });
+    }
+  }, []);
+  console.log("messages", messages);
+  console.log("message details", message);
 
   function handleClickDelete() {
     if (confirm("Are you sure you want to delete the message?")) {

@@ -7,7 +7,7 @@ function MessageSummary({ message, setMessages }) {
   function handleClickDelete() {
     if (confirm("Are you sure you want to delete the message?")) {
       deleteMessage(message.messageId).then(() => {
-        getMessages().then((res) => setMessages(res));
+        getMessages().then((res) => setMessages(res.responseData.data));
       });
     }
   }

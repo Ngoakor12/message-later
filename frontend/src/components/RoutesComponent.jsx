@@ -6,7 +6,7 @@ import ScheduleMessage from "./ScheduleMessage";
 import MessageDetails from "../features/messages/MessageDetails";
 import EditMessage from "./EditMessage";
 
-function RoutesComponent({ messages, setMessages, message, setMessage }) {
+function RoutesComponent({ messages, setMessages }) {
   return (
     <Routes>
       <Route
@@ -21,11 +21,7 @@ function RoutesComponent({ messages, setMessages, message, setMessage }) {
       />
       <Route exact path="/all-messages" element={<AllMessages />} />
       <Route exact path="/drafts" element={<Drafts />} />
-      <Route
-        exact
-        path="/schedule-message"
-        element={<ScheduleMessage setMessages={setMessages} />}
-      />
+      <Route exact path="/schedule-message" element={<ScheduleMessage />} />
       <Route
         exact
         path="/messages/:messageId/edit"
@@ -35,12 +31,7 @@ function RoutesComponent({ messages, setMessages, message, setMessage }) {
         exact
         path="/messages/:messageId"
         element={
-          <MessageDetails
-            messages={messages}
-            message={message}
-            setMessages={setMessages}
-            setMessage={setMessage}
-          />
+          <MessageDetails messages={messages} setMessages={setMessages} />
         }
       />
     </Routes>

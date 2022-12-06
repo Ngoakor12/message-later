@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMessages, createMessage } from "../App";
+import { createMessage } from "../App";
 
 function dayMonthYear(dateString) {
   const [year, month, day] = dateString.split("-");
   return `${month}-${day}-${year}`;
 }
 
-function ScheduleMessage({ setMessages }) {
+function ScheduleMessage() {
   const [formValues, setFormValues] = useState({
     to: "",
     email: "",
@@ -48,11 +48,6 @@ function ScheduleMessage({ setMessages }) {
     const result = await createMessage(data);
     const newMessage = await result.responseData.data;
     console.log(newMessage);
-    // update messages list
-    await setMessages((prevMessages) => {
-      return { ...prevMessages, newMessage };
-    });
-    // navigate to message details
     navigate(`/messages/${newMessage.messageId}`);
   }
 

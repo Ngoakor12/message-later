@@ -44,25 +44,18 @@ export async function createMessage(message) {
 
 function App() {
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState();
 
   useEffect(() => {
     getMessages().then((res) => {
-      setMessages(res?.responseData?.data);
+      setMessages(res.responseData.data);
     });
   }, []);
-
-  console.log(messages);
 
   return (
     <div className="App">
       <Navigation />
       <main className="body">
-        <RoutesComponent
-          messages={messages}
-          setMessage={setMessage}
-          setMessages={setMessages}
-        />
+        <RoutesComponent messages={messages} setMessages={setMessages} />
       </main>
       <ScheduleMessageButton />
     </div>

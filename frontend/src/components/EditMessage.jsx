@@ -67,7 +67,7 @@ function EditMessage({ messages, setMessages }) {
     const responseData = await response.json();
     if (responseData.success) {
       // update messages list
-      await getMessages().then((messages) => setMessages(messages));
+      await getMessages().then((res) => setMessages(res.responseData.data));
       // navigate to prev path
       navigate(-1);
     } else {

@@ -10,39 +10,30 @@ import {
   PreviousPageIcon,
 } from "../../Icons";
 
-function MessageDetails({ messages, setMessages, message, setMessage }) {
+function MessageDetails({ messages, setMessages }) {
+  const [message, setMessage] = useState();
   const navigate = useNavigate();
   const { messageId } = useParams();
-  // const message =
-  //   messages?.responseData?.data?.find(
-  //     (message) => message.messageId === Number(messageId)
-  //   ) || [];
+  const newMessage =
+    messages?.find((msg) => msg.messageId === Number(messageId)) || message;
+
   useEffect(() => {
-    const newMessage = messages.find(
-      (msg) => msg.messageId === Number(messageId)
-    );
-    console.log("new message", newMessage);
-    if (newMessage && !message) {
-      setMessage(newMessage);
-    } else {
+    if (!message) {
       getMessage(messageId).then((res) => {
-        console.log(res);
         setMessage(res.responseData.data);
       });
     }
-  }, []);
-  console.log("messages", messages);
-  console.log("message details", message);
+  });
 
   function handleClickDelete() {
     if (confirm("Are you sure you want to delete the message?")) {
-      deleteMessage(message.messageId).then(() => {
-        getMessages().then((res) => setMessages(res));
+      deleteMessage(newMessage.messageId).then(() => {
+        getMessages().then((res) => setMessages(res.responseData.data));
         navigate(-1);
       });
     }
   }
-  return message ? (
+  return newMessage ? (
     <div className="message-details">
       <div className="top-bar">
         <div className="left-buttons">
@@ -56,8 +47,8 @@ function MessageDetails({ messages, setMessages, message, setMessage }) {
         </div>
         <div className="right-buttons">
           <Link
-            to={`/messages/${message.messageId}/edit`}
-            message={message}
+            to={`/messages/${newMessage.messageId}/edit`}
+            message={newMessage}
             className="edit-icon"
           >
             <EditIcon />
@@ -73,13 +64,13 @@ function MessageDetails({ messages, setMessages, message, setMessage }) {
       </div>
       <div className="body">
         <div className="title-time-recipient">
-          <h1 className="title">{message.title}</h1>
+          <h1 className="title">{newMessage.title}</h1>
           <div className="time-recipient">
-            <strong>{message.to}</strong>
-            <p>{message?.sentAt}</p>
+            <strong>{newMessage.to}</strong>
+            <p>{newMessage?.sentAt}</p>
           </div>
         </div>
-        <p className="text">{message.body}</p>
+        <p className="text">{newMessage.body}</p>
       </div>
       <div className="next-back-buttons">
         <div className="back-button">

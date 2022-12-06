@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getMessages } from "../App";
-const API_PORT = 3001;
-const API_BASE_URL = `http://localhost:${API_PORT}`;
+import { createMessage } from "../App";
 
 function dayMonthYear(dateString) {
   const [year, month, day] = dateString.split("-");
@@ -19,6 +17,7 @@ function ScheduleMessage({ setMessages }) {
     day: "",
     time: "",
   });
+  const [hasFormValuesChanged, setHasFormValuesChanged] = useState(false);
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -29,24 +28,30 @@ function ScheduleMessage({ setMessages }) {
       }
       return { ...prevFormValues, [name]: value };
     });
+    setHasFormValuesChanged(true);
+  }
+
+  function handleClickCancel() {
+    if (hasFormValuesChanged) {
+      if (confirm("Discard message?")) {
+        navigate(-1);
+      }
+    } else {
+      navigate(-1);
+    }
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { authorId: 2, ...formValues };
-    console.log(data);
-    const result = await fetch(`${API_BASE_URL}/messages`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    console.log(await result.json());
+    const result = await createMessage(data);
+    const newMessage = await result.responseData.data;
     // update messages list
-    await getMessages().then((messages) => setMessages(messages));
-    // navigate to prev path
-    navigate(-1);
+    setMessages((prevMessages) => {
+      return [...prevMessages, newMessage];
+    });
+    // redirect to new message
+    navigate(`/messages/${newMessage.messageId}`);
   }
 
   return (
@@ -142,7 +147,11 @@ function ScheduleMessage({ setMessages }) {
         <button type={"button"} className="drafts-button">
           Add to drafts
         </button>
-        <button type={"button"} className="cancel-button">
+        <button
+          type={"button"}
+          className="cancel-button"
+          onClick={handleClickCancel}
+        >
           Cancel
         </button>
       </div>

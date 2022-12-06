@@ -2,10 +2,9 @@ import MessageSummary from "./MessageSummary";
 
 function MessageList({ messages, setMessages }) {
   return (
-    <div className="message-list">
-      {messages &&
-        messages.data &&
-        messages.data.map((message) => {
+    messages && (
+      <div className="message-list">
+        {messages.map((message) => {
           return (
             <MessageSummary
               message={message}
@@ -14,7 +13,8 @@ function MessageList({ messages, setMessages }) {
             />
           );
         })}
-    </div>
+      </div>
+    )
   );
 }
 

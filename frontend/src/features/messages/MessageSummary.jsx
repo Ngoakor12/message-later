@@ -5,9 +5,11 @@ import { getTimeFromDate } from "./utils";
 
 function MessageSummary({ message, setMessages }) {
   function handleClickDelete() {
-    deleteMessage(message.messageId).then(() => {
-      getMessages().then((res) => setMessages(res));
-    });
+    if (confirm("Are you sure you want to delete the message?")) {
+      deleteMessage(message.messageId).then(() => {
+        getMessages().then((res) => setMessages(res.responseData.data));
+      });
+    }
   }
   return (
     <div className="message-summary-wrapper">

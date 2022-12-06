@@ -14,7 +14,9 @@ async function getMessageFromServer(req, res) {
   try {
     validateIds(messageId);
     const result = await viewMessage(messageId);
-    res.status(200).json({ success: true, data: result.rows[0] });
+    res
+      .status(200)
+      .json({ success: true, responseData: { data: result.rows[0] } });
   } catch (error) {
     console.error(error);
     res.json({ success: false, error: error.stack });
@@ -24,7 +26,9 @@ async function getMessageFromServer(req, res) {
 async function getMessagesFromServer(req, res) {
   try {
     const result = await viewMessages();
-    res.status(200).json({ success: true, data: result.rows });
+    res
+      .status(200)
+      .json({ success: true, responseData: { data: result.rows } });
   } catch (error) {
     console.error(error);
     res.json({ success: false, error: error.stack });
@@ -46,7 +50,9 @@ async function postMessageToServer(req, res) {
       day,
       time
     );
-    res.status(200).json({ success: true, data: result.rows[0] });
+    res
+      .status(200)
+      .json({ success: true, responseData: { data: result.rows[0] } });
   } catch (error) {
     console.error(error);
     res.json({ success: false, error: error.stack });
@@ -69,7 +75,9 @@ async function updateMessageOnServer(req, res) {
       day,
       time
     );
-    res.status(200).json({ success: true, data: result.rows[0] });
+    res
+      .status(200)
+      .json({ success: true, responseData: { data: result.rows[0] } });
   } catch (error) {
     console.error(error);
     res.json({ success: false, error: error.stack });

@@ -1,5 +1,7 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteMessage, getMessages } from "../../App";
+import { deleteMessage, getMessage, getMessages } from "../../App";
 import {
   BackArrowIcon,
   DeleteIcon,
@@ -9,17 +11,25 @@ import {
 } from "../../Icons";
 
 function MessageDetails({ messages, setMessages }) {
-  messages = messages || [];
+  const [message, setMessage] = useState();
   const navigate = useNavigate();
   const { messageId } = useParams();
-  const message =
-    messages?.data?.find((msg) => msg.messageId === Number(messageId)) || [];
+
+  useEffect(() => {
+    if (!message) {
+      getMessage(messageId).then((res) => {
+        setMessage(res.responseData.data);
+      });
+    }
+  });
 
   function handleClickDelete() {
-    deleteMessage(message.messageId).then(() => {
-      getMessages().then((res) => setMessages(res));
-      navigate(-1);
-    });
+    if (confirm("Are you sure you want to delete the message?")) {
+      deleteMessage(message.messageId).then(() => {
+        getMessages().then((res) => setMessages(res.responseData.data));
+        navigate(-1);
+      });
+    }
   }
   return message ? (
     <div className="message-details">

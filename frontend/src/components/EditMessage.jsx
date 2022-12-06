@@ -56,7 +56,6 @@ function EditMessage({ messages, setMessages }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { authorId: 2, ...formValues };
-    console.log(data);
     const response = await fetch(`${API_BASE_URL}/messages/${messageId}`, {
       method: "PUT",
       headers: {

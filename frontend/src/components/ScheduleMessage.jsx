@@ -44,10 +44,8 @@ function ScheduleMessage() {
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { authorId: 2, ...formValues };
-    console.log(data);
     const result = await createMessage(data);
     const newMessage = await result.responseData.data;
-    console.log(newMessage);
     navigate(`/messages/${newMessage.messageId}`);
   }
 

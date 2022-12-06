@@ -1,7 +1,6 @@
 import MessageSummary from "./MessageSummary";
 
 function MessageList({ messages, setMessages }) {
-  console.log(messages);
   return (
     messages && (
       <div className="message-list">

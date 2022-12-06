@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getMessage, getMessages, updateMessage } from "../App";
+import { updateMessage } from "../App";
 import {
   getTimeFromDate,
   getYearMonthDayFromDate,
@@ -23,6 +23,7 @@ function EditMessage({ messages, setMessages }) {
     day: "",
     time: "",
   });
+  const [hasFormValuesChanged, setHasFormValuesChanged] = useState(false);
 
   useEffect(() => {
     const foundMessage =
@@ -49,6 +50,17 @@ function EditMessage({ messages, setMessages }) {
       }
       return { ...prevFormValues, [name]: value };
     });
+    setHasFormValuesChanged(true);
+  }
+
+  function handleClickCancel() {
+    if (hasFormValuesChanged) {
+      if (confirm("Cancel editing message?")) {
+        navigate(-1);
+      }
+    } else {
+      navigate(-1);
+    }
   }
 
   async function handleSubmit(e) {
@@ -188,7 +200,11 @@ function EditMessage({ messages, setMessages }) {
         <button type={"button"} className="drafts-button">
           Add to drafts
         </button>
-        <button type={"button"} className="cancel-button">
+        <button
+          type={"button"}
+          className="cancel-button"
+          onClick={handleClickCancel}
+        >
           Cancel
         </button>
       </div>

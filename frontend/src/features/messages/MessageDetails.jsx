@@ -14,8 +14,6 @@ function MessageDetails({ messages, setMessages }) {
   const [message, setMessage] = useState();
   const navigate = useNavigate();
   const { messageId } = useParams();
-  const newMessage =
-    messages?.find((msg) => msg.messageId === Number(messageId)) || message;
 
   useEffect(() => {
     if (!message) {
@@ -27,13 +25,13 @@ function MessageDetails({ messages, setMessages }) {
 
   function handleClickDelete() {
     if (confirm("Are you sure you want to delete the message?")) {
-      deleteMessage(newMessage.messageId).then(() => {
+      deleteMessage(message.messageId).then(() => {
         getMessages().then((res) => setMessages(res.responseData.data));
         navigate(-1);
       });
     }
   }
-  return newMessage ? (
+  return message ? (
     <div className="message-details">
       <div className="top-bar">
         <div className="left-buttons">
@@ -47,8 +45,8 @@ function MessageDetails({ messages, setMessages }) {
         </div>
         <div className="right-buttons">
           <Link
-            to={`/messages/${newMessage.messageId}/edit`}
-            message={newMessage}
+            to={`/messages/${message.messageId}/edit`}
+            message={message}
             className="edit-icon"
           >
             <EditIcon />
@@ -64,13 +62,13 @@ function MessageDetails({ messages, setMessages }) {
       </div>
       <div className="body">
         <div className="title-time-recipient">
-          <h1 className="title">{newMessage.title}</h1>
+          <h1 className="title">{message.title}</h1>
           <div className="time-recipient">
-            <strong>{newMessage.to}</strong>
-            <p>{newMessage?.sentAt}</p>
+            <strong>{message.to}</strong>
+            <p>{message?.sentAt}</p>
           </div>
         </div>
-        <p className="text">{newMessage.body}</p>
+        <p className="text">{message.body}</p>
       </div>
       <div className="next-back-buttons">
         <div className="back-button">

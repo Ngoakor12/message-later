@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getMessages } from "../App";
+import { getMessage, getMessages, updateMessage } from "../App";
 import {
   getTimeFromDate,
   getYearMonthDayFromDate,
 } from "../features/messages/utils";
-const API_PORT = 3001;
-const API_BASE_URL = `http://localhost:${API_PORT}`;
 
 function dayMonthYear(dateString) {
   const [year, month, day] = dateString.split("-");
@@ -28,7 +26,7 @@ function EditMessage({ messages, setMessages }) {
 
   useEffect(() => {
     const foundMessage =
-      messages?.data?.find((msg) => msg.messageId === Number(messageId)) || [];
+      messages?.find((msg) => msg.messageId === Number(messageId)) || {};
     setMessage(foundMessage);
     setFormValues({
       to: message.to,
@@ -56,19 +54,15 @@ function EditMessage({ messages, setMessages }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { authorId: 2, ...formValues };
-    const response = await fetch(`${API_BASE_URL}/messages/${messageId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const responseData = await response.json();
-    if (responseData.success) {
+    const result = await updateMessage(messageId, data);
+    if (result.success) {
       // update messages list
-      await getMessages().then((res) => setMessages(res.responseData.data));
-      // navigate to prev path
-      navigate(-1);
+      const newMessage = result.responseData.data;
+      await setMessages((prevMessages) => {
+        return [...prevMessages, newMessage];
+      });
+      // navigate to message details path
+      navigate(`/messages/${messageId}`);
     } else {
       console.log(
         "Something went wrong. Message not updated. Please try again."

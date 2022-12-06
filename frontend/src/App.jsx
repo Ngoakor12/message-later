@@ -42,6 +42,19 @@ export async function createMessage(message) {
   return responseData;
 }
 
+export async function updateMessage(messageId, message) {
+  const URL = `${API_BASE_URL}/messages/${messageId}`;
+  const result = await fetch(URL, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(message),
+  });
+  const responseData = await result.json();
+  return responseData;
+}
+
 function App() {
   const [messages, setMessages] = useState([]);
 
@@ -49,7 +62,7 @@ function App() {
     getMessages().then((res) => {
       setMessages(res.responseData.data);
     });
-  }, []);
+  }, [messages]);
 
   return (
     <div className="App">

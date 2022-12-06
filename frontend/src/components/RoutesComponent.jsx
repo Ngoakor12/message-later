@@ -21,7 +21,11 @@ function RoutesComponent({ messages, setMessages }) {
       />
       <Route exact path="/all-messages" element={<AllMessages />} />
       <Route exact path="/drafts" element={<Drafts />} />
-      <Route exact path="/schedule-message" element={<ScheduleMessage />} />
+      <Route
+        exact
+        path="/schedule-message"
+        element={<ScheduleMessage setMessages={setMessages} />}
+      />
       <Route
         exact
         path="/messages/:messageId/edit"

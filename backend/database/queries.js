@@ -27,11 +27,12 @@ module.exports = {
         "createdAt" varchar,
         "updatedAt" varchar,
         "sentAt" varchar,
+        "isDraft" boolean,
         FOREIGN KEY ("authorId") REFERENCES "users"("userId")
         );`,
     create: `INSERT INTO "messages"
-    ("authorId","to","email","title","body","from","createdAt","updatedAt","sentAt")
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *;`,
+    ("authorId","to","email","title","body","from","createdAt","updatedAt","sentAt","isDraft")
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *;`,
     update: `UPDATE messages
     SET "to" = $2,
       "email" = $3,
@@ -39,7 +40,8 @@ module.exports = {
       "body" = $5,
       "from" = $6,
       "updatedAt" = $7,
-      "sentAt" = $8
+      "sentAt" = $8,
+      "isDraft" = $9
     WHERE "messageId" = $1
     RETURNING *;`,
     delete: `DELETE FROM "messages" WHERE "messageId" = $1;`,

@@ -19,5 +19,6 @@ CREATE TABLE IF NOT EXISTS "messages"
     "createdAt" varchar,
     "updatedAt" varchar,
     "sentAt" varchar,
+    "isDraft" boolean,
     FOREIGN KEY ("authorId") REFERENCES "users"("userId")
     );

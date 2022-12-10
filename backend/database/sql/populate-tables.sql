@@ -5,7 +5,7 @@ INSERT INTO "users"
     ,('jackdoe@example.com','jack','doe','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z','xxxxxxxxx');
 
 INSERT INTO "messages"
-    ("authorId","to","email","title","body","from","createdAt","updatedAt","sentAt")
-    VALUES(1,'god','god@heaven.com','God when?','I see what you do for other people, I hope you didnt forget me','someone','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z')
-    ,(1,'god','god@heaven.com','God when?','I see what you do for other people, I hope you didnt forget me','someone','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z')
-    ,(1,'god','god@heaven.com','God when?','I see what you do for other people, I hope you didnt forget me','someone','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z');
+    ("authorId","to","email","title","body","from","createdAt","updatedAt","sentAt","isDraft")
+    VALUES(1,'god','god@heaven.com','God when?','I see what you do for other people, I hope you didnt forget me','someone','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z',false)
+    ,(1,'god','god@heaven.com','God when?','I see what you do for other people, I hope you didnt forget me','someone','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z',false)
+    ,(1,'god','god@heaven.com','God when?','I see what you do for other people, I hope you didnt forget me','someone','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z','2022-11-22T05:34:39.128Z',"true");

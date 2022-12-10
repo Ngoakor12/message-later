@@ -36,7 +36,8 @@ async function getMessagesFromServer(req, res) {
 }
 
 async function postMessageToServer(req, res) {
-  const { authorId, to, email, title, body, from, day, time } = req.body;
+  const { authorId, to, email, title, body, from, day, time, isDraft } =
+    req.body;
 
   try {
     validateIds(authorId);
@@ -48,7 +49,8 @@ async function postMessageToServer(req, res) {
       body,
       from,
       day,
-      time
+      time,
+      isDraft
     );
     res
       .status(200)
@@ -61,7 +63,7 @@ async function postMessageToServer(req, res) {
 
 async function updateMessageOnServer(req, res) {
   const { messageId } = req.params;
-  const { to, email, title, body, from, day, time } = req.body;
+  const { to, email, title, body, from, day, time, isDraft } = req.body;
 
   try {
     validateIds(messageId);
@@ -73,7 +75,8 @@ async function updateMessageOnServer(req, res) {
       body,
       from,
       day,
-      time
+      time,
+      isDraft
     );
     res
       .status(200)

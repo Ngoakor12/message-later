@@ -22,6 +22,7 @@ function EditMessage({ messages, setMessages }) {
     from: "",
     day: "",
     time: "",
+    isDraft: false,
   });
   const [hasFormValuesChanged, setHasFormValuesChanged] = useState(false);
 
@@ -37,6 +38,7 @@ function EditMessage({ messages, setMessages }) {
       from: message.from,
       day: getYearMonthDayFromDate(message.sentAt),
       time: getTimeFromDate(message.sentAt),
+      isDraft: false,
     });
   }, [message]);
 
@@ -81,6 +83,19 @@ function EditMessage({ messages, setMessages }) {
       );
     }
   }
+
+  // async function handleClickDraft() {
+  //   e.preventDefault();
+  //   const data = { authorId: 2, ...formValues, isDraft: true };
+  //   const result = await updateMessage(data);
+  //   const newMessage = await result.responseData.data;
+  //   // update messages list
+  //   setMessages((prevMessages) => {
+  //     return [...prevMessages, newMessage];
+  //   });
+  //   // redirect to new message
+  //   navigate(`/messages/${newMessage.messageId}`);
+  // }
 
   return message ? (
     <form className="schedule-message-form" onSubmit={handleSubmit}>

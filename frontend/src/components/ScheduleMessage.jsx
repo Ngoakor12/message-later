@@ -16,6 +16,7 @@ function ScheduleMessage({ setMessages }) {
     from: "",
     day: "",
     time: "",
+    isDraft: false,
   });
   const [hasFormValuesChanged, setHasFormValuesChanged] = useState(false);
   const navigate = useNavigate();
@@ -44,6 +45,18 @@ function ScheduleMessage({ setMessages }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { authorId: 2, ...formValues };
+    const result = await createMessage(data);
+    const newMessage = await result.responseData.data;
+    // update messages list
+    setMessages((prevMessages) => {
+      return [...prevMessages, newMessage];
+    });
+    // redirect to new message
+    navigate(`/messages/${newMessage.messageId}`);
+  }
+
+  async function handleClickDraft() {
+    const data = { authorId: 2, ...formValues, isDraft: true };
     const result = await createMessage(data);
     const newMessage = await result.responseData.data;
     // update messages list
@@ -144,7 +157,11 @@ function ScheduleMessage({ setMessages }) {
         <button type={"submit"} className="schedule-button">
           Schedule message
         </button>
-        <button type={"button"} className="drafts-button">
+        <button
+          type={"button"}
+          className="drafts-button"
+          onClick={handleClickDraft}
+        >
           Add to drafts
         </button>
         <button

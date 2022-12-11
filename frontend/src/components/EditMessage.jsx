@@ -5,6 +5,7 @@ import {
   getTimeFromDate,
   getYearMonthDayFromDate,
 } from "../features/messages/utils";
+import { disableButtonOrLink } from "./utils";
 
 function dayMonthYear(dateString) {
   const [year, month, day] = dateString.split("-");
@@ -67,7 +68,7 @@ function EditMessage({ messages, setMessages }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const data = { authorId: 2, ...formValues };
+    const data = { authorId: 2, ...formValues, isDraft: false };
     const result = await updateMessage(messageId, data);
     if (result.success) {
       // update messages list
@@ -84,18 +85,23 @@ function EditMessage({ messages, setMessages }) {
     }
   }
 
-  // async function handleClickDraft() {
-  //   e.preventDefault();
-  //   const data = { authorId: 2, ...formValues, isDraft: true };
-  //   const result = await updateMessage(data);
-  //   const newMessage = await result.responseData.data;
-  //   // update messages list
-  //   setMessages((prevMessages) => {
-  //     return [...prevMessages, newMessage];
-  //   });
-  //   // redirect to new message
-  //   navigate(`/messages/${newMessage.messageId}`);
-  // }
+  async function handleClickDraft() {
+    const data = { authorId: 2, ...formValues, isDraft: true };
+    const result = await updateMessage(messageId, data);
+    if (result.success) {
+      // update messages list
+      const newMessage = result.responseData.data;
+      await setMessages((prevMessages) => {
+        return [...prevMessages, newMessage];
+      });
+      // navigate to message details path
+      navigate(`/messages/${messageId}`);
+    } else {
+      console.log(
+        "Something went wrong. Message not updated. Please try again."
+      );
+    }
+  }
 
   return message ? (
     <form className="schedule-message-form" onSubmit={handleSubmit}>
@@ -209,11 +215,30 @@ function EditMessage({ messages, setMessages }) {
         </div>
       </div>
       <div className="schedule-message-buttons">
-        <button type={"submit"} className="schedule-button">
-          Update message
+        <button
+          type={"submit"}
+          className={`schedule-button ${
+            disableButtonOrLink(!hasFormValuesChanged) ? "disabled-button" : ""
+          }`}
+          disabled={disableButtonOrLink(!hasFormValuesChanged)}
+        >
+          Schedule message
         </button>
-        <button type={"button"} className="drafts-button">
-          Add to drafts
+        <button
+          type={"button"}
+          className={`drafts-button ${
+            message.isDraft
+              ? disableButtonOrLink(!hasFormValuesChanged)
+                ? "disabled-button"
+                : ""
+              : ""
+          }`}
+          onClick={handleClickDraft}
+          disabled={
+            message.isDraft ? disableButtonOrLink(!hasFormValuesChanged) : false
+          }
+        >
+          {`${message.isDraft ? `Update draft` : `Save as draft`}`}
         </button>
         <button
           type={"button"}

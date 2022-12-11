@@ -50,9 +50,10 @@ async function createMessage(
   body,
   from,
   day,
-  time
+  time,
+  isDraft = false
 ) {
-  validateArguments(authorId, to, email, title, body, from, day, time);
+  validateArguments(authorId, to, email, title, body, from, day, time, isDraft);
 
   // verify that user with "authorId" exists before creating a message with that id
   viewUser(authorId);
@@ -71,6 +72,7 @@ async function createMessage(
     createdAt,
     updatedAt,
     sentAt,
+    isDraft,
   ]);
   validateResultWithId(result);
   return result;
@@ -117,9 +119,20 @@ async function updateMessage(
   body,
   from,
   day,
-  time
+  time,
+  isDraft = false
 ) {
-  validateArguments(messageId, to, email, title, body, from, day, time);
+  validateArguments(
+    messageId,
+    to,
+    email,
+    title,
+    body,
+    from,
+    day,
+    time,
+    isDraft
+  );
 
   const updatedAt = convertDateToISOString(getCurrentUCTDate());
   const sentAt = convertDateToISOString(createUCTDate(day, time));
@@ -133,6 +146,7 @@ async function updateMessage(
     from,
     updatedAt,
     sentAt,
+    isDraft,
   ]);
   validateResultWithId(result);
   return result;
@@ -181,8 +195,7 @@ module.exports = {
 // viewMessage(2, 2).then((res) => console.log(res));
 
 // updateMessage(
-//   1,
-//   3,
+//   48,
 //   "de bruyne",
 //   "debruyne@mancity.com",
 //   "question",

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createMessage } from "../App";
+import { disableButtonOrLink } from "./utils";
 
 function dayMonthYear(dateString) {
   const [year, month, day] = dateString.split("-");
@@ -16,6 +17,7 @@ function ScheduleMessage({ setMessages }) {
     from: "",
     day: "",
     time: "",
+    isDraft: false,
   });
   const [hasFormValuesChanged, setHasFormValuesChanged] = useState(false);
   const navigate = useNavigate();
@@ -44,6 +46,18 @@ function ScheduleMessage({ setMessages }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { authorId: 2, ...formValues };
+    const result = await createMessage(data);
+    const newMessage = await result.responseData.data;
+    // update messages list
+    setMessages((prevMessages) => {
+      return [...prevMessages, newMessage];
+    });
+    // redirect to new message
+    navigate(`/messages/${newMessage.messageId}`);
+  }
+
+  async function handleClickDraft() {
+    const data = { authorId: 2, ...formValues, isDraft: true };
     const result = await createMessage(data);
     const newMessage = await result.responseData.data;
     // update messages list
@@ -141,10 +155,23 @@ function ScheduleMessage({ setMessages }) {
         </div>
       </div>
       <div className="schedule-message-buttons">
-        <button type={"submit"} className="schedule-button">
+        <button
+          type={"submit"}
+          className={`schedule-button ${
+            disableButtonOrLink(!hasFormValuesChanged) ? "disabled-button" : ""
+          }`}
+          disabled={disableButtonOrLink(!hasFormValuesChanged)}
+        >
           Schedule message
         </button>
-        <button type={"button"} className="drafts-button">
+        <button
+          type={"button"}
+          onClick={handleClickDraft}
+          className={`drafts-button ${
+            disableButtonOrLink(!hasFormValuesChanged) ? "disabled-button" : ""
+          }`}
+          disabled={disableButtonOrLink(!hasFormValuesChanged)}
+        >
           Add to drafts
         </button>
         <button

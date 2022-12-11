@@ -427,6 +427,10 @@ textarea#body {
   border: 1px solid transparent;
 }
 
+.disabled-button {
+  cursor: not-allowed !important;
+}
+
 @media (min-width: 600px) {
   .more-icon {
     display: none;

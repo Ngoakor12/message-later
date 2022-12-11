@@ -70,7 +70,7 @@ function MessageDetails({ messages, setMessages }) {
         </div>
         <p className="text">{message.body}</p>
       </div>
-      <div className="next-back-buttons">
+      {/* <div className="next-back-buttons">
         <div className="back-button">
           <div className="back-arrow-icon">
             <BackArrowIcon />
@@ -83,7 +83,7 @@ function MessageDetails({ messages, setMessages }) {
             <ForwardArrowIcon />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   ) : (
     "Message loading..."

@@ -5,7 +5,7 @@ import {
   getTimeFromDate,
   getYearMonthDayFromDate,
 } from "@ngoakor12/date-time-utils";
-import { disableButtonOrLink } from "@ngoakor12/date-time-utils";
+import { disableButtonOrLink } from "./utils";
 
 function dayMonthYear(dateString) {
   const [year, month, day] = dateString.split("-");

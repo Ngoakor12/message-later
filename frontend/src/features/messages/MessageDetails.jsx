@@ -2,15 +2,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteMessage, getMessage, getMessages } from "../../App";
-import {
-  BackArrowIcon,
-  DeleteIcon,
-  EditIcon,
-  ForwardArrowIcon,
-  PreviousPageIcon,
-} from "../../Icons";
+import { DeleteIcon, EditIcon, PreviousPageIcon } from "../../Icons";
 
-function MessageDetails({ messages, setMessages }) {
+function MessageDetails({ setMessages }) {
   const [message, setMessage] = useState();
   const navigate = useNavigate();
   const { messageId } = useParams();

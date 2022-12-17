@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { deleteMessage, getMessages } from "../../App";
 import { DeleteIcon, EditIcon, MoreIcon } from "../../Icons";
-import { getTimeFromDate } from "./utils";
+import { getTimeFromDate } from "@ngoakor12/date-time-utils";
 
 function MessageSummary({ message, setMessages }) {
   function handleClickDelete() {

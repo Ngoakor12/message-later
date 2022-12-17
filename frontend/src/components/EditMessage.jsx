@@ -4,8 +4,8 @@ import { updateMessage } from "../App";
 import {
   getTimeFromDate,
   getYearMonthDayFromDate,
-} from "../features/messages/utils";
-import { disableButtonOrLink } from "./utils";
+} from "@ngoakor12/date-time-utils";
+import { disableButtonOrLink } from "@ngoakor12/date-time-utils";
 
 function dayMonthYear(dateString) {
   const [year, month, day] = dateString.split("-");

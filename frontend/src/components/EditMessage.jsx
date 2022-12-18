@@ -7,6 +7,10 @@ import {
 
 import { updateMessage } from "../App";
 import { disableButtonOrLink } from "./utils";
+import {
+  CANCEL_EDIT_MESSAGE_CONFIRM,
+  UPDATE_MESSAGE_ERROR,
+} from "../constants";
 
 function dayMonthYear(dateString) {
   const [year, month, day] = dateString.split("-");
@@ -59,7 +63,7 @@ function EditMessage({ messages, setMessages }) {
 
   function handleClickCancel() {
     if (hasFormValuesChanged) {
-      if (confirm("Cancel editing message?")) {
+      if (confirm(CANCEL_EDIT_MESSAGE_CONFIRM)) {
         navigate(-1);
       }
     } else {
@@ -83,9 +87,8 @@ function EditMessage({ messages, setMessages }) {
       // navigate to message details path
       navigate(`/messages/${messageId}`);
     } else {
-      console.log(
-        "Something went wrong. Message not updated. Please try again."
-      );
+      console.log(UPDATE_MESSAGE_ERROR);
+      alert(UPDATE_MESSAGE_ERROR);
     }
   }
 
@@ -96,14 +99,16 @@ function EditMessage({ messages, setMessages }) {
       // update messages list
       const newMessage = result.responseData.data;
       await setMessages((prevMessages) => {
-        return [...prevMessages, newMessage];
+        const newMessages = prevMessages.filter(
+          (prevMessage) => prevMessage.messageId !== newMessage.messageId
+        );
+        return [...newMessages, newMessage];
       });
       // navigate to message details path
       navigate(`/messages/${messageId}`);
     } else {
-      console.log(
-        "Something went wrong. Message not updated. Please try again."
-      );
+      console.log(UPDATE_MESSAGE_ERROR);
+      alert(UPDATE_MESSAGE_ERROR);
     }
   }
 

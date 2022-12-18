@@ -4,6 +4,7 @@ import { dayMonthYear } from "@ngoakor12/date-time-utils";
 
 import { createMessage } from "../App";
 import { disableButtonOrLink } from "./utils";
+import { DISCARD_CREATE_MESSAGE_CONFIRM } from "../constants";
 
 function ScheduleMessage({ setMessages }) {
   const [formValues, setFormValues] = useState({
@@ -32,7 +33,7 @@ function ScheduleMessage({ setMessages }) {
 
   function handleClickCancel() {
     if (hasFormValuesChanged) {
-      if (confirm("Discard message?")) {
+      if (confirm(DISCARD_CREATE_MESSAGE_CONFIRM)) {
         navigate(-1);
       }
     } else {

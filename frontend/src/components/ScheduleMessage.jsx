@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { dayMonthYear } from "@ngoakor12/date-time-utils";
+
 import { createMessage } from "../App";
 import { disableButtonOrLink } from "./utils";
-
-function dayMonthYear(dateString) {
-  const [year, month, day] = dateString.split("-");
-  return `${month}-${day}-${year}`;
-}
 
 function ScheduleMessage({ setMessages }) {
   const [formValues, setFormValues] = useState({

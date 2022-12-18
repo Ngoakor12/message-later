@@ -1,5 +1,5 @@
 import MessageList from "./MessageList";
-import { cleanDate, todayLocaleDateString } from "./utils";
+import { cleanDate, todayLocaleDateString } from "@ngoakor12/date-time-utils";
 
 function Today({ messages, setMessages }) {
   const date = todayLocaleDateString();

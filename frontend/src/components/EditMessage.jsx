@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { updateMessage } from "../App";
 import {
   getTimeFromDate,
   getYearMonthDayFromDate,
-} from "../features/messages/utils";
-import { disableButtonOrLink } from "./utils";
+  dayMonthYear,
+} from "@ngoakor12/date-time-utils";
 
-function dayMonthYear(dateString) {
-  const [year, month, day] = dateString.split("-");
-  return `${month}-${day}-${year}`;
-}
+import { updateMessage } from "../App";
+import { disableButtonOrLink } from "./utils";
+import {
+  CANCEL_EDIT_MESSAGE_CONFIRM,
+  UPDATE_MESSAGE_ERROR,
+} from "../constants";
 
 function EditMessage({ messages, setMessages }) {
   const { messageId } = useParams();
@@ -58,7 +59,7 @@ function EditMessage({ messages, setMessages }) {
 
   function handleClickCancel() {
     if (hasFormValuesChanged) {
-      if (confirm("Cancel editing message?")) {
+      if (confirm(CANCEL_EDIT_MESSAGE_CONFIRM)) {
         navigate(-1);
       }
     } else {
@@ -72,16 +73,18 @@ function EditMessage({ messages, setMessages }) {
     const result = await updateMessage(messageId, data);
     if (result.success) {
       // update messages list
-      const newMessage = result.responseData.data;
+
       await setMessages((prevMessages) => {
-        return [...prevMessages, newMessage];
+        const newMessages = prevMessages.filter(
+          (prevMessage) => prevMessage.messageId !== result.messageId
+        );
+        return [...newMessages, newMessage];
       });
       // navigate to message details path
       navigate(`/messages/${messageId}`);
     } else {
-      console.log(
-        "Something went wrong. Message not updated. Please try again."
-      );
+      console.log(UPDATE_MESSAGE_ERROR);
+      alert(UPDATE_MESSAGE_ERROR);
     }
   }
 
@@ -90,16 +93,18 @@ function EditMessage({ messages, setMessages }) {
     const result = await updateMessage(messageId, data);
     if (result.success) {
       // update messages list
-      const newMessage = result.responseData.data;
+
       await setMessages((prevMessages) => {
-        return [...prevMessages, newMessage];
+        const newMessages = prevMessages.filter(
+          (prevMessage) => prevMessage.messageId !== result.messageId
+        );
+        return [...newMessages, newMessage];
       });
       // navigate to message details path
       navigate(`/messages/${messageId}`);
     } else {
-      console.log(
-        "Something went wrong. Message not updated. Please try again."
-      );
+      console.log(UPDATE_MESSAGE_ERROR);
+      alert(UPDATE_MESSAGE_ERROR);
     }
   }
 
@@ -218,9 +223,15 @@ function EditMessage({ messages, setMessages }) {
         <button
           type={"submit"}
           className={`schedule-button ${
-            disableButtonOrLink(!hasFormValuesChanged) ? "disabled-button" : ""
+            message.isDraft
+              ? ""
+              : disableButtonOrLink(!hasFormValuesChanged)
+              ? "disabled-button"
+              : ""
           }`}
-          disabled={disableButtonOrLink(!hasFormValuesChanged)}
+          disabled={
+            message.isDraft ? false : disableButtonOrLink(!hasFormValuesChanged)
+          }
         >
           Schedule message
         </button>

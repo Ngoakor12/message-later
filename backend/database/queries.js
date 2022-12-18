@@ -44,7 +44,7 @@ module.exports = {
       "isDraft" = $9
     WHERE "messageId" = $1
     RETURNING *;`,
-    delete: `DELETE FROM "messages" WHERE "messageId" = $1;`,
+    delete: `DELETE FROM "messages" WHERE "messageId" = $1  RETURNING "messageId";`,
     deleteAll: `DELETE FROM "messages" WHERE "authorId" = $1;`,
     view: `SELECT * FROM "messages" WHERE "messageId" = $1;`,
     viewAll: `SELECT * FROM "messages";`,

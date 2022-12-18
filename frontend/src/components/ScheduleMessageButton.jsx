@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AddIcon } from "../Icons";
 
 function ScheduleMessageButton() {

@@ -62,7 +62,7 @@ function App() {
     getMessages().then((res) => {
       setMessages(res.responseData.data);
     });
-  }, [messages]);
+  }, []);
 
   return (
     <div className="App">

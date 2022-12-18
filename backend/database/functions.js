@@ -1,12 +1,11 @@
-const { pool } = require("./config");
-const { messageQuery, userQuery } = require("./queries");
 const {
-  validateResultWithId,
   getCurrentUCTDate,
   convertDateToISOString,
   createUCTDate,
-  validateArguments,
-} = require("./utils");
+} = require("@ngoakor12/date-time-utils");
+const { pool } = require("./config");
+const { messageQuery, userQuery } = require("./queries");
+const { validateResultWithId, validateArguments } = require("./utils");
 
 async function createUsersTable() {
   return await pool.query(userQuery.createTable);

@@ -74,7 +74,10 @@ function EditMessage({ messages, setMessages }) {
       // update messages list
       const newMessage = result.responseData.data;
       await setMessages((prevMessages) => {
-        return [...prevMessages, newMessage];
+        const newMessages = prevMessages.filter(
+          (prevMessage) => prevMessage.messageId !== newMessage.messageId
+        );
+        return [...newMessages, newMessage];
       });
       // navigate to message details path
       navigate(`/messages/${messageId}`);

@@ -223,9 +223,15 @@ function EditMessage({ messages, setMessages }) {
         <button
           type={"submit"}
           className={`schedule-button ${
-            disableButtonOrLink(!hasFormValuesChanged) ? "disabled-button" : ""
+            message.isDraft
+              ? ""
+              : disableButtonOrLink(!hasFormValuesChanged)
+              ? "disabled-button"
+              : ""
           }`}
-          disabled={disableButtonOrLink(!hasFormValuesChanged)}
+          disabled={
+            message.isDraft ? false : disableButtonOrLink(!hasFormValuesChanged)
+          }
         >
           Schedule message
         </button>

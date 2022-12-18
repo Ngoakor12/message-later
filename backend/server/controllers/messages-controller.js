@@ -92,8 +92,10 @@ async function deleteMessageFromServer(req, res) {
 
   try {
     validateIds(messageId);
-    await deleteMessage(messageId);
-    res.status(200).json({ success: true });
+    const result = await deleteMessage(messageId);
+    res
+      .status(200)
+      .json({ success: true, messageId: result.rows[0].messageId });
   } catch (error) {
     console.error(error);
     res.json({ success: false, error: error.stack });

@@ -1,14 +1,25 @@
 import { Link } from "react-router-dom";
-import { deleteMessage, getMessages } from "../../App";
-import { DeleteIcon, EditIcon, MoreIcon } from "../../Icons";
 import { getTimeFromDate } from "@ngoakor12/date-time-utils";
 
+import { deleteMessage } from "../../App";
+import { DeleteIcon, EditIcon, MoreIcon } from "../../Icons";
+import { DELETE_MESSAGE_CONFIRM, DELETE_MESSAGE_ERROR } from "../../constants";
+
 function MessageSummary({ message, setMessages }) {
-  function handleClickDelete() {
-    if (confirm("Are you sure you want to delete the message?")) {
-      deleteMessage(message.messageId).then(() => {
-        getMessages().then((res) => setMessages(res.responseData.data));
-      });
+  async function handleClickDelete() {
+    if (confirm(DELETE_MESSAGE_CONFIRM)) {
+      const result = await deleteMessage(message.messageId);
+      if (result.success) {
+        setMessages((prevMessages) => {
+          const newMessages = prevMessages.filter(
+            (prevMessage) => prevMessage.messageId !== result.messageId
+          );
+          return newMessages;
+        });
+      } else {
+        console.log(DELETE_MESSAGE_ERROR);
+        alert(DELETE_MESSAGE_ERROR);
+      }
     }
   }
   return (

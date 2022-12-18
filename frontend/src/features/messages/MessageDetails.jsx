@@ -1,7 +1,8 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteMessage, getMessage, getMessages } from "../../App";
+
+import { deleteMessage, getMessage } from "../../App";
+import { DELETE_MESSAGE_CONFIRM, DELETE_MESSAGE_ERROR } from "../../constants";
 import { DeleteIcon, EditIcon, PreviousPageIcon } from "../../Icons";
 
 function MessageDetails({ setMessages }) {
@@ -17,14 +18,25 @@ function MessageDetails({ setMessages }) {
     }
   });
 
-  function handleClickDelete() {
-    if (confirm("Are you sure you want to delete the message?")) {
-      deleteMessage(message.messageId).then(() => {
-        getMessages().then((res) => setMessages(res.responseData.data));
-        navigate(-1);
-      });
+  async function handleClickDelete() {
+    if (confirm(DELETE_MESSAGE_CONFIRM)) {
+      const result = await deleteMessage(message.messageId);
+      if (result.success) {
+        setMessages((prevMessages) => {
+          const newMessages = prevMessages.filter(
+            (prevMessage) => prevMessage.messageId !== result.messageId
+          );
+          return newMessages;
+        });
+        // redirect to messages page
+        navigate("/today");
+      } else {
+        console.log(DELETE_MESSAGE_ERROR);
+        alert(DELETE_MESSAGE_ERROR);
+      }
     }
   }
+
   return message ? (
     <div className="message-details">
       <div className="top-bar">

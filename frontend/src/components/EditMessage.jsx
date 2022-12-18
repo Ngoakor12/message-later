@@ -73,10 +73,10 @@ function EditMessage({ messages, setMessages }) {
     const result = await updateMessage(messageId, data);
     if (result.success) {
       // update messages list
-      const newMessage = result.responseData.data;
+
       await setMessages((prevMessages) => {
         const newMessages = prevMessages.filter(
-          (prevMessage) => prevMessage.messageId !== newMessage.messageId
+          (prevMessage) => prevMessage.messageId !== result.messageId
         );
         return [...newMessages, newMessage];
       });
@@ -93,10 +93,10 @@ function EditMessage({ messages, setMessages }) {
     const result = await updateMessage(messageId, data);
     if (result.success) {
       // update messages list
-      const newMessage = result.responseData.data;
+
       await setMessages((prevMessages) => {
         const newMessages = prevMessages.filter(
-          (prevMessage) => prevMessage.messageId !== newMessage.messageId
+          (prevMessage) => prevMessage.messageId !== result.messageId
         );
         return [...newMessages, newMessage];
       });

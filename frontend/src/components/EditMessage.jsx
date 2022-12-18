@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   getTimeFromDate,
   getYearMonthDayFromDate,
+  dayMonthYear,
 } from "@ngoakor12/date-time-utils";
 
 import { updateMessage } from "../App";
@@ -11,11 +12,6 @@ import {
   CANCEL_EDIT_MESSAGE_CONFIRM,
   UPDATE_MESSAGE_ERROR,
 } from "../constants";
-
-function dayMonthYear(dateString) {
-  const [year, month, day] = dateString.split("-");
-  return `${month}-${day}-${year}`;
-}
 
 function EditMessage({ messages, setMessages }) {
   const { messageId } = useParams();

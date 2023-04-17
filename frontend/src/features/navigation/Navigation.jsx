@@ -1,8 +1,9 @@
-import { NavLink } from "react-router-dom";
-
+import { NavLink, useLocation } from "react-router-dom";
 function Navigation() {
+  const { pathname } = useLocation();
+
   return (
-    <nav>
+    <nav className={`${pathname === `/` ? "hide-component" : ""}`}>
       <NavLink
         to={"/today"}
         className={({ isActive }) =>

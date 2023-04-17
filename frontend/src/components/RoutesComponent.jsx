@@ -6,15 +6,12 @@ import Today from "../features/messages/Today";
 import ScheduleMessage from "./ScheduleMessage";
 import MessageDetails from "../features/messages/MessageDetails";
 import EditMessage from "./EditMessage";
+import LandingPage from "./LandingPage";
 
 function RoutesComponent({ messages, setMessages }) {
   return (
     <Routes>
-      <Route
-        exact
-        path="/"
-        element={<Navigate to="/today" replace={true}></Navigate>}
-      />
+      <Route exact path="/" element={<LandingPage />} />
       <Route
         exact
         path="/today"

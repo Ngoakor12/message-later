@@ -10,8 +10,9 @@ function ScheduleMessageButton() {
       to={"/schedule-message"}
       className={`schedule-message-button ${
         pathname === "/schedule-message" ||
-        pathname === `/messages/${messageId}/edit`
-          ? "hide-schedule-message-button"
+        pathname === `/messages/${messageId}/edit` ||
+        pathname === `/`
+          ? "hide-component"
           : ""
       }`}
     >

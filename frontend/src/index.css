@@ -41,7 +41,7 @@ nav {
   display: flex;
   gap: 10px;
   overflow-y: auto;
-  padding-top: 20px;
+  padding: 20px 20px 0 20px;
 }
 
 .nav-item:hover {
@@ -66,7 +66,7 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding-bottom: 20px;
+  padding: 0 20px 20px 20px;
 }
 
 .today-date-container {
@@ -169,11 +169,10 @@ a.message-summary {
   position: fixed;
   bottom: 0;
   align-self: flex-end;
-  /* right: auto; */
   padding: 10px;
-  margin-bottom: 40px;
   background-color: #000;
   border-radius: 50%;
+  margin: 0 20px 40px 0;
 }
 
 .schedule-message-button .label {
@@ -311,7 +310,7 @@ textarea#body {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  padding-bottom: 20px;
+  padding: 0 20px 20px 20px;
 }
 
 .schedule-message-form label {

@@ -37,11 +37,35 @@ body {
   position: relative;
 }
 
+button {
+  font-family: "Poppins", sans-serif;
+}
+
 nav {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   overflow-y: auto;
   padding: 20px 20px 0 20px;
+  gap: 10px;
+}
+
+.nav-left {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-right {
+  display: flex;
+  gap: 10px;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #000;
+  font-weight: 700;
+  border: 1px solid #d9d9d9;
 }
 
 .nav-item:hover {
@@ -488,12 +512,6 @@ textarea#body {
   color: #000;
   width: 100%;
   border: 1px solid #d9d9d9;
-}
-
-.login-button:hover {
-  /* background-color: #d9d9d9; */
-  color: #000;
-  border: 1px solid #000;
 }
 
 @media (min-width: 600px) {

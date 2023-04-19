@@ -7,11 +7,13 @@ import ScheduleMessage from "./ScheduleMessage";
 import MessageDetails from "../features/messages/MessageDetails";
 import EditMessage from "./EditMessage";
 import LandingPage from "./LandingPage";
+import Login from "./Login";
 
 function RoutesComponent({ messages, setMessages }) {
   return (
     <Routes>
       <Route exact path="/" element={<LandingPage />} />
+      <Route exact path="/login" element={<Login />} />
       <Route
         exact
         path="/today"

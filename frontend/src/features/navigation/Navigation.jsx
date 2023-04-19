@@ -3,7 +3,11 @@ function Navigation() {
   const { pathname } = useLocation();
 
   return (
-    <nav className={`${pathname === `/` ? "hide-component" : ""}`}>
+    <nav
+      className={`${
+        pathname === `/` || pathname === `/login` ? "hide-component" : ""
+      }`}
+    >
       <NavLink
         to={"/today"}
         className={({ isActive }) =>

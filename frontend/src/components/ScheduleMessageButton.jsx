@@ -11,6 +11,7 @@ function ScheduleMessageButton() {
       className={`schedule-message-button ${
         pathname === "/schedule-message" ||
         pathname === `/messages/${messageId}/edit` ||
+        pathname === `/login` ||
         pathname === `/`
           ? "hide-component"
           : ""

@@ -62,7 +62,9 @@ nav {
   /* border-bottom: 3px solid #d9d9d9; */
 }
 
-.today-main {
+.today-main,
+.drafts-main,
+.all-messages-main {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -190,6 +192,7 @@ a.message-summary {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 0 20px 20px 20px;
 }
 
 .message-details .title-edit-time-recipient {

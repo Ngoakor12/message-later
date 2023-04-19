@@ -98,6 +98,13 @@ async function viewUser(authorId) {
   return result;
 }
 
+async function viewGoogleUser(googleId) {
+  validateArguments(googleId);
+  const result = await pool.query(userQuery.view, [googleId]);
+  validateResultWithId(result);
+  return result;
+}
+
 async function viewMessage(messageId) {
   validateArguments(messageId);
   const result = await pool.query(messageQuery.view, [messageId]);
@@ -160,6 +167,7 @@ module.exports = {
   updateMessage,
   viewMessage,
   viewMessages,
+  viewGoogleUser,
 };
 
 // createUsersTable().then((res) => {

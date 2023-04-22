@@ -2,7 +2,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const cors = require("cors");
 const passport = require("passport");
-// const passportSetup = require("./passport-setup");
+const passportSetup = require("./passport-setup");
 
 const { pool } = require("../database/config");
 const messagesRoutes = require("./routes/messages-routes");
@@ -15,10 +15,26 @@ const app = express();
 // set up session cookies
 app.use(
   cookieSession({
+    name: "session",
     maxAge: 24 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY],
   })
 );
+
+// register regenerate & save after the cookieSession middleware initialization
+app.use(function (request, response, next) {
+  if (request.session && !request.session.regenerate) {
+    request.session.regenerate = (cb) => {
+      cb();
+    };
+  }
+  if (request.session && !request.session.save) {
+    request.session.save = (cb) => {
+      cb();
+    };
+  }
+  next();
+});
 
 // initialize passport
 app.use(passport.initialize());
@@ -29,6 +45,8 @@ app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:5173",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
   })
 );
 

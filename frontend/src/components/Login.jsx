@@ -2,22 +2,14 @@ const API_PORT = 3001;
 const API_BASE_URL = `http://localhost:${API_PORT}`;
 
 async function login() {
-  const URL = `${API_BASE_URL}/login/federated/google`;
-  const result = await fetch(URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // body: JSON.stringify(message),
-  });
-  const responseData = await result.json();
-  return responseData;
+  const URL = `${API_BASE_URL}/users/auth/google`;
+  window.open(URL, "_self");
 }
 
 function Login() {
   async function handleClickLogin() {
     console.log("Logging in");
-    const result = await login();
+    await login();
   }
   return (
     <main className="login">

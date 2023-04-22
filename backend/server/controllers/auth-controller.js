@@ -52,16 +52,10 @@ async function postGoogleUserToServer(req, res) {
 }
 
 async function postUserToServer(req, res) {
-  const { email, firstName, lastName, hashedPassword, googleId } = req.body;
+  const { email, firstName, lastName, googleId } = req.body;
 
   try {
-    const result = await createUser(
-      email,
-      firstName,
-      lastName,
-      hashedPassword,
-      googleId
-    );
+    const result = await createUser(email, firstName, lastName, googleId);
     res
       .status(200)
       .json({ success: true, responseData: { data: result.rows[0] } });
@@ -82,6 +76,30 @@ async function getUserFromServer(req, res) {
     console.error(error);
     res.json({ success: false, error: error.stack });
   }
+}
+
+async function authWithGoogle(req, res) {
+  const { email, firstName, lastName, googleId } = req.body;
+
+  try {
+    const result = await createUser(email, firstName, lastName, googleId);
+    res
+      .status(200)
+      .json({ success: true, responseData: { data: result.rows[0] } });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.stack });
+  }
+}
+
+async function authCheck(req, res) {
+  if (!req.user) {
+    res.status(400).json({ success: false, message: "Not authorized" });
+  }
+}
+
+async function logout(req, res) {
+  res.json({ success: true });
 }
 
 //   async function postMessageToServer(req, res) {
@@ -169,6 +187,9 @@ module.exports = {
   // postGoogleUserToServer,
   postUserToServer,
   getUserFromServer,
+  authWithGoogle,
+  logout,
+  authCheck,
   // getMessagesFromServer,
   // postMessageToServer,
   // updateMessageOnServer,

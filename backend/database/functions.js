@@ -23,8 +23,14 @@ async function deleteUsersTable() {
   return await pool.query(userQuery.deleteTable);
 }
 
-async function createUser(email, firstName, lastName, hashedPassword) {
-  validateArguments(email, firstName, lastName, hashedPassword);
+async function createUser(
+  email,
+  firstName,
+  lastName,
+  hashedPassword,
+  googleId
+) {
+  validateArguments(email, firstName, lastName, hashedPassword, googleId);
 
   const createdAt = convertDateToISOString(getCurrentUCTDate());
   const updateAt = createdAt;
@@ -36,6 +42,7 @@ async function createUser(email, firstName, lastName, hashedPassword) {
     createdAt,
     updateAt,
     hashedPassword,
+    googleId,
   ]);
   validateResultWithId(result);
   return result;
@@ -91,9 +98,9 @@ async function deleteMessages(authorId) {
   return result;
 }
 
-async function viewUser(authorId) {
-  validateArguments(authorId);
-  const result = await pool.query(userQuery.view, [authorId]);
+async function viewUser(userId) {
+  validateArguments(userId);
+  const result = await pool.query(userQuery.view, [userId]);
   validateResultWithId(result);
   return result;
 }
@@ -168,6 +175,8 @@ module.exports = {
   viewMessage,
   viewMessages,
   viewGoogleUser,
+  viewUser,
+  createUser,
 };
 
 // createUsersTable().then((res) => {

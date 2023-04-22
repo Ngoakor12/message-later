@@ -6,6 +6,8 @@ const {
   createMessage,
   deleteMessages,
   viewGoogleUser,
+  createUser,
+  viewUser,
 } = require("../../database/functions");
 const { validateIds } = require("../utils");
 
@@ -49,17 +51,38 @@ async function postGoogleUserToServer(req, res) {
   }
 }
 
-//   async function getMessagesFromServer(req, res) {
-//     try {
-//       const result = await viewMessages();
-//       res
-//         .status(200)
-//         .json({ success: true, responseData: { data: result.rows } });
-//     } catch (error) {
-//       console.error(error);
-//       res.json({ success: false, error: error.stack });
-//     }
-//   }
+async function postUserToServer(req, res) {
+  const { email, firstName, lastName, hashedPassword, googleId } = req.body;
+
+  try {
+    const result = await createUser(
+      email,
+      firstName,
+      lastName,
+      hashedPassword,
+      googleId
+    );
+    res
+      .status(200)
+      .json({ success: true, responseData: { data: result.rows[0] } });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.stack });
+  }
+}
+
+async function getUserFromServer(req, res) {
+  const { userId } = req.params;
+  try {
+    const result = await viewUser(userId);
+    res
+      .status(200)
+      .json({ success: true, responseData: { data: result.rows } });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: error.stack });
+  }
+}
 
 //   async function postMessageToServer(req, res) {
 //     const { authorId, to, email, title, body, from, day, time, isDraft } =
@@ -143,6 +166,9 @@ async function postGoogleUserToServer(req, res) {
 
 module.exports = {
   getGoogleUserFromServer,
+  // postGoogleUserToServer,
+  postUserToServer,
+  getUserFromServer,
   // getMessagesFromServer,
   // postMessageToServer,
   // updateMessageOnServer,

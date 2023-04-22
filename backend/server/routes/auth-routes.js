@@ -1,6 +1,10 @@
 const { Router } = require("express");
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oidc");
+const {
+  postUserToServer,
+  getUserFromServer,
+} = require("../controllers/auth-controller");
+// const passport = require("passport");
+// const GoogleStrategy = require("passport-google-oidc");
 // const {
 //   getMessagesFromServer,
 //   postMessageToServer,
@@ -14,11 +18,13 @@ const router = Router();
 
 // router.get("/", getMessagesFromServer);
 
-router.post("/federated/google", passport.authenticate("google"));
+// router.post("/federated/google", passport.authenticate("google"));
+
+router.post("/", postUserToServer);
 
 // router.delete("/", deleteMessagesFromServer);
 
-// router.get("/:messageId", getMessageFromServer);
+router.get("/:userId", getUserFromServer);
 
 // router.delete("/:messageId", deleteMessageFromServer);
 

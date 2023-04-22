@@ -2,7 +2,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const cors = require("cors");
 const passport = require("passport");
-const passportSetup = require("./passport-setup");
+// const passportSetup = require("./passport-setup");
 
 const { pool } = require("../database/config");
 const messagesRoutes = require("./routes/messages-routes");
@@ -40,7 +40,7 @@ app.get("/", (_, res) => {
 app.use("/messages", messagesRoutes);
 
 // auth routes
-app.use("/login", authRoutes);
+app.use("/users", authRoutes);
 
 // connect to db and start server
 pool

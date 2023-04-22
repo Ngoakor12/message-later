@@ -1,9 +1,10 @@
 module.exports = {
   userQuery: {
     create: `INSERT INTO "users"
-    ("email","firstName","lastName","createdAt","updatedAt","hashedPassword")
-    VALUES($1,$2,$3,$4,$5,$6) RETURNING *;`,
+    ("email","firstName","lastName","createdAt","updatedAt","hashedPassword","googleId")
+    VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;`,
     view: `SELECT * FROM "users" WHERE "userId" = $1;`,
+    viewGoogle: `SELECT * FROM "users" WHERE "googleId" = $1;`,
     deleteTable: `DROP TABLE IF EXISTS "users";`,
     createTable: `CREATE TABLE IF NOT EXISTS "users"
     ("userId" serial primary key,

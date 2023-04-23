@@ -1,16 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import MessageList from "./MessageList";
 import { cleanDate, todayLocaleDateString } from "@ngoakor12/date-time-utils";
+import { useEffect } from "react";
 
 function Today({ messages, setMessages, authedUser }) {
   const date = todayLocaleDateString();
   const cleanedDate = cleanDate(date);
 
   const navigate = useNavigate();
-
-  if (!authedUser) {
-    navigate("/login");
-  }
 
   return (
     <main className="today-main">

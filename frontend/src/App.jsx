@@ -69,15 +69,12 @@ export async function logout() {
     method: "GET",
     credentials: "include",
   });
-  // console.log(result);
   const responseData = await result.json();
-  console.log(responseData);
   return responseData;
 }
 
 function App() {
   const [messages, setMessages] = useState([]);
-  // const [authedUser, setAuthedUser] = useState(null);
   const [authedUser, setAuthedUser] = useState(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     return user || null;
@@ -109,7 +106,6 @@ function App() {
     } else {
       console.log(result);
       console.log("Error logging out");
-      // navigate("/today");
     }
   }
 

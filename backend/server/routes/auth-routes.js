@@ -41,11 +41,11 @@ router.get(
   passport.authenticate("google", {
     scope: ["profile", "email"],
     failureRedirect: CLIENT_URL + "/login",
+    successRedirect: CLIENT_URL + "/today",
   }),
   function (req, res) {
     // Successful authentication, redirect home.
     console.log("user", req.user);
-    res.redirect(CLIENT_URL + "/login");
   }
 );
 

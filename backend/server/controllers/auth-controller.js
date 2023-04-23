@@ -11,6 +11,8 @@ const {
 } = require("../../database/functions");
 const { validateIds } = require("../utils");
 
+const CLIENT_URL = "http://localhost:5173";
+
 async function getGoogleUserFromServer(req, res) {
   const { googleId } = req.params;
 
@@ -92,9 +94,19 @@ async function authWithGoogle(req, res) {
   }
 }
 
-async function authCheck(req, res) {
-  if (!req.user) {
+async function authCheck(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
     res.status(400).json({ success: false, message: "Not authorized" });
+  }
+}
+
+function requireAuth(req, res, next) {
+  if (!req.isAuthenticated()) {
+    res.redirect(CLIENT_URL + "/login");
+  } else {
+    next();
   }
 }
 
@@ -190,6 +202,7 @@ module.exports = {
   authWithGoogle,
   logout,
   authCheck,
+  requireAuth,
   // getMessagesFromServer,
   // postMessageToServer,
   // updateMessageOnServer,

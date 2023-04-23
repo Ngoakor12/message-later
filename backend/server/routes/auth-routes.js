@@ -5,9 +5,9 @@ const {
   authWithGoogle,
   logout,
   authCheck,
+  requireAuth,
 } = require("../controllers/auth-controller");
 const passport = require("passport");
-const { ClientBase } = require("pg");
 const CLIENT_URL = "http://localhost:5173";
 // const passport = require("passport");
 // const GoogleStrategy = require("passport-google-oidc");
@@ -26,6 +26,10 @@ router.post("/", authCheck, postUserToServer);
 
 router.get("/:userId", authCheck, getUserFromServer);
 
+router.get("/auth/user", authCheck, (req, res) => {
+  res.status(200).json({ success: true, user: req.user });
+});
+
 // auth with google
 router.get(
   "/auth/google",
@@ -40,14 +44,16 @@ router.get(
   }),
   function (req, res) {
     // Successful authentication, redirect home.
+    console.log("user", req.user);
     res.redirect(CLIENT_URL + "/today");
   }
 );
 
 // auth logout
-router.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect(CLIENT_URL + "/login");
+router.get("/auth/logout", (req, res) => {
+  req.logout(() => {
+    res.redirect("/");
+  });
 });
 
 // logout

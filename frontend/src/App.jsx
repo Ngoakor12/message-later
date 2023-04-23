@@ -55,8 +55,16 @@ export async function updateMessage(messageId, message) {
   return responseData;
 }
 
+export async function getAuthedUser() {
+  const URL = `${API_BASE_URL}/users/auth/user`;
+  const response = await fetch(URL, { credentials: "include" });
+  const responseData = await response.json();
+  return responseData;
+}
+
 function App() {
   const [messages, setMessages] = useState([]);
+  const [authedUser, setAuthedUser] = useState(null);
 
   useEffect(() => {
     getMessages().then((res) => {
@@ -64,11 +72,23 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    getAuthedUser().then((res) => {
+      setAuthedUser(res.user);
+    });
+  }, []);
+
+  console.log(authedUser);
+
   return (
     <div className="App">
       <Navigation />
       <main className="body">
-        <RoutesComponent messages={messages} setMessages={setMessages} />
+        <RoutesComponent
+          messages={messages}
+          setMessages={setMessages}
+          authedUser={authedUser}
+        />
       </main>
       <ScheduleMessageButton />
     </div>

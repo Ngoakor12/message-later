@@ -15,7 +15,6 @@ const app = express();
 // set up session cookies
 app.use(
   cookieSession({
-    name: "session",
     maxAge: 24 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY],
   })
@@ -35,6 +34,11 @@ app.use(function (request, response, next) {
   }
   next();
 });
+
+// app.use((req, res, next) => {
+//   res.set("X-User-Authenticated", req.isAuthenticated());
+//   next();
+// });
 
 // initialize passport
 app.use(passport.initialize());

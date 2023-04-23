@@ -45,15 +45,25 @@ router.get(
   function (req, res) {
     // Successful authentication, redirect home.
     console.log("user", req.user);
-    res.redirect(CLIENT_URL + "/today");
+    res.redirect(CLIENT_URL + "/login");
   }
 );
 
 // auth logout
 router.get("/auth/logout", (req, res) => {
-  req.logout(() => {
-    res.redirect("/");
+  req.logout((err) => {
+    if (err) {
+      return res
+        .status(400)
+        .json({ success: false, message: `Error logging out ${err}` });
+    } else {
+      res
+        .status(200)
+        .json({ success: true, message: `Successfully logged out` });
+    }
   });
+
+  // res.redirect("/");
 });
 
 // logout

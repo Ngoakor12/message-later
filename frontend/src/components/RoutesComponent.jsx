@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import AllMessages from "../features/messages/AllMessages";
 import Drafts from "../features/messages/Drafts";
@@ -9,15 +9,27 @@ import EditMessage from "./EditMessage";
 import LandingPage from "./LandingPage";
 import Login from "./Login";
 
-function RoutesComponent({ messages, setMessages }) {
+function RoutesComponent({ messages, setMessages, authedUser, setAuthedUser }) {
   return (
     <Routes>
       <Route exact path="/" element={<LandingPage />} />
-      <Route exact path="/login" element={<Login />} />
+      <Route
+        exact
+        path="/login"
+        element={
+          <Login setAuthedUser={setAuthedUser} authedUser={authedUser} />
+        }
+      />
       <Route
         exact
         path="/today"
-        element={<Today messages={messages} setMessages={setMessages} />}
+        element={
+          <Today
+            messages={messages}
+            setMessages={setMessages}
+            authedUser={authedUser}
+          />
+        }
       />
       <Route exact path="/all-messages" element={<AllMessages />} />
       <Route exact path="/drafts" element={<Drafts />} />

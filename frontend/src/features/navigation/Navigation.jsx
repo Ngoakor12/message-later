@@ -1,13 +1,26 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { logout } from "../../App";
 
-function logout() {}
-
-function Navigation() {
+function Navigation({ setAuthedUser, handleClickLogout }) {
   const { pathname } = useLocation();
 
-  function handleClickLogout() {
-    console.log("Logging out");
-  }
+  const navigate = useNavigate();
+
+  // async function handleClickLogout() {
+  //   console.log("Logging out");
+
+  //   const result = await logout();
+  //   if (result.success) {
+  //     console.log(result);
+  //     localStorage.setItem("user", null);
+  //     setAuthedUser(null);
+  //     navigate("/login");
+  //   } else {
+  //     console.log(result);
+  //     console.log("Error logging out");
+  //     navigate("/today");
+  //   }
+  // }
 
   return (
     <nav

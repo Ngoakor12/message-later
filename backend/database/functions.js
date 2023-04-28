@@ -23,8 +23,8 @@ async function deleteUsersTable() {
   return await pool.query(userQuery.deleteTable);
 }
 
-async function createUser(email, firstName, lastName, hashedPassword) {
-  validateArguments(email, firstName, lastName, hashedPassword);
+async function createUser(email, firstName, lastName, googleId) {
+  validateArguments(email, firstName, lastName, googleId);
 
   const createdAt = convertDateToISOString(getCurrentUCTDate());
   const updateAt = createdAt;
@@ -35,7 +35,7 @@ async function createUser(email, firstName, lastName, hashedPassword) {
     lastName,
     createdAt,
     updateAt,
-    hashedPassword,
+    googleId,
   ]);
   validateResultWithId(result);
   return result;
@@ -91,18 +91,31 @@ async function deleteMessages(authorId) {
   return result;
 }
 
-async function viewUser(authorId) {
-  validateArguments(authorId);
-  const result = await pool.query(userQuery.view, [authorId]);
-  validateResultWithId(result);
+async function viewUser(userId) {
+  validateArguments(userId);
+  const result = await pool.query(userQuery.view, [userId]);
+  // validateResultWithId(result);
+  return result;
+}
+
+async function viewGoogleUser(googleId) {
+  // validateArguments(googleId);
+  const result = await pool.query(userQuery.viewGoogle, [googleId]);
+  // validateResultWithId(result);
   return result;
 }
 
 async function viewMessage(messageId) {
+  // try {
   validateArguments(messageId);
   const result = await pool.query(messageQuery.view, [messageId]);
-  validateResultWithId(result);
+  // validateResultWithId(result);
   return result;
+  // } catch (error) {
+  //   const VIEW_MESSAGE_ERROR = "Something went wrong while viewing message";
+  //   console.log(VIEW_MESSAGE_ERROR);
+  //   throw new Error(VIEW_MESSAGE_ERROR);
+  // }
 }
 
 async function viewMessages() {
@@ -160,15 +173,18 @@ module.exports = {
   updateMessage,
   viewMessage,
   viewMessages,
+  viewGoogleUser,
+  viewUser,
+  createUser,
 };
 
 // createUsersTable().then((res) => {
 //   console.log(res);
-// createMessagesTable().then((res) => console.log(res));
+//   createMessagesTable().then((res) => console.log(res));
 // });
 
 // deleteMessagesTable().then((res) => {
-// console.log(res);
+//   console.log(res);
 //   deleteUsersTable().then((res) => console.log(res));
 // });
 

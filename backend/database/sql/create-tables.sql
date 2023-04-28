@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS "users"
         "lastName" varchar,
         "createdAt" varchar,
         "updatedAt" varchar,
-        "hashedPassword" varchar
+        "googleId" varchar
     );
 
 CREATE TABLE IF NOT EXISTS "messages"

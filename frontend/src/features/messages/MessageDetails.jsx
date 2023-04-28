@@ -13,7 +13,9 @@ function MessageDetails({ setMessages }) {
   useEffect(() => {
     if (!message) {
       getMessage(messageId).then((res) => {
-        setMessage(res.responseData.data);
+        if (res.success) {
+          setMessage(res.responseData.data);
+        }
       });
     }
   });

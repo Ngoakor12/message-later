@@ -1,9 +1,10 @@
 module.exports = {
   userQuery: {
     create: `INSERT INTO "users"
-    ("email","firstName","lastName","createdAt","updatedAt","hashedPassword")
+    ("email","firstName","lastName","createdAt","updatedAt","googleId")
     VALUES($1,$2,$3,$4,$5,$6) RETURNING *;`,
     view: `SELECT * FROM "users" WHERE "userId" = $1;`,
+    viewGoogle: `SELECT * FROM "users" WHERE "googleId" = $1;`,
     deleteTable: `DROP TABLE IF EXISTS "users";`,
     createTable: `CREATE TABLE IF NOT EXISTS "users"
     ("userId" serial primary key,
@@ -12,8 +13,24 @@ module.exports = {
         "lastName" varchar,
         "createdAt" varchar,
         "updatedAt" varchar,
-        "hashedPassword" varchar
+        "googleId" varchar
     );`,
+  },
+  googleUserQuery: {
+    create: `INSERT INTO "users"
+    ("googleId","email","firstName","lastName","createdAt","updatedAt")
+    VALUES($1,$2,$3,$4,$5,$6) RETURNING *;`,
+    view: `SELECT * FROM "users" WHERE "googleId" = $1;`,
+    // deleteTable: `DROP TABLE IF EXISTS "users";`,
+    // createTable: `CREATE TABLE IF NOT EXISTS "users"
+    // ("userId" serial primary key,
+    //     "email" varchar,
+    //     "firstName" varchar,
+    //     "lastName" varchar,
+    //     "createdAt" varchar,
+    //     "updatedAt" varchar,
+    //     "hashedPassword" varchar
+    // );`,
   },
   messageQuery: {
     createTable: `CREATE TABLE IF NOT EXISTS "messages"

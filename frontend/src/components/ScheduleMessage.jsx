@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { dayMonthYear } from "@ngoakor12/date-time-utils";
 
@@ -6,7 +6,7 @@ import { createMessage } from "../App";
 import { disableButtonOrLink } from "./utils";
 import { DISCARD_CREATE_MESSAGE_CONFIRM } from "../constants";
 
-function ScheduleMessage({ setMessages }) {
+function ScheduleMessage({ setMessages, authedUser }) {
   const [formValues, setFormValues] = useState({
     to: "",
     email: "",
@@ -19,6 +19,12 @@ function ScheduleMessage({ setMessages }) {
   });
   const [hasFormValuesChanged, setHasFormValuesChanged] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authedUser === null) {
+      navigate("/login");
+    }
+  }, [authedUser]);
 
   function handleChange(e) {
     const { value, name } = e.target;
@@ -43,7 +49,7 @@ function ScheduleMessage({ setMessages }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const data = { authorId: 2, ...formValues };
+    const data = { authorId: authedUser.userId, ...formValues };
     const result = await createMessage(data);
     const newMessage = await result.responseData.data;
     // update messages list
@@ -55,7 +61,7 @@ function ScheduleMessage({ setMessages }) {
   }
 
   async function handleClickDraft() {
-    const data = { authorId: 2, ...formValues, isDraft: true };
+    const data = { authorId: authedUser.userId, ...formValues, isDraft: true };
     const result = await createMessage(data);
     const newMessage = await result.responseData.data;
     // update messages list

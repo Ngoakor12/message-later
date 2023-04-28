@@ -36,7 +36,9 @@ function RoutesComponent({ messages, setMessages, authedUser, setAuthedUser }) {
       <Route
         exact
         path="/schedule-message"
-        element={<ScheduleMessage setMessages={setMessages} />}
+        element={
+          <ScheduleMessage setMessages={setMessages} authedUser={authedUser} />
+        }
       />
       <Route
         exact

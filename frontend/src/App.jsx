@@ -89,10 +89,15 @@ function App() {
   }, []);
 
   useEffect(() => {
+    getAuthedUser().then((res) => {
+      if (res.success) setAuthedUser(res.user);
+      else setAuthedUser(null);
+    });
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("user", JSON.stringify(authedUser));
   }, [authedUser]);
-
-  console.log(authedUser);
 
   async function handleClickLogout() {
     console.log("Logging out");

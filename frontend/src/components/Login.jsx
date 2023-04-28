@@ -18,19 +18,16 @@ function Login({ setAuthedUser, authedUser }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authedUser) {
-      navigate("/today");
-    } else {
-      getAuthedUser().then((res) => {
-        if (res.success) {
-          console.log("Successfully logged in");
-          setAuthedUser(res.user);
-        } else {
-          console.log("Error logging in");
-          setAuthedUser(null);
-        }
-      });
-    }
+    getAuthedUser().then((res) => {
+      if (res.success) {
+        console.log("Successfully logged in");
+        setAuthedUser(res.user);
+        navigate("/today");
+      } else {
+        console.log("Error logging in");
+        setAuthedUser(null);
+      }
+    });
   }, []);
 
   async function handleClickLogin() {

@@ -9,6 +9,12 @@ function Today({ messages, setMessages, authedUser }) {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (authedUser === null) {
+      navigate("/login");
+    }
+  }, [authedUser]);
+
   return (
     <main className="today-main">
       <div className="today-date-container">

@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { getAuthedUser } from "../App";
 import { useNavigate } from "react-router-dom";
-
-const API_PORT = 3001;
-const API_BASE_URL = `http://localhost:${API_PORT}`;
+import { API_BASE_URL } from "../constants";
 
 async function login() {
   const URL = `${API_BASE_URL}/users/auth/google`;

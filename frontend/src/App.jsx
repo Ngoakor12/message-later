@@ -3,9 +3,7 @@ import Navigation from "./features/navigation/Navigation";
 import RoutesComponent from "./components/RoutesComponent";
 import ScheduleMessageButton from "./components/ScheduleMessageButton";
 import { useNavigate } from "react-router-dom";
-
-const API_PORT = 3001;
-const API_BASE_URL = `http://localhost:${API_PORT}`;
+import { API_BASE_URL } from "./constants";
 
 export async function getMessages() {
   const URL = `${API_BASE_URL}/messages`;

@@ -14,7 +14,7 @@ async function login() {
   });
 }
 
-function Login({ setAuthedUser, authedUser }) {
+function Login({ setAuthedUser }) {
   const navigate = useNavigate();
 
   useEffect(() => {

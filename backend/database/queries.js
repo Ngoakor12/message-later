@@ -13,12 +13,13 @@ module.exports = {
         "lastName" varchar,
         "createdAt" varchar,
         "updatedAt" varchar,
+        "googleId" varchar
     );`,
   },
   googleUserQuery: {
     create: `INSERT INTO "users"
-    ("googleId","email","firstName","lastName","createdAt","updatedAt","hashedPassword")
-    VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;`,
+    ("googleId","email","firstName","lastName","createdAt","updatedAt")
+    VALUES($1,$2,$3,$4,$5,$6) RETURNING *;`,
     view: `SELECT * FROM "users" WHERE "googleId" = $1;`,
     // deleteTable: `DROP TABLE IF EXISTS "users";`,
     // createTable: `CREATE TABLE IF NOT EXISTS "users"

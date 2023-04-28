@@ -79,6 +79,7 @@ function App() {
     const user = JSON.parse(localStorage.getItem("user"));
     return user || null;
   });
+  const [isUserLoading, setIsUserLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -137,6 +138,8 @@ function App() {
           setMessages={setMessages}
           authedUser={authedUser}
           setAuthedUser={setAuthedUser}
+          setIsUserLoading={setIsUserLoading}
+          isUserLoading={isUserLoading}
         />
       </main>
       <ScheduleMessageButton />

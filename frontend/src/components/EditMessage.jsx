@@ -71,14 +71,16 @@ function EditMessage({ messages, setMessages }) {
     e.preventDefault();
     const data = { authorId: 2, ...formValues, isDraft: false };
     const result = await updateMessage(messageId, data);
+    console.log(result);
     if (result.success) {
       // update messages list
 
       await setMessages((prevMessages) => {
         const newMessages = prevMessages.filter(
-          (prevMessage) => prevMessage.messageId !== result.messageId
+          (prevMessage) =>
+            prevMessage.messageId !== result.responseData.data.messageId
         );
-        return [...newMessages, newMessage];
+        return [...newMessages, result.responseData.data];
       });
       // navigate to message details path
       navigate(`/messages/${messageId}`);
@@ -91,14 +93,16 @@ function EditMessage({ messages, setMessages }) {
   async function handleClickDraft() {
     const data = { authorId: 2, ...formValues, isDraft: true };
     const result = await updateMessage(messageId, data);
+    console.log(result);
     if (result.success) {
       // update messages list
 
       await setMessages((prevMessages) => {
         const newMessages = prevMessages.filter(
-          (prevMessage) => prevMessage.messageId !== result.messageId
+          (prevMessage) =>
+            prevMessage.messageId !== result.responseData.data.messageId
         );
-        return [...newMessages, newMessage];
+        return [...newMessages, result.responseData.data];
       });
       // navigate to message details path
       navigate(`/messages/${messageId}`);

@@ -49,7 +49,7 @@ function ScheduleMessage({ setMessages, authedUser }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const data = { authorId: 2, ...formValues };
+    const data = { authorId: authedUser.userId, ...formValues };
     const result = await createMessage(data);
     const newMessage = await result.responseData.data;
     // update messages list
@@ -61,7 +61,7 @@ function ScheduleMessage({ setMessages, authedUser }) {
   }
 
   async function handleClickDraft() {
-    const data = { authorId: 2, ...formValues, isDraft: true };
+    const data = { authorId: authedUser.userId, ...formValues, isDraft: true };
     const result = await createMessage(data);
     const newMessage = await result.responseData.data;
     // update messages list

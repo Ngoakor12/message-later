@@ -178,7 +178,7 @@ module.exports = {
 // });
 
 // deleteMessagesTable().then((res) => {
-// console.log(res);
+//   console.log(res);
 //   deleteUsersTable().then((res) => console.log(res));
 // });
 

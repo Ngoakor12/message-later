@@ -3,7 +3,7 @@ import MessageList from "./MessageList";
 import { cleanDate, todayLocaleDateString } from "@ngoakor12/date-time-utils";
 import { useEffect } from "react";
 
-function Today({ messages, setMessages, authedUser }) {
+function Today({ messages, setMessages, authedUser, isUserLoading }) {
   const date = todayLocaleDateString();
   const cleanedDate = cleanDate(date);
 
@@ -14,6 +14,8 @@ function Today({ messages, setMessages, authedUser }) {
       navigate("/login");
     }
   }, [authedUser]);
+
+  if (isUserLoading) return <div>Loading...</div>;
 
   return (
     <main className="today-main">

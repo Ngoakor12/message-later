@@ -9,7 +9,14 @@ import EditMessage from "./EditMessage";
 import LandingPage from "./LandingPage";
 import Login from "./Login";
 
-function RoutesComponent({ messages, setMessages, authedUser, setAuthedUser }) {
+function RoutesComponent({
+  messages,
+  setMessages,
+  authedUser,
+  setAuthedUser,
+  setIsUserLoading,
+  isUserLoading,
+}) {
   return (
     <Routes>
       <Route exact path="/" element={<LandingPage />} />
@@ -28,6 +35,8 @@ function RoutesComponent({ messages, setMessages, authedUser, setAuthedUser }) {
             messages={messages}
             setMessages={setMessages}
             authedUser={authedUser}
+            isUserLoading={isUserLoading}
+            setIsUserLoading={setIsUserLoading}
           />
         }
       />

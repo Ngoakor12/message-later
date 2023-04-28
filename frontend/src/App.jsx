@@ -84,16 +84,27 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getMessages().then((res) => {
-      setMessages(res.responseData.data);
-    });
+    getMessages()
+      .then((res) => {
+        if (res.success) setMessages(res.responseData.data);
+        else setMessages([]);
+      })
+      .catch((error) => {
+        console.log("Something went wrong while fetching authenticated user");
+        navigate("/login");
+      });
   }, []);
 
   useEffect(() => {
-    getAuthedUser().then((res) => {
-      if (res.success) setAuthedUser(res.user);
-      else setAuthedUser(null);
-    });
+    getAuthedUser()
+      .then((res) => {
+        if (res.success) setAuthedUser(res.user);
+        else setAuthedUser(null);
+      })
+      .catch((error) => {
+        console.log("Something went wrong while fetching authenticated user");
+        navigate("/login");
+      });
   }, []);
 
   useEffect(() => {

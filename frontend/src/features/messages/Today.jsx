@@ -24,7 +24,13 @@ function Today({ messages, setMessages, authedUser, isUserLoading }) {
         <div className="horizontal-line"></div>
         <div className="today-date">{cleanedDate}</div>
       </div>
-      <MessageList messages={messages} setMessages={setMessages} />
+      {messages.length ? (
+        <MessageList messages={messages} setMessages={setMessages} />
+      ) : (
+        <div className="no-messages-placeholder">
+          <p>No scheduled messages today</p>
+        </div>
+      )}
     </main>
   );
 }

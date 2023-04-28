@@ -94,7 +94,7 @@ async function deleteMessages(authorId) {
 async function viewUser(userId) {
   validateArguments(userId);
   const result = await pool.query(userQuery.view, [userId]);
-  validateResultWithId(result);
+  // validateResultWithId(result);
   return result;
 }
 
@@ -106,10 +106,16 @@ async function viewGoogleUser(googleId) {
 }
 
 async function viewMessage(messageId) {
+  // try {
   validateArguments(messageId);
   const result = await pool.query(messageQuery.view, [messageId]);
-  validateResultWithId(result);
+  // validateResultWithId(result);
   return result;
+  // } catch (error) {
+  //   const VIEW_MESSAGE_ERROR = "Something went wrong while viewing message";
+  //   console.log(VIEW_MESSAGE_ERROR);
+  //   throw new Error(VIEW_MESSAGE_ERROR);
+  // }
 }
 
 async function viewMessages() {
@@ -174,7 +180,7 @@ module.exports = {
 
 // createUsersTable().then((res) => {
 //   console.log(res);
-// createMessagesTable().then((res) => console.log(res));
+//   createMessagesTable().then((res) => console.log(res));
 // });
 
 // deleteMessagesTable().then((res) => {

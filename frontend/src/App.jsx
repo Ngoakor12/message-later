@@ -4,7 +4,7 @@ import RoutesComponent from "./components/RoutesComponent";
 import ScheduleMessageButton from "./components/ScheduleMessageButton";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "./constants";
-console.log(API_BASE_URL);
+
 export async function getMessages() {
   const URL = `${API_BASE_URL}/messages`;
   const response = await fetch(URL);

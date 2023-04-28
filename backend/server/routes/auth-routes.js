@@ -8,7 +8,8 @@ const {
   requireAuth,
 } = require("../controllers/auth-controller");
 const passport = require("passport");
-const CLIENT_URL = "http://localhost:5173";
+const { CLIENT_BASE_URL } = require("../app");
+
 // const passport = require("passport");
 // const GoogleStrategy = require("passport-google-oidc");
 // const {
@@ -40,8 +41,8 @@ router.get(
   "/auth/google/redirect",
   passport.authenticate("google", {
     scope: ["profile", "email"],
-    failureRedirect: CLIENT_URL + "/login",
-    successRedirect: CLIENT_URL + "/today",
+    failureRedirect: CLIENT_BASE_URL + "/login",
+    successRedirect: CLIENT_BASE_URL + "/today",
   }),
   function (req, res) {
     // Successful authentication, redirect home.

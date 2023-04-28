@@ -7,4 +7,4 @@ export const UPDATE_MESSAGE_ERROR =
 export const CANCEL_EDIT_MESSAGE_CONFIRM = "Cancel editing message?";
 export const DISCARD_CREATE_MESSAGE_CONFIRM = "Discard message?";
 export const API_BASE_URL =
-  import.meta.env.REACT_APP_PROD_API_BASE_URL || "http://localhost:3001";
+  import.meta.env.VITE_PROD_API_BASE_URL || "http://localhost:3001";

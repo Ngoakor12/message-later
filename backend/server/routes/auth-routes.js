@@ -8,7 +8,8 @@ const {
   requireAuth,
 } = require("../controllers/auth-controller");
 const passport = require("passport");
-const { CLIENT_BASE_URL } = require("../app");
+const CLIENT_BASE_URL =
+  process.env.PROD_CLIENT_BASE_URL || "http://localhost:5173";
 
 // const passport = require("passport");
 // const GoogleStrategy = require("passport-google-oidc");

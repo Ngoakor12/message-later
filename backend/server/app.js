@@ -8,10 +8,13 @@ const { pool } = require("../database/config");
 const messagesRoutes = require("./routes/messages-routes");
 const authRoutes = require("./routes/auth-routes");
 const PORT = process.env.PORT || 3001;
-const API_BASE_URL = `http://localhost:${PORT}`;
+const API_BASE_URL =
+  process.env.PROD_API_BASE_URL || `http://localhost:${PORT}`;
 const CLIENT_BASE_URL =
   process.env.PROD_CLIENT_BASE_URL || "http://localhost:5173";
 
+console.log(CLIENT_BASE_URL);
+console.log(API_BASE_URL);
 const app = express();
 
 // set up session cookies
@@ -82,5 +85,3 @@ pool
       error
     );
   });
-
-module.exports = { API_BASE_URL, CLIENT_BASE_URL };

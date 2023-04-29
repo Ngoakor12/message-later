@@ -85,5 +85,3 @@ pool
       error
     );
   });
-
-module.exports = { API_BASE_URL, CLIENT_BASE_URL };

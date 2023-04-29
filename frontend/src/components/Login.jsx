@@ -8,7 +8,9 @@ async function login() {
   window.open(URL, "_self");
 
   getAuthedUser().then((res) => {
-    return res;
+    if (res.success) {
+      return res;
+    }
   });
 }
 

@@ -8,7 +8,9 @@ async function login() {
   window.open(URL, "_self");
 
   getAuthedUser().then((res) => {
-    return res;
+    if (res.success) {
+      return res;
+    }
   });
 }
 
@@ -23,7 +25,7 @@ function Login({ setAuthedUser }) {
         navigate("/today");
       } else {
         console.log("Error logging in");
-        setAuthedUser(null);
+        // setAuthedUser(null);
       }
     });
   }, []);

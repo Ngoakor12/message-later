@@ -23,7 +23,7 @@ function Login({ setAuthedUser }) {
         navigate("/today");
       } else {
         console.log("Error logging in");
-        setAuthedUser(null);
+        // setAuthedUser(null);
       }
     });
   }, []);

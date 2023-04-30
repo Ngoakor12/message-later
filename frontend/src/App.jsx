@@ -56,7 +56,10 @@ export async function updateMessage(messageId, message) {
 
 export async function getAuthedUser() {
   const URL = `${API_BASE_URL}/users/auth/user`;
-  const response = await fetch(URL, { credentials: "include" });
+  const response = await fetch(URL, {
+    method: "GET",
+    credentials: "include",
+  });
   const responseData = await response.json();
   return responseData;
 }

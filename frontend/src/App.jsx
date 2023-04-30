@@ -88,10 +88,7 @@ function App() {
         else setMessages([]);
       })
       .catch((error) => {
-        console.log(
-          "Something went wrong while fetching authenticated user",
-          error
-        );
+        console.log("Something went wrong while fetching messages", error);
         navigate("/login");
       });
   }, []);

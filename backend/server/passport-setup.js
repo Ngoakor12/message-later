@@ -6,7 +6,9 @@ const {
 } = require("../database/functions");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 require("dotenv").config();
-
+const API_BASE_URL = process.env.PROD_API_BASE_URL || `http://localhost:3001`;
+const CLIENT_BASE_URL =
+  process.env.PROD_CLIENT_BASE_URL || "http://localhost:5173";
 // console.log(process.env.GOOGLE_CLIENT_ID);
 // const User = require("../models/user-model");
 
@@ -27,7 +29,7 @@ passport.use(
       // options for google strategy
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/users/auth/google/redirect",
+      callbackURL: API_BASE_URL + "/users/auth/google/redirect",
       scope: ["profile", "email"],
     },
     async (accessToken, refreshToken, profile, done) => {

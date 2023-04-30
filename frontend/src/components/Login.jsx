@@ -7,11 +7,11 @@ async function login() {
   const URL = `${API_BASE_URL}/users/auth/google`;
   window.open(URL, "_self");
 
-  getAuthedUser().then((res) => {
-    if (res.success) {
-      return res;
-    }
-  });
+  // getAuthedUser().then((res) => {
+  //   if (res.success) {
+  //     return res;
+  //   }
+  // });
 }
 
 function Login({ setAuthedUser }) {
@@ -19,6 +19,7 @@ function Login({ setAuthedUser }) {
 
   useEffect(() => {
     getAuthedUser().then((res) => {
+      console.log(res);
       if (res.success) {
         console.log("Successfully logged in");
         setAuthedUser(res.user);

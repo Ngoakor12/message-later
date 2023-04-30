@@ -112,7 +112,7 @@ function App() {
     localStorage.setItem("user", JSON.stringify(authedUser));
   }, [authedUser]);
 
-  console.log(authedUser);
+  console.log("user", authedUser);
 
   async function handleClickLogout() {
     console.log("Logging out");

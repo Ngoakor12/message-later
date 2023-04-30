@@ -88,7 +88,10 @@ function App() {
         else setMessages([]);
       })
       .catch((error) => {
-        console.log("Something went wrong while fetching authenticated user");
+        console.log(
+          "Something went wrong while fetching authenticated user",
+          error
+        );
         navigate("/login");
       });
   }, []);
@@ -97,10 +100,13 @@ function App() {
     getAuthedUser()
       .then((res) => {
         if (res.success) setAuthedUser(res.user);
-        else setAuthedUser(null);
+        // else setAuthedUser(null);
       })
       .catch((error) => {
-        console.log("Something went wrong while fetching authenticated user");
+        console.log(
+          "Something went wrong while fetching authenticated user",
+          error
+        );
         navigate("/login");
       });
   }, []);
@@ -108,6 +114,8 @@ function App() {
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(authedUser));
   }, [authedUser]);
+
+  console.log(authedUser);
 
   async function handleClickLogout() {
     console.log("Logging out");

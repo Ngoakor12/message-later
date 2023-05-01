@@ -19,11 +19,7 @@ console.log(API_BASE_URL);
 console.log(process.env.COOKIE_KEY);
 const app = express();
 
-app.use(
-  cookieParser(null, {
-    sameSite: "strict", // or 'lax' or 'none'
-  })
-);
+app.use(cookieParser());
 // set up session cookies
 app.use(
   cookieSession({
@@ -62,7 +58,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", CLIENT_BASE_URL, API_BASE_URL],
+    origin: "*",
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
   })

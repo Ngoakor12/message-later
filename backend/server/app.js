@@ -1,5 +1,6 @@
 const express = require("express");
 const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const passport = require("passport");
 const passportSetup = require("./passport-setup");
@@ -15,8 +16,10 @@ const CLIENT_BASE_URL =
 
 console.log(CLIENT_BASE_URL);
 console.log(API_BASE_URL);
+console.log(process.env.COOKIE_KEY);
 const app = express();
 
+app.use(cookieParser());
 // set up session cookies
 app.use(
   cookieSession({

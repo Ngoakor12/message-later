@@ -19,7 +19,11 @@ console.log(API_BASE_URL);
 console.log(process.env.COOKIE_KEY);
 const app = express();
 
-app.use(cookieParser());
+app.use(
+  cookieParser(null, {
+    sameSite: "none", // or 'lax' or 'none'
+  })
+);
 // set up session cookies
 app.use(
   cookieSession({

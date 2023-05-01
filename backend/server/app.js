@@ -21,7 +21,7 @@ const app = express();
 
 app.use(
   cookieParser(null, {
-    sameSite: "none", // or 'lax' or 'none'
+    sameSite: "strict", // or 'lax' or 'none'
   })
 );
 // set up session cookies
